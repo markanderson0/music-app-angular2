@@ -1,0 +1,123 @@
+@import '../../../style/variables.scss';
+
+#tickets-label{
+	font-size: 25px;
+	color: #7b7b7b;
+	&:hover{
+		cursor: pointer;
+		color: silver;
+	}
+}
+
+.ticket-search-form{
+	display: table;
+}
+
+.genres{
+	width: 90%;
+	margin: 0px auto;
+	padding-bottom: 15px;
+	border-bottom: $border;
+}
+
+.genres-nav{
+	margin: 0px auto;
+	border-bottom: $border;
+}
+
+@media (min-width: 769px){
+	.searchbar{
+		margin-top: 30px;
+	}
+
+	.genres{
+		width: 95%;
+		margin: 0px auto;
+		padding-bottom: 15px;
+		border-bottom: $border;
+	} 
+
+	.genres-nav{
+		display: none;
+	}
+
+	.genre-btn{
+		margin-left: 2%;
+		font-size: 15px;
+		color: #333;
+		background: white;
+		background-color: white;
+		border-color: white;
+		width: 17%;
+		white-space: pre-line;
+		&:hover{
+			color: white;
+			background-color: #333;
+		}
+	}
+}
+
+@media (max-width: 769px) and (min-width: 480px){
+	.large-header{
+		display: none;
+	}
+
+	.genres{
+		display: none;
+	}
+
+	.genres-nav{
+		margin: 0px auto;
+		border-bottom: $border;
+	}
+
+	.searchbar{
+		margin: 10px 0px;
+	}	
+
+	.genre-btn{
+		margin-left: 1%;
+		font-size: 15px;
+		color: #333;
+		background: white;
+		background-color: white;
+		border-color: white;
+		width: 48%;
+		&:hover{
+			color: white;
+			background-color: #333;
+		}
+	}
+}
+
+@media (max-width: 480px) and (min-width: 0px){
+	.large-header{
+		display: none;
+	}
+
+	.genres{
+		display: none;
+	}
+
+	.genres-nav{
+		margin: 0px auto;
+		border-bottom: $border;
+	}
+
+	.searchbar{
+		margin: 10px 0px;
+	}	
+
+	.genre-btn{
+		font-size: 15px;
+		color: #333;
+		background: white;
+		background-color: white;
+		border-color: white;
+		width: 100%;
+		&:hover{
+			color: white;
+			background-color: #333;
+		}
+	}
+}

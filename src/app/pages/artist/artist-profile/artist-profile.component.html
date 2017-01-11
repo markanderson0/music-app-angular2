@@ -1,0 +1,160 @@
+<right-sidebar>
+</right-sidebar> 
+
+<!-- TOP VIDEOS -->
+<div class="row">
+	<div class="col-md-12 artist-sub-div">
+		<div class="row">
+		  <div class="col-md-12">
+				<div class="clearfix bottom-border">	
+					<label class="artist-sub-label" id="top-videos-label">Top Videos</label>
+		  	</div>
+				<div id="top-video" *ngIf="hasVideos">
+					<ks-swiper-container [options]="swipeOptions">
+						<ks-swiper-slide *ngFor="let videos of topVideos;trackBy index">
+							<div id="top-video-tile">
+								<label>Uploaded By <a ui-sref="profile.profile.user({user: videos.user})">{{videos.user}}</a></label>
+								<img class="video-pic" [src]="videos.image">
+								<span (click)="openVideo(videos.showId, videos.playlistId, videos.videoId)">
+						      <h5>{{videos.date}}</h5>
+						      <h5>{{videos.location}}</h5>
+						      <h5>{{videos.venue}}</h5>
+						    </span>
+							</div>
+							<h5 id="top-video-rating">
+					      <span>
+									<i class="fa fa-volume-off" aria-hidden="true"></i>{{videos.audio}} 
+					        <i class="fa fa-video-camera" aria-hidden="true"></i>{{videos.video}}
+					      </span>
+					    </h5>
+					    <h5 id="top-video-time"><span>{{videos.time}}</span></h5>
+					    <h5 id="top-video-views">
+					      <span>{{videos.views}} <i class="fa fa-eye" aria-hidden="true"></i></span>
+					    </h5>
+					    <h5 id="top-video-songs">
+					    	<a title="{{videos.songsString}}" (click)="openVideo(videos.showId, videos.playlistId, videos.videoId)">
+					    		{{videos.songsString}}
+					    	</a>
+					    </h5>
+						</ks-swiper-slide>
+					</ks-swiper-container>
+				</div>
+				<div class="clearfix bottom-border" *ngIf="hasVideos">	
+					<label id="more-videos" class="artist-sub-link" (click)="openVideos()">more videos <i class="fa fa-caret-right"></i></label>
+		  	</div>
+		  	<div class="clearfix bottom-border" *ngIf="!hasVideos">	
+					<label class="artist-sub-link">No videos available.</label>
+		  	</div>				
+		  </div>
+		</div>  
+	</div>  
+</div>
+
+<!-- TICKETS AND MERCH -->
+<div class="row">
+	<div class="col-md-12 artist-sub-div">
+		<div class="row">
+			<!-- TICKETS -->
+		  <div class="col-md-6 col-xs-12">
+				<div class="clearfix bottom-border">	
+					<label class="artist-sub-label">Tickets</label>
+		  	</div>
+				<div class="artist-table" *ngIf="hasTickets">
+					<div class="table-responsive">
+						<table id="tickets" class="table table-hover">
+							<tr class="table-header">
+								<th id="venue-header">Venue</th>
+								<th id="date-header">Date</th>
+								<th id="ticket-header">Tickets</th>
+							</tr>
+							<tr class="table-data" *ngFor="let ticket of tickets">
+								<td class="venue-data">{{ticket.venue}} <br>{{ticket.city}}, {{ticket.state}} {{ticket.country}}</td>
+								<td class="date-data">{{ticket.date}}</td>
+								<td class="ticket-data"><button class="btn btn-default" (click)="openLink(ticket.url)">Get Tickets</button></td>
+							</tr>
+						</table>		 
+					</div>
+				</div>
+				<div class="clearfix bottom-border" *ngIf="hasTickets">	
+					<label id="more-tickets" class="artist-sub-link" (click)="openTickets()">more tickets <i class="fa fa-caret-right"></i></label>
+		  	</div>
+		  	<div class="clearfix bottom-border" *ngIf="!hasTickets">	
+					<label class="">No tickets available.</label>
+		  	</div>				
+		  </div>
+		  <!-- MERCH -->
+		  <div class="col-md-6 col-xs-12">
+		  	<div class="clearfix bottom-border">
+					<label class="artist-sub-label">Merch</label>
+				</div>
+				<div class="artist-merch-div" *ngIf="hasMerch">
+					<div class="col-sm-4 col-xs-6 image" *ngFor="let merch of merch" ui-sref="merch.product({id: merch.id})">
+						<img class="merch-item-tile" [src]="merch.pic">
+						<h4 class="artist-merch-price"><span>{{merch.price | currency}}</span></h4>
+						<h6 class="artist-merch-name"><span>{{merch.name}}</span></h6>
+					</div>				
+				</div>
+		  	<div class="clearfix bottom-border" *ngIf="hasMerch">
+					<label id="more-merch" class="artist-sub-link" (click)="openMerch()">more merch <i class="fa fa-caret-right"></i></label>
+				</div>
+		  	<div class="clearfix bottom-border" *ngIf="!hasMerch">
+					<label class="artist-sub-link">No merch available.</label>
+				</div>													
+		  </div>
+		</div>  
+	</div>  
+</div>
+
+<!-- PREVIOUS SHOWS AND ALBUMS -->
+<div class="row">
+	<div class="col-md-12 artist-sub-div">
+		<div class="row">
+			<!-- PREVIOUS SHOWS -->
+		  <div class="col-md-6 col-xs-12">
+				<div class="clearfix bottom-border">	
+					<label class="artist-sub-label">Previous Shows</label>
+		  	</div>
+				<div class="artist-table" *ngIf="hasShows">
+					<div class="table-responsive">
+						<table id="previous-shows" class="table table-hover">
+							<tr class="table-header">
+								<th id="venue-header">Venue</th>
+								<th id="location-header">Location</th>
+								<th id="date-header">Date</th>
+							</tr>
+							<tr class="table-data" *ngFor="let shows of displayShows">
+								<td class="venue-data">{{shows.venue}}</td>
+								<td class="city-data">{{shows.city}}, {{shows.state}}<br> {{shows.country}}</td>
+								<td class="date-data">{{shows.date}}</td>
+							</tr>
+						</table>		 
+					</div>
+				</div>
+				<div class="clearfix bottom-border" *ngIf="hasShows">	
+					<label id="more-shows" class="artist-sub-link" (click)="openShows()">more previous shows <i class="fa fa-caret-right"></i></label>
+		  	</div>
+		  	<div class="clearfix bottom-border" *ngIf="!hasShows">	
+					<label >No previous shows available.</label>
+		  	</div>				
+		  </div>
+		  <!-- ALBUMS -->
+		  <div class="col-md-6 col-xs-12">
+		  	<div class="clearfix bottom-border">
+					<label class="artist-sub-label">Albums</label>
+				</div>
+				<div class="artist-album-div" *ngIf="hasAlbums">
+					<div class="col-sm-4 col-xs-6 image" *ngFor="let album of displayAlbums" ui-sref="albums({name: artistName})">
+						<img class="merch-item-tile" [src]="album.pic">
+						<h6 class="artist-merch-name"><span>{{album.name}}</span></h6>
+					</div>				
+				</div>
+		  	<div class="clearfix bottom-border" *ngIf="hasAlbums">
+					<label id="more-albums" class="artist-sub-link" (click)="openAlbums()">more albums <i class="fa fa-caret-right"></i></label>
+				</div>
+		  	<div class="clearfix bottom-border" *ngIf="!hasAlbums">
+					<label class="artist-sub-link">No albums available.</label>
+				</div>													
+		  </div>
+		</div>  
+	</div>  
+</div>

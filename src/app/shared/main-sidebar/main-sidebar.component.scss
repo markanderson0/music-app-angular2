@@ -1,0 +1,237 @@
+$sidebar-width: 200px;
+$angle-left: "\f100";
+$angle-right: "\f101";
+
+@mixin sidebar-large(){
+  .main {
+    margin-left: 180px;
+  }
+
+  .small-sidebar {
+    display: none;
+  }
+
+  .main-sidebar {
+    width: 200px;
+    left: 0;
+    z-index: 904;
+    display: block;
+    min-height: 100%;
+    background: rgba(0, 0, 0, 0.7);  
+    background: -webkit-linear-gradient(0deg, #252525, #5f5f5f); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(0deg, #252525, #5f5f5f); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(0deg, #252525, #5f5f5f); /* For Firefox 3.6 to 15 */   
+    background: linear-gradient(0deg, #252525, #5f5f5f);    
+    //@include bg-translucent-dark(0.7);
+    height: 100%;
+    position: fixed;
+  }
+
+  .logo-text{
+    color: white;
+    text-align: center;
+    width: 90%;
+    margin-left: 10px;
+    margin-top: 0px;
+    padding: 20px;
+    border-bottom: solid 1px silver;
+  }
+
+  .sidebar-search{
+    border-bottom: 1px solid silver;
+    border-top: 1px solid silver;
+    margin: 0px 10px;
+    padding: 10px 0px 10px 0px;
+  }
+
+  #search-input{
+    border-radius: 0px; 
+    background-color: snow;
+  }
+
+  .main-sidebar-list {
+    margin: 0;
+    padding: 10px 0 0 0;
+    list-style: none;
+  }
+
+  .main-sidebar-sublist .subitem-submenu-list {
+    padding-left: 15px;
+  }
+
+  .subitem-submenu-link {
+    .fa {
+      top: 7px;
+    }
+  }
+
+  .main-sidebar-list-item {
+    display: block;
+    position: relative;
+    float: none;
+    padding: 0;
+    &.with-sub-menu {
+      background-color: black;
+      a.main-sidebar-list-link {
+        color: #dddddd;
+        b {
+          color: #dddddd;
+        }
+      }
+    }
+  }
+
+  .main-sidebar-list-item, .main-sidebar-sublist-item {
+    &.main-sidebar-item-expanded {
+      > .main-sidebar-list-link {
+        b {
+          transform: rotate(180deg);
+        }
+      }
+
+      > .main-sidebar-sublist {
+        display: block;
+      }
+    }
+  }
+
+  a.main-sidebar-list-link {
+    display: block;
+    height: 42px;
+    padding-left: 18px;
+    text-shadow: none;
+    font-size: 17px;
+    font-weight: 300;
+    text-decoration: none;
+    color: #ffffff;
+    line-height: 42px;
+    white-space: nowrap;
+    overflow: hidden;
+    cursor: pointer;
+    &:hover {
+      color: black;
+      background-color: silver;
+      b {
+        color: black;
+      }
+    }
+    i {
+      margin-right: 18px;
+      width: 16px;
+      display: inline-block;
+    }
+    b {
+      display: block;
+      opacity: 1;
+      width: 14px;
+      height: 14px;
+      line-height: 14px;
+      text-shadow: none;
+      font-size: 18px;
+      position: absolute;
+      right: 10px;
+      top: 12px;
+      padding: 0;
+      text-align: center;
+      color: #cccccc;
+      transition: transform 0.2s linear;
+    }
+  }
+
+  .slimScrollBar, .slimScrollRail {
+    border-radius: 5px !important;
+    width: 4px !important;
+    left: 195px;
+    height: 85%;
+  }
+
+  .main-sidebar-sublist {
+    padding: 0;
+    list-style: none;
+    position: relative;
+    background-color:silver;
+    height: 0px;
+    overflow: hidden;
+    transition: all 0.4s ease-out;
+    &.expanded {
+      height: 145px;
+    }
+    > li {
+      display: block;
+      float: none;
+      padding: 0;
+      border-bottom: none;
+      position: relative;
+      a {
+        display: block;
+        text-shadow: none;
+        font-size: 13px;
+        text-decoration: none;
+        color: #ffffff;
+        padding-left: 52px;
+        height: auto;
+        line-height: 29px;
+        &:hover {
+          color: black;
+        }
+      }
+      &.with-sub-menu > a {
+        border: none;
+        background-color: black;
+        &:hover {
+          color: black;
+        }
+      }
+
+    }
+  }
+
+  //Left bit
+  .sidebar-hover-elem{
+    width: 4px;
+    background: black;
+    position: absolute;
+    top: -150px;
+    left: 196px;
+    transition: all 0.5s ease;
+    transition-property: top, height;
+    height: 42px;
+    display: block;
+  }
+
+  .sidebar-select-elem {
+    display: block;
+    top: 94px;
+  }
+}
+
+@mixin collapse-arrow(){
+  a.collapse-sidebar-link {
+    font-size: 20px;
+    cursor: pointer;
+    display: block;
+    text-decoration: none;
+    line-height: 42px;
+    color: black;
+    padding: 0;
+    float: left;
+    position: fixed;
+    left: 205px;
+      &:hover {
+        text-decoration: none;
+        color: #dddddd;
+      }
+  }
+}
+
+.sidebar-expanded{
+  @include sidebar-large();
+  @include collapse-arrow();
+}
+
+@media (min-width: 1199px) {
+  .sidebar-expanded{
+    @include sidebar-large();
+    @include collapse-arrow();
+  }
+}

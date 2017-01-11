@@ -1,0 +1,19 @@
+<right-sidebar>
+</right-sidebar>
+
+<panel>  
+  <div class="row row-container">
+    <label class="control-label heading-label">Following</label>
+  </div>
+
+  <div class="row row-container">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6 image" *ngFor="let artist of artists">
+      <img id="following-image" [src]="artist.picture" (click)="openArtistProfile(artist.name)">
+      <label id="following-name"><span>{{artist.name}}</span></label>
+      <div id="following-links">
+        <label id="follow-link-profile" (click)="openArtistProfile(artist.name)">Profile</label> | 
+        <label id="follow-link-videos" (click)="openArtistVideos(artist.name)"> Videos </label>
+      </div>	
+    </div>				
+  </div>	 
+</panel>

@@ -1,0 +1,7 @@
+<main [ngClass]="{'sidebar-collapsed': isSidebarCollapsed, 'sidebar-expanded': !isSidebarCollapsed}">
+  <main-sidebar></main-sidebar>
+  <div class="main">
+    <router-outlet></router-outlet>
+  </div> 
+</main>
+

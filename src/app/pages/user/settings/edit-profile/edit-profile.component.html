@@ -1,0 +1,83 @@
+<form class="" role="form" name="form" [formGroup]="editProfileForm" novalidate>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row">
+        <!--PROFILE PICTURE -->
+        <div class="col-md-6">
+          <div class="form-group row clearfix pic-row">
+            <label for="inputPicture" class="control-label">Profile Picture</label>
+            <div class="">
+              <div class="userpic">
+                <div class="userpic-wrapper">
+                  <img [src]="profilePicture" (click)="uploadPicture()">
+                </div>
+                <i class="fa fa-close" (click)="removePicture('profile')" *ngIf="!noProfilePicture"></i>
+                <input type="file" name="fileInput" id="fileInput" class="inputfile inputfile-6"
+                ngFileSelect [options]="basicOptions" [events]="uploadEvents" (onUpload)="handleUpload($event)" (onPreviewData)="handlePreviewData($event)">
+					      <label for="fileInput" (click)="setPictureType('profile')"><a class="change-userpic">Change Profile Picture</a></label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- BANNER PICTURE -->
+        <div class="col-md-6">
+          <div class="form-group row clearfix pic-row">
+            <label for="inputPicture" class="control-label">Banner Picture</label>
+            <div class="">
+              <div class="bannerpic">
+                <div class="bannerpic-wrapper">
+                  <img [src]="bannerPicture" (click)="uploadPicture()">
+                </div>
+                <i class="fa fa-close" (click)="removePicture('banner')" *ngIf="!noBannerPicture"></i>
+                <input type="file" name="fileInput" id="fileInput" class="inputfile inputfile-6"
+                ngFileSelect [options]="basicOptions" [events]="uploadEvents" (onUpload)="handleUpload($event)" (onPreviewData)="handlePreviewData($event)">
+					      <label (click)="setPictureType('banner')" for="fileInput"><a class="change-bannerpic">Change Banner Picture</a></label>
+              </div>
+            </div>  
+          </div>
+        </div>
+      </div>  
+    </div>  
+
+    <!-- EMAIL AND DOB -->
+    <div class="col-md-12" id="email-dob-row">
+      <div class="row">
+        <div class="col-md-6">
+          <div id="edit-email" class="form-group" [ngClass]="{ 'has-error': !email.valid && submitted }">
+            <label class="control-label">Email</label>
+            <input type="email" class="form-control" placeholder="Email" name="email" formControlName="email" required>
+            <div *ngIf="submitted">
+              <p *ngIf="email.hasError('required')" class="error-block">Enter an Email.</p>
+              <p *ngIf="email.errors?.email" class="error-block">Invalid email.</p>
+            </div>    
+          </div>
+        </div>  
+        <div class="col-md-6">
+          <div id="dob" class="form-group clearfix" [ngClass]="{ 'has-error' : !(day.valid && month.valid && year.valid && validDOB) && submitted}">
+            <label class="control-label">Date of Birth</label>
+            <div formGroupName="dob">
+              <div class="col-xs-4 form-day">
+                <input type="number" class="form-control" id="form-day" placeholder="DD" min="1" max="31" name="day" formControlName="day" required>
+              </div>
+              <div class="col-xs-4 form-month">
+                <input type="number" class="form-control" id="form-month" placeholder="MM" min="1" max="12" name="month" formControlName="month" required>
+              </div>
+              <div class="col-xs-4 form-year">
+                <input type="number" class="form-control" id="form-year" placeholder="YYYY" min="1900" max="2015" name="year" formControlName="year" required>
+              </div>
+            </div>
+            <div *ngIf="submitted">
+              <p class="error-block" *ngIf="day.hasError('required') || month.hasError('required') || year.hasError('required')">Enter a DOB.</p>
+              <div *ngIf="!(day.hasError('required') || month.hasError('required') || year.hasError('required'))">
+                <p class="error-block" *ngIf="day.errors?.min || month.errors?.min || year.errors?.min || day.errors?.max || month.errors?.max || year.errors?.max || !validDOB">Invalid Date.</p>
+              </div>  
+            </div> 
+          </div>
+        </div> 
+      </div>  
+    </div>
+  </div>
+  <button type="submit" class="btn btn-default btn-with-icon save-profile" (click)="submit()">
+    <i class="fa fa-check"></i>Update Profile
+  </button>
+</form> 

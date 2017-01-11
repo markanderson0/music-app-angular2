@@ -1,0 +1,21 @@
+<div class="notification row clearfix">
+  <div class="col-sm-6">
+    <div class="form-group row clearfix">
+      <label id="notification1" class="col-xs-10">Recieve weekly updates on the artists you follow</label>
+      <div class="col-xs-2">
+        <input type="checkbox" [(ngModel)]="artistNews">
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="form-group row clearfix">
+      <label id="notification2" class="col-xs-10">Recieve updates on new and exciting features coming to you soon!</label>
+      <div class="col-xs-2">
+        <input type="checkbox" [(ngModel)]="featuresUpdates">
+      </div>
+    </div>
+  </div>
+</div>
+<button type="submit" class="btn btn-default btn-with-icon save-profile" (click)="submit()">
+  <i class="fa fa-check"></i>Update Email Notifications
+</button> 

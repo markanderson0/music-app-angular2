@@ -1,0 +1,24 @@
+@import '../../../../style/variables.scss';
+
+#merch-pic{
+	width: 100%;
+	border: $border;
+}
+
+#merch-quantity-label{
+	display: inline;
+}
+
+#merch-size-label{
+	display: inline;
+	margin-right: 35px;
+}
+
+.merch-details{
+	margin-bottom: 20px;
+	color: #333;
+}
+
+#merch-buy-btn{
+	width: 100%;
+}

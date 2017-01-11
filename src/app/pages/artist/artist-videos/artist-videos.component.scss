@@ -1,0 +1,106 @@
+@import '../../../../style/mixins.scss';
+
+.video-sort{
+	display: inline !important;
+	width: 100px;
+	padding-right: 0px;
+	margin-bottom: 5px;
+}
+
+#video-options{
+  width: 95%;
+  margin-left: 2.5%;
+  border-bottom: 2px solid #dddddd;
+  padding-bottom: 50px;
+}
+
+// .video-tile{
+//    margin-bottom: 5px;
+//    width: inherit;
+//    cursor: pointer;
+// }
+
+// .video-tile span{
+//    width: inherit;
+//    top: 0%;
+//    height: 165px;
+//    padding: 50px 0px;
+//    visibility: hidden;
+//    @include video-tile-span();
+//    h5{
+//       text-align: center;
+//       margin-top: -25px;
+//       height: 50px;
+//    }
+// }
+
+// .video-tile:hover span{
+//    overflow-y:scroll;
+//    visibility: visible;
+// }
+
+// .video-time{
+//    position: absolute;
+//    top: 71.5%;
+//    width: 100%;
+// }
+
+// .video-time span{
+//    padding: 3px;
+//    @include video-tile-span();
+// }
+
+// .video-views{
+//    position: absolute;
+//    top: 71.5%;
+//    width: inherit;
+// }
+
+// .video-views span{
+//    right: 1%;
+//    padding: 3px;
+//    @include video-tile-span();
+// }
+
+// .video-rating{
+//    position: absolute;
+//    top: -5%;
+//    width: 100%;
+// }
+
+// .video-rating span{
+//    letter-spacing: 4px;
+//    padding: 2px;
+//    @include video-tile-span();
+// }
+
+// .video-songs{
+//    @include video-songs-string();
+// }
+
+// @media (min-width: 769px){
+//    .video-label{
+//       font-size: 25px;
+//       font-weight: 400;
+//       width: 100%;
+//       line-height: 25px;
+//    }
+// }
+
+// @media (max-width: 769px) and (min-width: 480px){
+//    .video-label{
+//       font-size: 20px;
+//       font-weight: 400;
+//       width: 100%;
+//       line-height: 25px;
+//    }
+// }
+
+// @media (max-width: 480px) and (min-width: 0px){
+//    .video-label{
+//       font-size: 17px;
+//       font-weight: 400;
+//       width: 100%;
+//       line-height: 25px;
+//    }
+// }

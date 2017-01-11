@@ -1,0 +1,36 @@
+<button type="button" class="btn btn-default btn-with-icon" id="upload-btn" (click)="showUploadVideoModal()">Upload Video</button>
+<div bsModal #uploadVideoModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" (click)="hideUploadVideoModal()" aria-label="Close">
+        &times;
+      </button>
+      <h5 class="modal-title">Confirm Video Details</h5>
+    </div>
+    <div class="modal-body">               
+      <form class="form-horizontal">
+        <div class="form-group" id="upload-details">
+
+          <label>Artist: </label><h5><b>{{artist}}</b></h5><hr>
+          <label>Year: </label><h5><b>{{eventYear}}</b></h5><hr>
+          <label>Show: </label><h5><b>{{selectedEvent}}</b></h5><hr>
+          <label>Songs: </label><h5><b>{{selected}}</b></h5><hr>
+        </div>
+
+        <div class="form-group" [ngClass]="{ 'has-error' : terms && submitted}">
+          <div class="checkbox" id="terms">
+            <label>
+              <input type="checkbox" (click)="setTerms()"> Terms and Conditions
+            </label>
+          </div>
+          <div *ngIf="submitted">
+            <p class="error-block" *ngIf="!terms" id="form-modal">You must agree to the Terms and Conditions to continue.</p>
+          </div> 
+        </div>
+        <div class="form-group">
+          <button class="btn btn-default btn-with-icon" id="upload-submit" (click)="submitVideo()">Upload Video</button>
+        </div>
+      </form>                
+    </div>
+  </div>
+</div>

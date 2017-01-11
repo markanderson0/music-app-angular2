@@ -1,0 +1,30 @@
+@import '../../../../style/variables.scss';
+
+#artist-album-pic{
+  width: 100%;
+  margin-top: 10px;
+  border: $border;
+}
+
+.artist-album-name{
+  margin-top: 10px;
+}
+
+.artist-album-songs{
+  float: left !important;
+  border: none;
+}
+
+#albums-title-label{
+  font-size: 25px;
+  font-weight: 400;
+  width: 100%;
+  line-height: 25px;
+}
+
+@media (max-width: 769px) and (min-width: 0px){
+  #albums-title-label{
+    line-height: 0px;
+    margin-left: 15px;
+  }
+}

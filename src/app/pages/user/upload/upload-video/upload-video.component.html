@@ -1,0 +1,232 @@
+<form role="form" role="form" name="form" [formGroup]="uploadForm" novalidate>
+  <div class="row">
+      <!-- SELECT A VIDEO -->
+    <div class="col-md-3">
+      <div id="file" class="form-group clearfix" [ngClass]="{ 'has-error' : !file.valid && submitted}">
+        <label for="inputUsername" class="control-label">Select a Video</label>
+        <div class="input-group">
+          <input type="file" name="fileInput" id="fileInput" class="inputfile file-input"
+          [ngClass]="{ 'has-error' : !file.valid && submitted }"
+          ngFileSelect [options]="basicOptions" [events]="uploadEvents"
+          (onUpload)="handleUpload($event)" (onPreviewData)="getFileName($event)">
+					<label for="fileInput"><span>{{fileName}}</span><strong class="btn btn-default">Browse</strong></label>
+        </div>    
+        <div *ngIf="submitted" id=file-error>
+          <p *ngIf="file.hasError('required')" class="error-block">Add a File.</p>
+        </div> 
+      </div>  
+    </div>
+        <!-- SELECT AN ARTIST -->
+    <div class="col-md-3">
+      <div id="artist" class="form-group clearfix" [ngClass]="{ 'has-error' : !artist.valid && submitted}">
+        <label for="inputArtist" class="control-label">Select an Artist</label>
+        <div class="input-group">
+          <input 
+            type="text" name="artist" 
+            placeholder="Select an Artist" 
+            class="form-control"  
+            formControlName="artist" 
+            required>
+          <div *ngIf="submitted">
+            <p *ngIf="artist.hasError('required')" class="error-block">Enter an Artists Name.</p>
+          </div>     
+        </div>
+      </div>  
+    </div>
+    <!-- SELECT A YEAR -->
+    <div class="col-md-3">
+      <div id="showYear" class="form-group clearfix" [ngClass]="{ 'has-error' : !year.valid && submitted}">
+        <label for="inputYear" class="control-label">Select Year of Show</label>
+        <div class="input-group">
+          <input 
+            type="text" 
+            name="year" 
+            [(ngModel)]="year.value" 
+            placeholder="Select Year of Show"  
+            class="form-control" 
+            ng-change="getEvent(year.value)" 
+            (keyup)="getEvent(year.value)"
+            formControlName="year"  
+            required>
+          <div *ngIf="submitted">
+            <p *ngIf="year.hasError('required')" class="error-block">Enter an the year of the show.</p>
+          </div>  
+        </div>    
+      </div>  
+    </div>
+    <!-- SELECT A SHOW -->
+    <div class="col-md-3">
+      <div id="show" class="form-group clearfix" [ngClass]="{ 'has-error' : !selectedEvent.valid && submitted}">
+        <label for="inputShow" class="control-label">Select a Show</label>
+        <div class="input-group">
+          <select 
+            class="form-control" 
+            name="selectedEvent" 
+            title="Select a Show" 
+            placeholder="Select a Show" 
+            [(ngModel)]="selectedEvent.value" 
+            (change)="getSongs(e.value)"
+            #e
+            formControlName="selectedEvent"
+            required>
+            <!--<option></option>-->
+            <option id="shows" *ngFor="let event of events" [value]="event.id">{{event.date}}, {{event.venue}}</option>
+          </select>
+          <div *ngIf="submitted">
+            <p *ngIf="selectedEvent.hasError('required')" class="error-block">Pick a show.</p>
+          </div>  
+        </div>    
+      </div>  
+    </div>
+  </div>
+  <div class="row">	
+    <!-- SELECT SONGS -->
+    <div class="col-md-3">
+      <div id="songs" class="form-group clearfix" [ngClass]="{ 'has-error' : !selectedSong.valid && submitted}">
+        <label for="inputSongs" class="control-label">Select Songs</label>
+        <div class="input-group">
+          <dropdown-multiselect 
+              [(ngModel)]="dropdownSongs"
+              [ngModelOptions]="{standalone: true}"
+              [dropdownConfig]="dropdownConfig"            
+              (click)="selectSong(s.songs, s.selectedLabel)"
+              #s>
+          </dropdown-multiselect>
+          <div *ngIf="submitted">
+            <p *ngIf="selectedSong.hasError('required')" class="error-block">Select the songs that are in the video.</p>
+          </div> 
+        </div>    
+      </div>  
+    </div>
+    <!-- SELECTED SONGS -->
+    <div class="col-md-6">
+      <div id="selected-songs" class="form-group clearfix" [ngClass]="{ 'has-error' : !selectedSong.valid && submitted}">
+        <label for="inputSelectedSongs" class="control-label">Selected Songs</label>
+        <div class="input-group" ng-trim="false">
+          <textarea 
+            elastic
+            class="form-control" 
+            name="selected" 
+            id="song-selection" 
+            type="text" 
+            placeholder="Selected Songs" 
+            ng-trim="false" 
+            disabled
+            required>
+            {{songsList}}
+          </textarea>
+          <div *ngIf="submitted">
+            <p *ngIf="selectedSong.hasError('required')" class="error-block">Select the songs that are in the video.</p>
+          </div>  
+        </div>    
+      </div>  
+    </div>
+    <!-- UPLOAD VIDEO -->
+    <div class="col-md-3">
+      <div class="form-group clearfix">
+        <label for="inputUpload" class="control-label">Upload Video</label>
+          <div class="input-group">
+            <button type="submit" class="btn btn-default btn-with-icon" id="upload-btn" (click)="submit()">
+              <i class="fa fa-upload"></i>
+              Upload Video
+            </button>
+          </div>	
+      </div>  
+    </div>
+  </div>
+</form>
+
+<!-- UPLOADING TABLE -->
+<div id="upload-file-table" *ngIf="uploads.length > 0">
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr class="table-header">
+          <th id="file-header">File</th>
+          <th id="progress-header">Progress</th>
+          <th id="details-header">Details</th>
+          <th id="cancel-header">Cancel</th>
+        </tr>
+      </thead>
+      <tbody>
+        <template let-upload="$implicit" ngFor [ngForOf]="uploads" let-i="index">
+          <tr class="table-data">
+            <td class="file-data"><h5>{{upload.file}}</h5></td>
+            <td class="progress-data">
+              <progressbar [max]="max" [value]="upload.progress"><span style="color:white; white-space:nowrap;">{{upload.progress}} / {{max}}</span>
+              </progressbar>
+            </td>
+            <td class="details-data" (click)="upload.isCollapsed=!upload.isCollapsed">
+              <h5>Details</h5>
+            </td>
+            <td class="cancel-data">
+              <button class="btn btn-default" id="cancel-btn" (click)="showConfirmCancelModal(i)">Cancel</button>
+            </td>
+          </tr>
+          <tr *ngIf="upload.isCollapsed">
+            <td class="upload-details-data" colspan="5">
+              <h5><b>Artist:</b> {{upload.artist}}  |  <b>Date:</b> {{upload.date}}  |  <b>Venue:</b> {{upload.venue}}</h5>
+              <h5><b>Songs:</b> {{upload.songsList}}</h5>
+            </td>
+          </tr>
+        </template>  
+      </tbody>  
+    </table>		 
+  </div>
+</div>
+	   
+<!-- CONFIRM UPLOAD MODAL -->
+<div bsModal #uploadVideoModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" (click)="hideUploadVideoModal()" aria-label="Close">
+        &times;
+      </button>
+      <h5 class="modal-title">Confirm Video Details</h5>
+    </div>
+    <div class="modal-body">               
+      <form class="form-horizontal">
+        <div class="form-group" id="upload-details">
+          <label>Artist: </label><h5><b>{{artistName}}</b></h5><hr>
+          <label>Year: </label><h5><b>{{eventYear}}</b></h5><hr>
+          <label>Show: </label><h5><b>{{eventDate}}, {{eventVenue}}</b></h5><hr>
+          <label>Songs: </label><h5><b>{{songsList}}</b></h5><hr>
+        </div>
+        <div class="form-group" [ngClass]="{ 'has-error' : terms && modalSubmitted}">
+          <div class="checkbox" id="terms">
+            <label>
+              <input type="checkbox" (click)="setTerms()" [(ngModel)]="terms" [ngModelOptions]="{standalone: true}"> Terms and Conditions
+            </label>
+          </div>
+          <div *ngIf="modalSubmitted">
+            <p class="error-block" *ngIf="!terms" id="form-modal">You must agree to the Terms and Conditions to continue.</p>
+          </div> 
+        </div>
+        <div class="form-group">
+          <button class="btn btn-default btn-with-icon" id="upload-submit" (click)="submitVideo()">Upload Video</button>
+        </div>
+      </form>                
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM CANCEL MODAL -->
+<div bsModal #confirmCancelModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" (click)="confirmCancelModal.hide()" aria-label="Close">
+        &times;
+      </button>
+      <h4 class="modal-title">Confirm Upload Cancelation.</h4>
+    </div>
+    <div class="modal-body">               
+      <div>
+        <p id="delete-confirm-message">Are you sure you want to cancel uploading this video?</p>
+        <ul id="delete-options">
+          <li><button type="button" class="btn btn-default" (click)="cancelUpload()">Yes</button></li>
+          <li><button type="button" class="btn btn-default" (click)="hideConfirmCancelModal()">Cancel</button></li>
+        </ul>
+      </div>            
+    </div>
+  </div>
+</div>  

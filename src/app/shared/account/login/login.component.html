@@ -1,0 +1,54 @@
+<button type="button" class="btn btn-default" id="log-in-btn" (click)="showChildModal()">Log In</button>
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" (click)="hideChildModal()" aria-label="Close">
+        &times;
+      </button>
+      <h5 class="modal-title">Log in using your user name, Facebook or Twitter.</h5>
+    </div>
+    <div class="modal-body">               
+      <form class="form-horizontal" role="form" [formGroup]="loginForm" novalidate>
+        <div class="form-group">
+          <ul class="social">
+            <li><button type="button" class="btn btn-default" id="fb-btn"><i class="fa fa-facebook-official" aria-hidden="true"></i> Facebook</button></li>
+            <li><button type="button" class="btn btn-default" id="tw-btn"><i class="fa fa-twitter-square" aria-hidden="true"></i> Twitter</button></li>
+          </ul>
+        </div>
+
+        <!-- USERNAME -->
+        <div class="form-group" [ngClass]="{ 'has-error' : !username.valid && submitted}">
+          <input type="text" class="form-control" id="username" placeholder="Username" name="username" formControlName="username" required>
+          <div [hidden]="!submitted">
+            <p *ngIf="username.hasError('required')" class="error-block" id="form-modal">Enter a Username.</p>
+            <p *ngIf="username.hasError('minlength')" class="error-block" id="form-modal">Username is too short.</p>
+            <p *ngIf="username.hasError('maxlength')" class="error-block" id="form-modal">Username is too long.</p>
+          </div>  
+        </div>
+
+        <!-- PASSWORD -->
+        <div class="form-group" [ngClass]="{ 'has-error' : !password.valid && submitted}">
+          <input type="password" class="form-control" id="password" placeholder="Password" name="password" formControlName="password" required>
+          <div [hidden]="!submitted">
+            <p *ngIf="password.hasError('required')" class="error-block" id="form-modal">Enter a Password.</p>
+            <p *ngIf="password.hasError('minlength')" class="error-block" id="form-modal">Password is too short.</p>
+            <p *ngIf="password.hasError('maxlength')" class="error-block" id="form-modal">Password is too long.</p>
+          </div> 
+        </div>
+
+        <div class="form-group">
+          <div class="checkbox" id="remember">
+            <label>
+              <input type="checkbox"/> Remember Me
+            </label>
+          </div>
+        </div>
+        <div class="modal-footer footer" id="login-footer">
+          <div class="form-group">
+            <button class="btn btn-default submit" id="login-submit" (click)="login()">Log In</button>
+          </div>
+        </div> 
+      </form>                
+    </div>
+  </div>
+</div>

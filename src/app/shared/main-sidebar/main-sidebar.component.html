@@ -1,0 +1,11 @@
+<div class="main-sidebar">
+	<a class="collapse-sidebar-link fa fa-caret-left" [(ngModel)]="isSidebarCollapsed" (click)="sidebarCollapse()" ngDefaultControl></a>
+	<main-sidebar-expanded></main-sidebar-expanded> 
+</div>
+
+<div class="small-sidebar">
+	<a class="expand-sidebar-link fa fa-caret-right" [(ngModel)]="isSidebarCollapsed" (click)="sidebarExpand()" ngDefaultControl></a>
+	<main-sidebar-collapsed></main-sidebar-collapsed>
+</div>	
+
+<router-outlet></router-outlet>

@@ -1,0 +1,5 @@
+<div [ngClass]="{'right-sidebar' : !isRightSidebarCollapsed}" [hidden]="isRightSidebarCollapsed">
+  <ng-content></ng-content>
+</div>
+<a [(ngModel)]="isRightSidebarCollapsed" [ngClass]="{'collapse-right-menu-link fa fa-caret-right' : !isRightSidebarCollapsed}" (click)="rightSidebarCollapse()" ngDefaultControl></a>
+<a [(ngModel)]="isRightSidebarCollapsed" [ngClass]="{'expand-right-menu-link fa fa-caret-left' : isRightSidebarCollapsed}" (click)="rightSidebarExpand()" ngDefaultControl></a>

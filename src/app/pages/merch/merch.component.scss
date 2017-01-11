@@ -1,0 +1,81 @@
+@import '../../../style/variables.scss';
+
+#merch-label{
+	font-size: 25px;
+	color: #7b7b7b;
+	&:hover{
+		cursor: pointer;
+		color: silver;
+	}
+}
+
+.merch-search-form{
+	display: table;
+}
+
+#merch-genre-btn{
+	font-size: 15px;
+	color: #333;
+	background: white;
+	background-color: white;
+	border-color: white;
+	&:hover{
+		color: white;
+		background-color: #333;
+	}
+}
+
+@media (min-width: 769px){
+	.searchbar{
+		margin-top: 30px;
+	}
+
+	.genres{
+		width: 95%;
+		margin: 0px auto;
+		padding-bottom: 15px;
+		border-bottom: $border;
+	} 
+
+	.genres-nav{
+		display: none;
+	}
+}
+
+@media (max-width: 769px) and (min-width: 480px){
+	.large-header{
+		display: none;
+	}
+
+	.genres{
+		display: none;
+	}
+
+	.genres-nav{
+		margin: 0px auto;
+		border-bottom: $border;
+	}
+
+	.searchbar{
+		margin: 10px 0px;
+	}	
+}
+
+@media (max-width: 480px) and (min-width: 0px){
+	.large-header{
+		display: none;
+	}
+
+	.genres{
+		display: none;
+	}
+
+	.genres-nav{
+		margin: 0px auto;
+		border-bottom: $border;
+	}
+
+	.searchbar{
+		margin: 10px 0px;
+	}	
+}

@@ -1,0 +1,74 @@
+@import '../../../../style/mixins.scss';
+@import '../../../../style/variables.scss';
+
+.event-tile{
+	width: 100%;
+	height: 170px;
+	padding-bottom: 15px;
+	cursor: pointer;
+}
+
+.event-name{
+	position: absolute;
+	top: 58%;
+	width: 81%;
+	white-space: normal;
+	line-height: 23px;
+}
+
+.event-name span{
+	@include tile-span();;
+}
+
+@media (min-width: 768px){
+	.top-events-label{
+		width: 95%;
+		margin: -10px auto 15px;
+		margin-left: 2.5%;
+		border-bottom: $border;
+		text-align: center;
+	}
+
+	.top-events{
+    width: 95%;
+    margin: 0px auto;
+  }
+}
+
+@media (max-width: 768px) and (min-width: 480px){
+	.top-events-label{
+		margin: -10px auto;
+		border-bottom: $border;
+		text-align: center;
+	}
+
+	.top-events{
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 480px) and (min-width: 0px){
+	.top-events-label{
+		margin: -10px auto;
+		border-bottom: $border;
+		text-align: center;
+	}
+
+	.top-events{
+    margin-top: 25px;
+  }
+}
+
+#no-button{
+	color: #fff;
+	border-color: #fff;
+	cursor: default;
+	width: 0px;
+  height: 0px;
+  margin-left: 50%;
+	&:hover, &:active, &:focus{
+		color: #fff;
+		border-color: #fff;
+		cursor: default;
+	}
+}

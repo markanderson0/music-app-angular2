@@ -1,0 +1,140 @@
+@import '../../../../style/mixins.scss';
+
+#autoplay{
+	margin-bottom: 20px;
+}
+
+#autoplay-label{
+	display: inline;
+	color: white;
+	margin-left: -20px;
+	margin-right: 20px;
+}
+
+#autoplay-switch{
+	display: inline;
+	border-radius: 0px;
+}
+
+#playlist-list{
+	margin-top: 0px;
+}
+
+#playlist-image{
+	width: 100%;
+	height: 120px;
+	margin-left: -20px;
+	margin-bottom: 10px;
+}
+
+#playlist-tile{
+  margin-bottom: 5px;
+  width: inherit;
+  position: relative;
+}
+
+#playlist-tile span{
+  width: 100%;
+  height: 120px;
+  left: -20px;
+  padding: 15px 0px;
+  visibility: hidden;
+  @include video-tile-span();
+}
+
+#playlist-playing{
+  margin-bottom: 5px;
+  width: inherit;
+  position: relative;
+}
+
+#playlist-playing span{
+  position: absolute;
+  width: 100%;
+  height: 120px;
+  left: -20px;
+  margin-top: -135px;
+  padding: 45px 0px;
+  color: black;
+  background: rgb(255, 255, 255);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+#playlist-playing h5{
+  margin-top: 10px;
+  text-align: center;
+  font-weight: 700;
+}
+
+
+#playlist-tile:hover span{
+  overflow-y: auto;
+  visibility: visible;
+  cursor: pointer;
+}
+
+#playlist-songs{
+  margin-top: 10px;
+  text-align: center;
+  font-weight: 300;
+}
+
+#playlist-song-rating{
+  position: relative;
+  bottom: 140px;
+  right: 20px;
+}
+
+#playlist-song-rating span{
+  letter-spacing: 4px;
+  padding: 2px;
+  @include video-tile-span();
+}
+
+#playlist-video-time{
+  position: relative;
+  bottom: 39px;
+  right: 20px;
+}
+
+#playlist-video-time span{
+  padding: 3px;
+  @include video-tile-span();
+}
+
+#playlist-video-views{
+  position: relative;
+  bottom: 39px;
+  right: 18px;
+}
+
+#playlist-video-views span{
+  right: 1%;
+  padding: 3px;  
+  @include video-tile-span();
+}
+
+#playlist-songs-list{
+	color: white;
+	margin-left: -20px;
+	margin-top: -15px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-weight: 300;
+}
+
+#playlist-songs-list:hover{
+	white-space: normal;
+  overflow: normal;
+}
+
+.playlist-tab{
+	// width: 50%;
+	// text-align: center;
+}
+
+#playlist-tab-setlist{
+	color: white;
+	line-height: 25px;
+}

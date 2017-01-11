@@ -1,0 +1,17 @@
+<right-sidebar>
+</right-sidebar>
+
+<panel>
+  <div class="row row-container">
+    <label class="control-label heading-label" (click)="openBrowseHome()">Browse</label>
+    <label class="control-label heading-label"> / </label>
+    <label class="control-label heading-label">{{genre}}</label>
+  </div>
+  <div class="row row-container">
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" *ngFor="let artist of artists" (click)="openArtistProfile(artist.name)">
+      <img class="browse-event-tile" [src]="artist.pic">
+      <h4 class="browse-name"><span>{{artist.name}}</span></h4>
+    </div>				
+  </div>
+  <button class="btn btn-default" id="load-button" *ngIf="loadMoreArtists" (click)="getMoreArtists(genre)">Load More Results</button>
+</panel>

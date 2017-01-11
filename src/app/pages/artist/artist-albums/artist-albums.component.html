@@ -1,0 +1,23 @@
+<right-sidebar>
+</right-sidebar> 
+
+<div class="row row-container">
+	<label id="albums-title-label">Albums</label>
+</div>
+<div class="row row-container" *ngFor="let album of artistAlbums">
+	<div class="col-sm-4 col-xs-12" >
+		<img id="artist-album-pic" [src]="album.cover">
+		<h1 class="artist-album-name">{{album.name}}</h1>
+		<h4 class="artist-album-name">{{album.year}}</h4>
+	</div>	
+	<div class="col-sm-8 col-xs-12">
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<tr class="" *ngFor="let song of album.songs">
+					<td class="artist-album-songs">{{song.trackNum}}.</td>
+					<td class="artist-album-songs">{{song.name}}</td>
+				</tr>
+			</table>		 
+		</div>
+	</div>
+</div>

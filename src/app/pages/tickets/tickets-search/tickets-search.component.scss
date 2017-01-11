@@ -1,0 +1,124 @@
+@import '../../../../style/variables.scss';
+
+//#######--SEARCH DISPLAYS--#########
+.search-label{
+	text-align: left;
+	margin-top: 0px;
+	&:first-letter{
+		text-transform:capitalize;
+	}
+}
+
+.map-font-weight{
+	font-weight: 400;
+}
+
+//##########-SEARCH TABLE--##########
+#artist-header{
+	border-bottom: $border;
+}
+
+#date-header{
+	border-bottom: $border;
+}
+
+#venue-header{
+	border-bottom: $border;
+}
+
+#ticket-header{
+	text-align: right;
+	padding-right: 40px;
+	border-bottom: $border;
+}
+
+.table-data{
+	border-bottom: $border;
+}
+
+#name-data{
+	vertical-align: middle;
+	text-align: left;
+	white-space: pre-line;
+	border-bottom: $border;
+}
+
+#date-data{
+	vertical-align: middle;
+	white-space: pre-line;
+	border-bottom: $border;
+}
+
+#venue-data{
+	vertical-align: middle;
+	white-space: pre-line;
+	border-bottom: $border;
+}
+
+#ticket-data{
+	text-align: right;
+	vertical-align: middle;
+	margin-bottom: 5px;
+	border-bottom: $border;
+	button{
+		white-space: pre-line;
+	}
+}
+
+.sebm-google-map-container {
+	height: 600px;
+}
+
+@media (min-width: 768px){
+	#tickets-search-displays{
+		float: right;
+		margin-top: -5px;
+	}
+
+	#tickets-search-options{
+		width: 96%;
+		margin: 20px auto;
+		padding-bottom: 9px;
+	}	
+
+	#search-table{
+		width: 95%;
+		margin: -20px auto;
+		padding-bottom: 15px;
+		border-bottom: $border;
+	}
+}
+
+@media (max-width: 768px) and (min-width: 480px){
+	#tickets-search-displays{
+		display: none;
+	}
+
+	#tickets-search-options{
+		margin: 9px auto;
+	}
+
+	#search-table{
+		margin: 0px auto;
+		margin-top: -10px;
+		padding-bottom: 15px;
+		border-bottom: $border;
+	}
+}
+
+@media (max-width: 480px) and (min-width: 0px){
+	#tickets-search-displays{
+		display: none;
+	}
+
+	#tickets-search-options{
+		margin: 9px auto;
+	}
+
+	#search-table{
+		margin: 0px auto;
+		margin-top: -10px;
+		padding-bottom: 15px;
+		border-bottom: $border;
+	}
+}

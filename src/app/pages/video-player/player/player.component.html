@@ -1,0 +1,62 @@
+<div class="row row-container">
+  <div id="video-stats">
+    <h5 class="col-sm-4 col-xs-12" id="">
+      <i class="fa fa-volume-off" aria-hidden="true"></i> {{ audio }} |
+      <i class="fa fa-video-camera" aria-hidden="true"></i> {{ video }} |
+      {{ views }} Views
+    </h5>
+    <h5 class="col-sm-7 col-xs-12" id="video-location-label">{{ date }} | {{ venue }} | {{ location }}</h5>
+  </div>	
+  <video id="video-player" controls>
+    <source [src]="file" type="video/mp4">
+  </video>
+  <div class="bottom-border" id="video-songs">
+    <h4 id="video-songs-list">{{songsString}}</h4>
+  </div>	
+
+  <div class="col-sm-6" id="video-details">
+    <button (click)="toggleFollow()" id="video-details-btn" class="btn btn-default col-xs-6">
+      <span *ngIf="!following"><i class="fa fa-heart-o" aria-hidden="true"></i><span> Follow</span></span>
+      <span *ngIf="following"><i class="fa fa-heart" aria-hidden="true"></i><span> Following</span></span>
+    </button>
+    <button (click)="toggleFavourite()" id="video-details-btn" class="btn btn-default col-xs-6">
+      <span *ngIf="!favourited"><i class="fa fa-star-o"></i><span> Favourite</span></span>
+      <span *ngIf="favourited"><i class="fa fa-star"></i><span> Favourited</span></span>
+    </button>
+    <div id="video-details-report-btn" dropdown dropdown-append-to-body>
+      <button id="single-button" type="button" class="btn btn-default col-xs-12" dropdownToggle>
+        <i class="fa fa-gear" aria-hidden="true"></i><span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
+        <li role="menuitem" *ngFor="let report of detailsReoprtOptions"><a class="dropdown-item"> {{ report }} </a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="col-sm-6" id="video-ratings">
+    <div id="video-ratings-btn" dropdown dropdown-append-to-body>
+      <button *ngIf="!audioRated" id="single-button" type="button" class="btn btn-default" dropdownToggle>
+        Rate Audio <i class="fa fa-volume-off" aria-hidden="true"></i><span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
+        <li role="menuitem" *ngFor="let rating of ratingOptions" (click)="rateAudio(rating)"><a class="dropdown-item"> {{ rating }} </a></li>
+      </ul>
+    </div>
+
+
+    <div id="video-ratings-btn" dropdown dropdown-append-to-body>
+      <button *ngIf="!videoRated" id="single-button" type="button" class="btn btn-default" dropdownToggle>
+        Rate Video <i class="fa fa-video-camera" aria-hidden="true"></i><span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
+        <li role="menuitem" *ngFor="let rating of ratingOptions" (click)="rateVideo(rating)"><a class="dropdown-item"> {{ rating }} </a></li>
+      </ul>
+    </div>
+
+    <div id="video-rated">
+      <h5 *ngIf="audioRated"> Audio <i class="fa fa-volume-off" aria-hidden="true"></i> : {{audioRating}} </h5>
+      <h5 *ngIf="videoRated"> Video <i class="fa fa-video-camera" aria-hidden="true"></i> : {{videoRating}} </h5>
+    </div>	
+  </div>	
+
+</div>

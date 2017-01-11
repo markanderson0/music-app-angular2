@@ -1,0 +1,187 @@
+#sign-up-btn{
+  width: 85px;
+}
+
+#log-in-btn{
+  width: 85px;
+  margin-left: 5px;
+}
+
+.modal-header .close {
+  margin-top: -15px;
+  margin-right: -9px;
+}
+
+.modal-dialog{
+  width: 500px;
+}
+
+.modal-content{
+  border-radius: 0px;
+}
+
+.modal-body{
+  padding: 0px;
+}
+
+.form{
+  width: 90%;
+  margin: 20px auto;
+}
+
+.form-horizontal{
+  margin: 25px auto;
+}
+
+.social{
+  list-style-type: none;
+  margin-bottom: 0px;
+  margin-top: -10px;
+}
+
+.social li{
+  display: inline;
+}
+
+#fb-btn{
+  display: inline;
+  width: 42%;
+  border-radius: 0px;
+  margin-left: 10px;
+  color: white;
+  background-color: #3b5998;
+}
+
+#tw-btn{
+  display: inline;
+  width: 42%;
+  border-radius: 0px;
+  margin-left: 10px;
+  color: white;
+  background-color: #55acee;
+}
+
+#username{
+  width: 80%;
+  border-radius: 0px;
+  margin-left: 50px;
+}
+
+#email{
+  width: 80%;
+  border-radius: 0px;
+  margin-left: 50px;
+}
+
+#password{
+  width: 80%;
+  border-radius: 0px;
+  margin-left: 50px;
+}
+
+.names{
+  list-style-type: none;
+  margin-bottom: 0px;
+}
+
+.names li{
+  display: inline;
+}
+
+#firstname{
+  display: inline;
+  width: 42%;
+  border-radius: 0px;
+  margin-left: 10px;
+}
+
+#lastname{
+  display: inline;
+  width: 42%;
+  border-radius: 0px;
+  margin-left: 10px;
+}
+
+.uldob{
+  list-style-type: none;
+}
+
+.uldob li{
+  display: inline;
+}
+
+#doblabel{
+  display: inline;
+  width: 42%;
+  border-radius: 0px;
+  margin-left: 30px;
+}
+
+#day{
+  display: inline;
+  width: 15%;
+  border-radius: 0px;
+  margin-left: 15px;
+}
+
+#month{
+  display: inline;
+  width: 15%;
+  border-radius: 0px;
+  margin-left: 15px;
+}
+
+#year{
+  display: inline;
+  width: 20%;
+  border-radius: 0px;
+  margin-left: 15px;
+}
+
+#genlabel{
+  display: inline;
+  margin-right: 10px;
+}
+
+.gender{
+  margin-left: 150px;
+}
+
+#terms{
+  margin-left: 50px;
+}
+
+.footer{
+  padding: 0px;
+  margin-bottom: -15px;
+}
+
+.submit{
+  float: right;
+  margin-right: 40px;
+  margin-top: 15px;
+  margin-bottom: -10px;
+  border-radius: 0px;
+  width: 85%;
+}
+
+#remember{
+  margin-left: 50px;
+}
+
+.modal-form-error p{
+	margin-left: 50px;
+}
+
+#modal-form-dob-error p{
+	margin-left: 165px;
+}
+
+#modal-form-gender-error{
+	margin-left: 210px;
+}
+
+.modal-backdrop{
+  z-index: 0;
+}
+

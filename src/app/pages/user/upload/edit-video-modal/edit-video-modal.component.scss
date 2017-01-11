@@ -1,0 +1,125 @@
+@import '../../../../../style/mixins.scss';
+@import '../../../../../style/variables.scss';
+
+#delete-confirm-message{
+	margin-left: 40px;
+	margin-top: 10px;
+}
+
+#delete-options{
+	margin-bottom: 15px;
+}
+
+#delete-options li{
+	display: inline;
+	width: 50%;
+}
+
+#delete-options li button{
+	width: 45%;
+}
+
+#edit-video-modal{
+	width: 90%;
+	margin: 10px 25px;
+}
+
+#delete-video-btn{
+	width: 100%;
+	margin-top: 10px;
+}
+
+#video-cue-points{
+	margin-top: 25px;
+	padding-top: 20px;
+	border-top: $border;
+	overflow-y: scroll;
+}
+
+#edit-video-songs{
+	list-style-type: none;
+	margin-left: -40px;
+	line-height: 40px;
+}
+
+#submit-video-btn{
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+#video-song-header{
+	float: left;	
+}
+
+#video-time-header{
+	padding-left: 45px;
+}
+
+#edit-videos-tile{
+  margin-bottom: 5px;
+  width: inherit;
+}
+
+#edit-videos-tile span{
+  width: inherit;
+  top: 0%;
+  height: 165px;
+  padding: 65px 0px;
+  visibility: hidden;
+  @include video-tile-span();
+}
+
+#edit-videos-tile:hover span{
+   overflow-y:scroll;
+   visibility: visible;
+}
+
+#cue-points-table{
+	margin-bottom: 20px;
+}
+
+#hour{
+  display: inline;
+  border-radius: 0px;
+  margin-left: 15px;
+  vertical-align: middle;
+}
+
+#minute{
+  display: inline;
+  border-radius: 0px;
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
+#second{
+  display: inline;
+  border-radius: 0px;
+  margin-left: 5px;
+  vertical-align: middle;
+}
+
+#video-song{
+	vertical-align: middle;
+	line-height: 20px;	
+	text-align: left;
+}
+
+#video-time{
+	margin-top: 20px;
+	vertical-align: middle;
+	line-height: 20px;
+}
+
+.invalid-time-header{
+	color: $invalid-color;
+}
+
+.invalid-time{
+	border-color: $invalid-color;
+}
+
+#invalid-time-footer{
+	color: $invalid-color;
+	margin-left: 25px;
+}

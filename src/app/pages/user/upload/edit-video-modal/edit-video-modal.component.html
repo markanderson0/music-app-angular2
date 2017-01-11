@@ -1,0 +1,70 @@
+  
+  <div class="modal-dialog modal-lg modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" (click)="hideEditVideoModal(); resetValues()" aria-label="Close">
+        &times;
+      </button>
+      <h4 class="modal-title">Edit Video</h4>
+    </div>
+    <div class="modal-body">
+      <div id="edit-video-modal">
+        <button class="btn btn-danger" id="delete-video-btn" (click)="hideEditVideoModal(); openConfirmDeleteModal(songs, videoId)">Delete Video</button>
+        <div id="video-cue-points">
+          <label> Add video cue points</label>
+          <table class="table table-hover" id="cue-points-table">
+            <thead>
+              <tr>
+                <th [ngClass]="{ 'invalid-time-header' : noSongSelected }" id="video-song-header">Song</th>
+                <th [ngClass]="{ 'invalid-time-header' : invalidHour }" id="video-time-header">Hour</th>
+                <th [ngClass]="{ 'invalid-time-header' : invalidMinute }" id="video-time-header">Minute</th>
+                <th [ngClass]="{ 'invalid-time-header' : invalidSecond }" id="video-time-header">Second</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td id="video-song">
+                  <select 
+                    [ngClass]="{ 'invalid-time' : noSongSelected}" class="form-control" name="selectedSong"
+                     [(ngModel)]="selectedSong" (ngModelChange)="checkSong()" 
+                    required>
+                  <option *ngFor="let song of songs; trackBy index" >{{song}}</option>
+                  </select>
+                </td>
+                <td id="video-time">
+                  <input 
+                    type="number" [ngClass]="{ 'invalid-time' : invalidHour }" 
+                    class="form-control" id="hour" 
+                    placeholder="0" min="0" max="4" name="hour" 
+                    [(ngModel)]="hour" (ngModelChange)="checkTime()" 
+                    required>
+                </td>
+                <td id="video-time">
+                  <input 
+                    type="number" [ngClass]="{ 'invalid-time' : invalidMinute }" 
+                    class="form-control" id="minute" 
+                    placeholder="00" min="0" max="59" name="minute" 
+                    [(ngModel)]="minute" (ngModelChange)="checkTime()" 
+                    required>
+                </td>
+                <td id="video-time">
+                  <input 
+                    type="number" [ngClass]="{ 'invalid-time' : invalidSecond }" 
+                    class="form-control" id="second" 
+                    placeholder="00" min="0" max="59" name="second" 
+                    [(ngModel)]="second" (ngModelChange)="checkTime()" 
+                    required> 
+                </td>
+              </tr>
+              <tr>
+                <td><p *ngIf="noSongSelected" class="invalid-time-header">No Song Selected.</p></td> 
+                <td><p *ngIf="invalidHour" id="invalid-time-footer">Invalid.</p></td>
+                <td><p *ngIf="invalidMinute" id="invalid-time-footer">Invalid.</p></td> 
+                <td><p *ngIf="invalidSecond" id="invalid-time-footer">Invalid.</p></td>     
+              </tr>            
+            </tbody> 
+          </table>  
+        </div> 
+        <button *ngIf="!invalidHour && !invalidMinute && !invalidSecond" class="btn btn-default" id="submit-video-btn" (click)="setCuePoints()">Add Cue Point</button>              
+      </div>                  
+    </div>
+  </div>

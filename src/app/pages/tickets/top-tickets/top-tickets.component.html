@@ -1,0 +1,14 @@
+<div class="row top-events-label">
+  <div class="col-sm-12">
+		<h2>Top Events</h2>
+	</div>
+</div>
+<div class="top-events">
+	<div class="col-md-3 col-sm-6 col-xs-12" *ngFor="let topEvent of topEvents" (click)="openArtistTickets(topEvent.name)">
+		<img class="event-tile" [src]="topEvent.image">
+		<h4 class="event-name"><span>{{topEvent.name}}</span></h4>
+	</div>
+</div>
+<!-- TABLE -->
+
+<button [hidden]="true" class="btn btn-default" id="no-button">Load More Results</button>	

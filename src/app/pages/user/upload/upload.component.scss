@@ -1,0 +1,151 @@
+.upload-tab{
+	// width: 50%;
+	// text-align: center;
+}
+
+#video-path{
+	cursor: default;
+}
+
+#song-selection{
+	height: 34px;
+	cursor: default;
+}
+
+#upload-btn{
+	width: 100%;
+}
+
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.inputfile + label {
+    width: 100%;
+    font-size: 1.25rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    padding: 0.625rem 1.25rem;
+}
+
+.file-input + label {
+    border: 1px solid #dddddd;
+    padding: 0;
+}
+
+.file-input .has-error + label + {
+    border: 1px solid #ed7878;
+    padding: 0;
+}
+
+.file-input + label span {
+    width: 70%;
+    min-height: 2em;
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align: top;
+    padding-top: 2.75%;
+    padding-left: 3%;
+}
+
+.file-input + label strong {
+    height: 100%;
+    color: #333;
+    background-color: #fff;
+    display: inline-block;
+    border-left: 1px solid #dddddd;
+    border-top: 0px;
+    border-bottom: 0px;
+    border-right: 0px;
+    padding-top: 2.5%;
+    padding-left: 7%;
+}
+
+#file-error{
+    margin-top: -7px;
+    margin-left: 3px;
+}
+
+//##############--UPLOAD TABLE-###############
+#upload-file-table{
+    margin-bottom: -20px;
+}
+
+#file-header{
+    width: 33%;
+}
+
+.file-data{
+    width: 30%;
+    overflow: hidden;
+    position: absolute;
+    word-wrap: break-word;
+    white-space: normal;
+    &:h5{
+        margin-top: 3px;
+    }
+}
+
+.progress-data{
+    width: 61%;
+}
+
+.progress{
+    border-radius: 0px;
+    background-color: lightgrey;
+}
+
+.progress-bar{
+    background-color: dimgrey;
+}
+
+.details-data{
+    cursor: pointer;
+}
+
+#cancel-header{
+    float: right;
+    margin-right: 22px;
+}
+
+.cancel-data{
+    float: right;
+}
+
+.upload-details-data h5{
+    text-align: center;
+}
+
+//##############--CONFIRM CANCELATION MODAL-###############
+#delete-confirm-message{
+	margin-left: 40px;
+	margin-top: 10px;
+}
+
+#delete-options{
+	margin-bottom: 15px;
+}
+
+#delete-options li{
+	display: inline;
+	width: 50%;
+}
+
+#delete-options li button{
+	width: 45%;
+}
+
+//##############--MY UPLOADS-###############
+#edit-video-text{
+	padding-top: 50px;
+}

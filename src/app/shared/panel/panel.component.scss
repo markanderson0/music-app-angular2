@@ -1,0 +1,25 @@
+.panel {
+  border-left: 1px solid #dddddd;
+  border-right: 1px solid #dddddd;
+  border-radius: 0px;
+  background-color: #fff;
+  color:  #7b7b7b;
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.panel-expanded{
+  margin-right: 230px;
+}
+
+.panel-collapsed{
+  margin-right: 0px;
+}
+
+.panel > .panel-body {
+  height: 100%;
+}
+
+.panel-body{
+  padding: 0px;
+}

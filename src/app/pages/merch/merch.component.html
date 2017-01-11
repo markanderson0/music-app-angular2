@@ -1,0 +1,81 @@
+<right-sidebar>
+</right-sidebar>
+
+<panel>
+  <div class="row row-container large-header">
+    <!-- TITLE -->
+    <div class="col-sm-6">
+      <a (click)="openTopMerch()">
+        <label class="control-label heading-label">Title</label>
+        <label class="control-label" id="merch-label">MERCH</label>
+      </a>	
+    </div>  
+    <!-- SEARCH BAR -->
+    <div class="col-sm-6">
+      <div class="input-group searchbar">
+        <form class="merch-search-form" role="form">
+          <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchTerm" name="merchSearch">
+          <span class="input-group-btn">
+            <button class="btn btn-default" id="search-btn" type="submit" (click)="search()">
+              <i class="fa fa-search" id="search-icon"></i>
+            </button>
+          </span>
+        </form>	
+      </div>     
+    </div>	  	
+  </div>
+  <!-- NAVIGATION -->
+  <div class="row genres">
+    <div class="col-md-12">
+      <div class="row">
+        <div *ngFor="let category of categories" >
+          <button class="btn col-sm-3 col-xs-6" id="merch-genre-btn" (click)="openMerchCategory(category.label)">{{category.name}}</button>
+        </div>
+      </div>	
+    </div>	
+  </div>	
+  <!-- NAV BAR | SMALL SCREENS -->
+  <div class="row genres-nav">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" (click)="toggleCollapse()">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a (click)="openTopMerch()">
+            <label class="control-label heading-label">Title</label>
+            <label class="control-label" id="merch-label">Merch</label>
+          </a>	
+        </div>
+
+        <div class="navbar-collapse" [ngClass]="{ 'collapse': !isCollapsed }">
+          <div class="input-group searchbar">
+            <form class="merch-search-form" role="form">
+              <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchTerm" name="merchSearch">
+              <span class="input-group-btn">
+                <button class="btn btn-default" id="search-btn" type="submit" (click)="search()">
+                  <i class="fa fa-search" id="search-icon"></i>
+                </button>
+              </span>
+            </form>	
+          </div> 
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row">
+                <div *ngFor="let category of categories">
+                  <button class="btn genre-btn col-sm-2 col-xs-12" id="merch-genre-btn" (click)="openMerchCategory(category.label)">{{category.name}}</button>
+                </div>
+              </div>	
+            </div>	
+          </div>
+        </div>
+      </div>
+    </nav>	  
+  </div>
+
+  <!-- SEARCH RESULTS -->
+  <router-outlet></router-outlet>
+</panel>

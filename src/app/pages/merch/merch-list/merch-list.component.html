@@ -1,0 +1,27 @@
+<!-- SEARCH RESULTS -->
+<div class="row merch-search-options">
+  <div class="col-sm-3">
+		<h2 id="merch-search-label">{{category}}</h2>
+	</div>
+	<div class="col-sm-9">
+		<div id="merch-search-displays">
+			<button class="btn btn-default" *ngIf="apparelPage" (click)="filterResults('Mens')">Mens</button>
+			<button class="btn btn-default" *ngIf="apparelPage" (click)="filterResults('Womens')">Womens</button>
+			<button class="btn btn-default" *ngIf="musicPage" (click)="filterResults('CDs')">CDs</button>
+			<button class="btn btn-default" *ngIf="musicPage" (click)="filterResults('Vinyl')">Vinyl</button>
+			<label>Sort By: </label>
+			<select class="form-control merch-sort" placeholder="Best Match" [(ngModel)]="merchSort" (ngModelChange)="sortResults()">
+				<option *ngFor="let choice of merchSortOptions.split(',')">{{choice}}</option>
+			</select>
+  	</div>	
+	</div>
+</div>
+<!-- LIST VIEW -->
+<div class="row row-container" id="merch-items">
+	<div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 image" *ngFor="let item of merch" (click)="openMerchProduct(item.id)">
+		<img class="merch-item-tile" [src]="item.pic">
+		<h4 class="merch-price"><span>{{item.price | currency}}</span></h4>
+		<h6 class="merch-name"><span>{{item.name}}</span></h6>
+	</div>				
+</div>	
+<button class="btn btn-default" id="load-button" (click)="getMoreMerch()">Load More Results</button>

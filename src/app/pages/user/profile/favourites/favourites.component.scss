@@ -1,0 +1,74 @@
+@import '../../../../../style/mixins.scss';
+
+#favourite-videos-tile{
+	position: relative;
+}
+
+#favourite-videos-tile span{
+  width: 100%;
+  top: 0%;
+  height: 170px;
+  padding: 35px 0px;
+  cursor: pointer;
+  visibility: hidden;
+  @include video-tile-span();
+  h5{
+    margin-top: 10px;
+    text-align: center;
+  }
+}
+
+#favourite-videos-tile:hover span{
+  overflow-y: scroll;
+  visibility: visible;
+}
+
+#favourite-videos-pic{
+	width: 100%;
+	height: 180px;
+	padding-bottom: 10px;
+}
+
+#favourite-videos-rating {
+  position: absolute;
+  top: 9.4%;
+  width: 100%;
+}
+
+#favourite-videos-rating span {
+  letter-spacing: 4px;
+  padding: 2px;
+  @include video-tile-span();
+}
+
+#favourite-videos-time {
+  position: relative;
+  bottom: 41px;
+  width: 100%;
+}
+
+#favourite-videos-time span {
+  padding: 3px;
+  @include video-tile-span();
+}
+
+#favourite-videos-views {
+  position: relative;
+  bottom: 41px;
+}
+
+#favourite-videos-views span {
+  right: 0%;
+  padding: 3px;
+  @include video-tile-span();
+}
+
+#favourite-videos-songs{
+  @include video-songs-string();
+  a{
+    color: #333;
+    &:hover{
+      color: #555;
+    }
+  }
+}

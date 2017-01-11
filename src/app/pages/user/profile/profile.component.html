@@ -1,0 +1,36 @@
+<right-sidebar>
+</right-sidebar>
+
+<panel>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="row row-container banner-container">
+        <img id="banner-pic" [src]="bannerPicture">
+        <img id="profile-pic" [src]="profilePicture">     
+        <h3 class="profile-header heading-label" id="crowd-label">
+          <span>{{username}}</span>
+        </h3>
+      </div>
+    </div>
+  </div>  
+
+  <div class="row row-container">
+    <tabset>
+      <tab heading="Videos" class="profile-tab" id="videos-tab"> 
+        <template></template>
+        <videos></videos>
+      </tab>
+
+      <tab heading="Following" class="profile-tab" id="following-tab">
+        <template></template>
+        <following></following>
+      </tab>
+
+      <tab heading="Favourites" class="profile-tab" id="favourites-tab">
+        <template></template>
+        <favourites></favourites>
+      </tab>
+    </tabset>
+  </div>  
+</panel>
+

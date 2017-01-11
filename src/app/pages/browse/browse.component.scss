@@ -1,0 +1,27 @@
+@import '../../../style/mixins.scss';
+
+.browse-event-tile{
+  width: 100%;
+  height: 200px;
+  padding-bottom: 15px;
+  cursor: pointer;
+}
+
+.browse-name{
+  position: absolute;
+  top: 64%;
+  width: 81%;
+  white-space: normal;
+  line-height: 23px;
+  overflow-y: hidden;
+  height: 25%;
+}
+
+.browse-name span{
+  @include tile-span();
+}
+
+#load-button{
+  width: 95%;
+  margin-left: 2.5%;
+}

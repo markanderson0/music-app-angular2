@@ -1,0 +1,176 @@
+#video-player{
+	width: 100%;
+	height: auto;	
+	border: 1px solid #333;
+}
+
+#video-location-label{
+	float: right;
+	width: initial;
+	color: #333;
+}
+
+#video-songs{
+	color: #333;
+	padding-bottom: 10px;
+}
+
+#video-songs-list{
+	font-size: 20px;
+	line-height: 25px;
+	white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#video-songs-list:hover{
+	font-size: 20px;
+	line-height: 25px;
+	white-space: normal;
+  overflow: normal;
+}
+
+#video-details{
+	margin-top: 15px;
+}
+
+#video-details-btn{
+}
+
+#video-details-report-btn{
+	display: inline;
+}
+
+#video-details-report-btn button{
+	width: 50px;
+}
+
+#video-ratings{
+	margin-top: 15px;
+}
+
+#video-ratings-btn{
+	float: right;
+	margin-right: 10px;
+}
+
+.dropdown-menu{
+	width: 100%;
+	text-align: center;
+}
+
+@media (max-width: 860px){
+	#video-location-label{
+		float: left;
+		width: initial;
+		color: #333;
+	}
+}
+
+
+@media (min-width: 768px){
+	#video-stats{
+		color: #333;
+	  margin-top: -10px;
+	}
+
+	#video-details-btn{
+		width: 40%;
+	}
+
+	#video-details-report-btn button{
+		width: 20%;
+		margin-top: 0px;
+	}	
+
+	#video-ratings-btn{
+		float: left;
+		margin-right: 0px;
+		width: 50%;
+	}	
+
+	#video-rated{
+	  display: inline;
+	  float: right;
+	  margin-top: 10px;
+	}
+
+	#video-rated h5{
+    width: 50%;
+    display: inline;
+    color: #333;
+    margin-right: 10px;
+	}
+}
+
+@media (max-width: 768px) and (min-width: 480px){
+	#video-stats{
+		color: #333;
+	  margin-top: 0px;
+	}
+
+	#video-details-btn{
+		width: 40%;
+	}
+
+	#video-details-report-btn button{
+		width: 20%;
+		margin-top: 0px;
+	}
+
+	#video-ratings-btn{
+		float: left;
+		margin-right: 0px;
+		width: 50%;
+	}
+
+	#video-rated{
+	  display: inline;
+	  float: left;
+	  margin-top: 10px;
+	  width: 100%;
+	}
+
+	#video-rated h5{
+    width: 50%;
+    display: inline;
+    color: #333;
+    margin: 0px 20%;
+	}
+}
+
+@media (max-width: 480px) and (min-width: 0px){
+	#video-stats{
+		color: #333;
+	  margin-top: 0px;
+	}
+
+	#video-details-btn{
+		width: 40%;
+	}
+
+	#video-details-report-btn button{
+		width: 20%;
+		margin-top: 0px;
+	}
+
+	#video-ratings-btn{
+		float: left;
+		margin-right: 0px;
+		width: 50%;
+	}
+
+	#video-rated{
+	  display: inline;
+	  float: left;
+	  margin-top: 10px;
+	  width: 100%;
+	}
+
+	#video-rated h5{
+    width: 50%;
+    display: inline;
+    color: #333;
+    margin: 0px 10%;
+	}
+}

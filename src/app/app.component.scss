@@ -1,0 +1,5 @@
+@import '../style/variables.scss';
+// styles applied on :host are applied on the current component, "app" in this case
+:host {
+  display: block;
+}

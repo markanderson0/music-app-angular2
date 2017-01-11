@@ -1,0 +1,74 @@
+<right-sidebar>
+</right-sidebar>
+
+<panel>
+  <div class="row row-container large-header">
+    <!-- TITLE -->
+    <div class="col-sm-6">
+      <a (click)="openTopTickets()">
+        <label class="control-label heading-label">Title</label>
+        <label class="control-label" id="tickets-label">TICKETS</label>
+      </a>	
+    </div>  
+    <!-- SEARCH BAR -->
+    <div class="col-sm-6">
+      <div class="input-group searchbar">
+        <form class="ticket-search-form" role="form">
+          <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchTerm" name="ticketSearch">
+          <span class="input-group-btn">
+            <button class="btn btn-default" id="search-btn" type="submit" (click)="search()">
+              <i class="fa fa-search" id="search-icon"></i>
+            </button>
+          </span>
+          </form>	
+      </div>     
+    </div>
+  </div>
+  <!-- NAVIGATION -->
+  <div class="row genres">
+    <div class="col-md-12">
+      <div class="row">
+        <div *ngFor="let genre of genres">
+          <button class="btn genre-btn col-sm-2 col-xs-6" id="tickets-genre-btn" (click)="openTicketGenre(genre.label)">{{genre.name}}</button>
+        </div>
+      </div>	
+    </div>	
+  </div>
+  <!-- NAV BAR | SMALL SCREENS -->
+  <div class="row genres-nav">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" (click)="toggleCollapse()">&#9776;</button>
+          <a (click)="openTopTickets()">
+            <label class="control-label heading-label">Title</label>
+            <label class="control-label" id="tickets-label">TICKETS</label>
+          </a>	
+        </div>
+        <div class="navbar-collapse" [ngClass]="{ 'collapse': !isCollapsed }">
+          <div class="input-group searchbar">
+            <form class="ticket-search-form" role="form">
+              <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchTerm" name="ticketSearch">
+              <span class="input-group-btn">
+                <button class="btn btn-default" id="search-btn" type="submit" (click)="search()">
+                  <i class="fa fa-search" id="search-icon"></i>
+                </button>
+              </span>
+              </form>	
+          </div> 
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row">
+                <div *ngFor="let genre of genres">
+                  <button class="btn genre-btn col-sm-2 col-xs-6" (click)="openTicketGenre(genre.label)">{{genre.name}}</button>
+                </div>
+              </div>	
+            </div>	
+          </div>
+        </div>
+      </div>
+    </nav>	  
+  </div>	  
+  <!-- SEARCH RESULTS -->	
+  <router-outlet></router-outlet>
+</panel>

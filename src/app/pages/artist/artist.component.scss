@@ -1,0 +1,52 @@
+@import '../../../style/mixins.scss';
+@import '../../../style/variables.scss';
+
+//################--BANNER--################
+.artist-header span{
+  background-color: $span-background;
+}
+
+@media (min-width: 769px){
+  #artist-banner-pic{
+    width: 100%;
+    height: 450px;
+    position: relative;
+    top: -70px;
+  }
+
+  .artist-header{
+    display: inline;
+    position: relative;
+    top: -260px;
+  }
+}
+
+@media (max-width: 769px) and (min-width: 480px){
+ #artist-banner-pic{
+    width: 100%;
+    height: 100%;
+  }
+
+  .artist-header{
+    display: inline;
+    position: relative;
+    top: -50px;
+  }
+}
+
+@media (max-width: 480px) and (min-width: 0px){
+  #artist-banner-pic{
+    width: 100%;
+    height: 100%;
+  }
+
+  .artist-header{
+    position: relative;
+    top: -40px;
+    font-size: 30px;
+    word-wrap: break-word;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis
+  }
+}

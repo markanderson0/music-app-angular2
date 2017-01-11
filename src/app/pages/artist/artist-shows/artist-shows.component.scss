@@ -1,0 +1,90 @@
+@import '../../../../style/variables.scss';
+
+#artist-shows-table{
+  margin-top: -20px;
+  margin-bottom: -16px;
+}
+
+#artist-venue-header{
+  text-align: left !important;
+  border-bottom: $border;
+}
+
+.artist-setlist{
+  text-align: center !important;
+  border-top: $border;
+  border-bottom: $border;
+}
+
+.artist-shows-pagination{
+  margin-left: 5%;
+}
+
+.setlist-data{
+  border-bottom: $border;
+  vertical-align: middle !important;
+  cursor: pointer;
+}
+
+#venue-header{
+  border: none;
+}
+
+.venue-data{
+  white-space: pre-line !important;
+  vertical-align: middle !important;
+  // border-bottom: $border;
+}
+
+#date-header{
+  border: none;
+}
+
+.date-data{
+  white-space: pre-line !important;
+  vertical-align: middle !important;
+  // border-bottom: $border;
+}
+
+#ticket-header{
+  border: none;
+  text-align: right;
+  padding-right: 50px;
+}
+
+.ticket-data{
+  text-align: right;
+  margin-bottom: 18px;
+  vertical-align: middle !important;
+  // border-bottom: $border;
+  button{
+    white-space: pre-line !important;
+  }
+}
+
+#city-header{
+  border: none;
+}
+
+.city-data{
+  white-space: pre-line !important;
+  vertical-align: middle !important;
+  // border-bottom: $border;
+}
+
+#shows-title-label{
+  font-size: 25px;
+  font-weight: 400;
+  width: 100%;
+  line-height: 25px;
+}
+
+@media (max-width: 769px) and (min-width: 0px){
+  #artist-venue-header{
+    padding-top: 17px;
+  }
+
+  #shows-title-label{
+    line-height: 0px;
+  }
+}

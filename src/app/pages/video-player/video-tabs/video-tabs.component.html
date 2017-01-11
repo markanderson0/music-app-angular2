@@ -1,0 +1,154 @@
+<div class="row row-container">
+  <tabset>
+    <tab heading="Videos" (click)="getShowVideos()">
+      <template></template>
+      <div *ngFor="let playlistVideo of showVideos">
+        <label class="video-title">Uploaded By <a ui-sref="profile.profile.user({user: playlistVideo.user})">{{playlistVideo.user}}</a>
+          <label *ngIf="playlistVideo.playlistId === playlistId"> - Currently Playing</label>
+        </label>  
+        <ks-swiper-container [options]="swipeOptions">
+          <ks-swiper-slide *ngFor="let vid of playlistVideo.video; trackBy index">
+            <div class="video-tile">
+              <img class="video-pic" [src]="vid.image">
+              <span (click)="openVideo(playlistVideo.playlistId, vid.id)">
+                <h5 *ngFor="let song of vid.songs; trackBy index">{{song}}</h5>
+              </span>
+            </div>
+            <div id="tab-playlist-playing">
+              <span *ngIf="vid.id === videoId">
+                <h5>Now Playing</h5>
+              </span>
+            </div>
+            <h5 class="video-rating">
+              <span>
+                <i class="fa fa-volume-off" aria-hidden="true"></i>{{vid.audio}} 
+                <i class="fa fa-video-camera" aria-hidden="true"></i>{{vid.video}}
+              </span>
+            </h5>
+            <h5 class="video-time">
+              <span>{{vid.time}}</span>
+            </h5>
+            <h5 class="video-views">
+              <span>{{vid.views}} <i class="fa fa-eye" aria-hidden="true"></i></span>
+            </h5>
+            <h5 class="video-songs" (click)="openVideo(playlistVideo.playlistId, vid.id)">
+              <a title="{{vid.songsString}}">
+                {{vid.songsString}}
+              </a>
+            </h5>
+          </ks-swiper-slide>
+        </ks-swiper-container>
+      </div>
+      <div class="clearfix bottom-border"> 
+        <label id="more-videos" class="artist-sub-link" (click)="openVideos()">more videos <i class="fa fa-caret-right"></i></label>
+      </div>
+    </tab>
+
+    <tab heading="Tickets" (select)="getArtistTickets()">
+      <template></template>
+      <div class="artist-table" *ngIf="hasTickets">
+        <div class="table-responsive">
+          <table id="tickets" class="table table-hover">
+            <tr class="table-header">
+              <th id="venue-header">Venue</th>
+              <th id="date-header">Date</th>
+              <th id="ticket-header">Tickets</th>
+            </tr>
+            <tr class="table-data" *ngFor="let ticket of tickets">
+              <td class="venue-data">{{ticket.venue}}<br>{{ticket.city}}, {{ticket.state}} {{ticket.country}}</td>
+              <td id="date-data">{{ticket.date}}</td>
+              <td class="ticket-data"><button class="btn btn-default" (click)="openLink(ticket.url)">Get Tickets</button></td>
+            </tr>
+          </table>     
+        </div>
+      </div>
+      <div class="clearfix bottom-border" *ngIf="!hasTickets"> 
+        <label>No tickets available.</label>
+      </div>  
+    </tab>
+
+    <tab heading="Merch" (select)="getArtistMerch()">
+      <template></template>
+      <div class="artist-merch-div" *ngIf="hasMerch">
+        <div class="col-md-3 col-sm-6 col-xs-6 image" *ngFor="let merch of merch" ui-sref="merch.product({label: video.artistName, id: merch.id})">
+          <img class="merch-item-tile" [src]="merch.pic">
+          <h4 class="artist-merch-price"><span>{{merch.price | currency}}</span></h4>
+          <h6 class="artist-merch-name"><span>{{merch.name}}</span></h6>
+        </div>        
+      </div>
+      <div class="clearfix bottom-border" *ngIf="hasMerch">
+        <label id="more-merch" class="artist-sub-link" (click)="openMerch()">more merch <i class="fa fa-caret-right"></i></label>
+      </div>    
+      <div class="clearfix bottom-border" *ngIf="!hasMerch">
+        <label class="artist-sub-link">No merch available.</label>
+      </div>          
+    </tab>
+
+    <tab heading="Albums" (select)="getArtistAlbums()">
+      <template></template>
+      <div class="artist-album-div" *ngIf="hasAlbums">
+        <div class="col-md-3 col-sm-6 col-xs-6 image" *ngFor="let album of artistAlbums">
+          <img id="album-cover" class="merch-event-tile" [src]="album.pic">
+          <h6 id="album-name" class="artist-merch-name"><span>{{album.name}}</span></h6>
+        </div>        
+      </div>
+      <div class="clearfix bottom-border" *ngIf="hasAlbums">
+        <label id="more-albums" class="artist-sub-link" ui-sref="artist.albums({name: video.artistName})" (click)="openAlbums()">more albums <i class="fa fa-caret-right"></i></label>
+      </div>
+      <div class="clearfix bottom-border" *ngIf="!hasAlbums">
+        <label class="artist-sub-link">No albums available.</label>
+      </div>
+    </tab>
+
+    <tab heading="Previous Shows" (select)="getArtistPreviousShows()">
+      <template></template>
+      <div class="artist-table" *ngIf="hasShows">
+        <div class="table-responsive">
+          <table id="previous-shows" class="table table-hover">
+            <thead>
+              <tr class="table-header">
+                <th id="artist-venue-header">Venue</th>
+                <th id="venue-header">City</th>
+                <th id="venue-header">Tour</th>
+                <th id="date-header">Date</th>
+                <th id="date-header">Setlist</th>
+              </tr>
+            </thead>
+            <tbody>
+              <template let-shows="$implicit" ngFor [ngForOf]="artistShows" let-i="index">
+                <tr class="table-data" (click)="shows.isCollapsed=!shows.isCollapsed">
+                  <td class="venue-data">{{shows.venue}}</td>
+                  <td class="city-data">{{shows.city}}, {{shows.state}} {{shows.country}}
+                  <td class="city-data">{{shows.tour}}</td>
+                  <td id="date-data">{{shows.date}}</td>
+                  <td class="setlist-data">Setlist</td>
+                </tr>
+                <tr *ngIf="shows.isCollapsed">
+                  <td class="artist-setlist" colspan="5">
+                    <ol *ngIf="shows.songs.length > 0">
+                      <li *ngFor="let song of shows.songs; trackBy index">{{song}}</li>
+                    </ol>
+                    <h6 *ngIf="shows.songs.length === 0">No Setlist.</h6>
+                  </td>
+                </tr>
+              </template>  
+            </tbody>  
+          </table>     
+        </div>
+      </div>
+      <pagination
+        *ngIf="hasShows"
+        [totalItems]="totalItems" 
+        [(ngModel)]="currentPage" 
+        [maxSize]="maxSize" 
+        class="pagination-md artist-shows-pagination" 
+        [boundaryLinks]="true"
+        [rotate]="false"
+        (pageChanged)="pageChanged($event)">
+      </pagination>
+      <div class="clearfix bottom-border" *ngIf="!hasShows"> 
+        <label>No previous shows available.</label>
+      </div>  
+    </tab>  
+  </tabset>
+</div>

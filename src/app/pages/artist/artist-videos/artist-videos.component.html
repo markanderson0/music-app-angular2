@@ -1,0 +1,72 @@
+<right-sidebar>
+</right-sidebar> 
+
+<div id="video-options">
+  <div class="col-sm-8 col-xs-12">
+  </div>  
+  <div class="col-sm-4 col-xs-12">
+    <div class="input-group searchbar">
+      <form class="video-search-form" role="form">
+        <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchTerm" name="merchSearch">
+        <span class="input-group-btn">
+          <button class="btn btn-default" id="search-btn" type="submit" (click)="search()">
+            <i class="fa fa-search" id="search-icon"></i>
+          </button>
+        </span>
+      </form>	
+    </div>     
+  </div>
+</div>
+
+<div class="row-container">
+	<div id="accordion-group" *ngFor="let show of shows">
+		<ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+			<ngb-panel id="profile-videos">
+				<template ngbPanelTitle>
+					<h5 id="accordion-header">{{show.date}} | {{show.venue}} | {{show.location}}</h5>
+				</template>
+				<template ngbPanelContent>
+					<div *ngFor="let video of show.videos">
+					<label class="video-title">Uploaded By <a ui-sref="profile.profile.user({user: video.user})">{{video.user}}</a></label>
+						<ks-swiper-container [options]="swipeOptions">
+							<ks-swiper-slide *ngFor="let vid of video.video;trackBy index">
+								<div class="video-tile" (click)="openVideo(show.id, video.playlistId, vid.id)">
+									<img class="video-pic" [src]="vid.image">
+									<span>
+										<h5 *ngFor="let song of vid.songs;trackBy index">{{song}}</h5>
+									</span>
+								</div>
+								<h5 class="video-rating">
+									<span>
+										<i class="fa fa-volume-off" aria-hidden="true"></i>{{vid.audio}} 
+										<i class="fa fa-video-camera" aria-hidden="true"></i>{{vid.video}}
+									</span>
+								</h5>
+								<h5 class="video-time">
+									<span>{{vid.time}}</span>
+								</h5>
+								<h5 class="video-views">
+									<span>{{vid.views}}<i class="fa fa-eye" aria-hidden="true"></i></span>
+								</h5>
+								<h5 class="video-songs">
+									<a title="{{vid.songsString}}" (click)="openVideo(show.id, video.playlistId, vid.id)">{{vid.songsString}}</a>
+								</h5>
+							</ks-swiper-slide>  
+						</ks-swiper-container>
+					</div>
+				</template>  
+			</ngb-panel>  
+		</ngb-accordion>
+	</div> 
+</div>	
+
+<!--<uib-pagination
+  total-items="totalItems"
+  [(ngModel)]="currentPage"
+  max-size="maxSize"
+  items-per-page="itemsPerPage"
+  class="pagination-md artist-shows-pagination"
+  (ngModelChange)="pageChange(currentPage)"
+  boundary-links="true"
+  rotate="false">
+</uib-pagination>-->

@@ -1,0 +1,28 @@
+<div class="row">
+	<div class="row merch-search-options">
+		<div class="col-sm-6 col-xs-12">
+			<div class="col-sm-8 col-sm-offset-3">
+				<img class="merch-details" id="merch-pic" [src]="selectedMerch.pic">
+			</div>
+		</div>
+		<div class="col-sm-6 col-xs-12">
+			<div class="col-sm-8 col-sm-offset-3">
+				<h4 class="merch-details" id="merch-name">{{selectedMerch.name}}</h4>
+				<h4 class="merch-details" id="merch-price">{{selectedMerch.price | currency}}</h4>
+				<div class="merch-details" id="merch-size">
+					<h4 id="merch-size-label">Size: </h4>
+					<select class="form-control merch-sort" placeholder="Best Match" [(ngModel)]="merchPurchaseDetails.size">
+            <option *ngFor="let choice of merchSize.split(',')"></option>
+			    </select>
+			  </div>    
+				<div class="merch-details" id="merch-quantity">
+					<h4 id="merch-quantity-label">Quantity: </h4>
+					<select class="form-control merch-sort" placeholder="Best Match" [(ngModel)]="merchPurchaseDetails.quantity">
+            <option *ngFor="let choice of merchQuantity.split(',')"></option>
+		      </select>
+		    </div>    
+				<button id="merch-buy-btn" class="btn btn-default" (click)="openLink(selectedMerch.url)">Buy</button>
+			</div>
+		</div>
+	</div>	
+</div>

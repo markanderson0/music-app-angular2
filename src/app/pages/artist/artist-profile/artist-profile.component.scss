@@ -1,0 +1,339 @@
+@import '../../../../style/mixins.scss';
+@import '../../../../style/variables.scss';
+
+@media (min-width: 769px){
+  .artist-sub-div{
+    width: 95%;
+    margin-left: 2.5%;
+  }
+
+  .artist-sub-label{
+    font-size: 30px;
+    font-weight: 400;
+    margin-bottom: 20px;
+    line-height: 25px;
+  }
+
+  .artist-sub-link{
+    float: right;
+    margin-top: 5px;
+    font-weight: 700;
+    &:hover{
+      cursor: pointer;
+      color: silver;
+    }
+  }
+
+  .artist-merch-div, .artist-album-div{
+    margin-top: 25px;
+  }
+
+  .artist-table{
+    margin-top: 0px;
+    border-bottom: 1px solid #dddddd;
+  }
+
+  #artist-shows-table{
+    margin-top: -20px;
+  }
+}
+
+@media (max-width: 769px) and (min-width: 480px){
+  .artist-sub-div{
+    width: 100%;
+    margin-left: 0%;
+  }
+
+  .artist-sub-label{
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 30px;
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .artist-sub-link{
+    float: right;
+    margin-top: 5px;
+    font-size: 12px;
+    font-weight: 700;
+    &:hover{
+      cursor: pointer;
+      color: silver;
+    }
+  }
+
+  .artist-merch-div, .artist-album-div{
+    margin-top: 15px;
+  }
+
+  .artist-table{
+    margin-top: 0px;
+    border-bottom: 1px solid #dddddd;
+  }
+
+  #artist-shows-table{
+    margin-top: 0px;
+  }
+}
+
+@media (max-width: 480px) and (min-width: 0px){
+  .artist-sub-div{
+    width: 100%;
+    margin-left: 0%;
+  }
+
+  .artist-sub-label{
+    font-size: 25px;
+    font-weight: 400;
+    line-height: 25px;
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .artist-sub-link{
+    float: right;
+    margin-top: 5px;
+    font-size: 12px;
+    font-weight: 700;
+    &:hover{
+      cursor: pointer;
+      color: silver;
+    }
+  }
+
+  .artist-merch-div, .artist-album-div{
+    margin-top: 15px;
+  }
+
+  .artist-table{
+    margin-top: 0px;
+    border-bottom: 1px solid #dddddd;
+  }
+
+  #artist-shows-table{
+    margin-top: 0px;
+  }
+}
+
+
+//###########--ARTIST TOP VIDEOS--#############
+#top-videos-label{
+  margin-top: -15px;
+}
+
+.video-pic{
+  width: 99%;
+  height: 180px;
+  padding-bottom: 15px;  
+}
+
+#top-video{
+  // width: 92%;
+  // margin-left: 4%;
+  margin-top: 10px;
+  margin-bottom: -30px;
+}
+
+#top-video-tile{
+  margin-bottom: 25px;
+  width: inherit;
+  cursor: pointer;
+  a{
+    cursor: pointer;
+    color: #333;
+    &:hover{
+      color: #555;
+    }
+  }
+}
+
+#top-video-tile span{
+  width: 99%;
+  top: 8.5%;
+  height: 165px;
+  padding: 15px 0px;
+  visibility: hidden;
+  @include video-tile-span();
+  h5{
+    margin-top: 20px;
+    text-align: center;
+  } 
+}
+
+#top-video-tile:hover span{
+  overflow-y:scroll;
+  visibility: visible;
+}
+
+#top-video-time{
+  position: relative;
+  bottom: 61px;
+  width: 100%;
+}
+
+#top-video-time span{
+  padding: 3px;
+  @include video-tile-span();
+}
+
+#top-video-views{
+  position: relative;
+  bottom: 61px;
+  width: inherit;
+}
+
+#top-video-views span{
+  right: 1%;
+  padding: 3px;
+  @include video-tile-span();
+}
+
+#top-video-rating{
+  position: absolute;
+  top: 4.5%;
+  width: 100%;
+}
+
+#top-video-rating span{
+  letter-spacing: 4px;
+  padding: 2px;
+  @include video-tile-span();
+}
+
+#top-video-songs{
+  margin-top: -30px;
+  text-align: left;
+  height: 40px;
+  width: 95%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  a{
+    color: #333;
+    &:hover{
+      color: #555;
+    }
+  }
+}
+
+//###########--ARTIST TICKETS--##############
+#venue-header{
+  border: none;
+}
+
+.venue-data{
+  white-space: pre-line !important;
+  vertical-align: middle !important;
+  // border-bottom: $border;
+}
+
+#date-header{
+  border: none;
+}
+
+.date-data{
+  white-space: pre-line !important;
+  vertical-align: middle !important;
+  // border-bottom: $border;
+}
+
+#ticket-header{
+  border: none;
+  text-align: right;
+  padding-right: 50px;
+}
+
+.ticket-data{
+  text-align: right;
+  margin-bottom: 18px;
+  vertical-align: middle !important;
+  // border-bottom: $border;
+  button{
+    white-space: pre-line !important;
+  }
+}
+
+#city-header{
+  border: none;
+}
+
+.city-data{
+  white-space: pre-line !important;
+  vertical-align: middle !important;
+  // border-bottom: $border;
+}
+
+//###########--ARTIST MERCH--##############
+.artist-merch-price{
+  position: absolute;
+  top: 55%;
+  width: 100%;
+}
+
+.artist-merch-price span{
+  @include tile-span();
+}
+
+.artist-merch-name{
+  word-wrap: break-word;
+  height: 40px;
+  overflow: hidden;
+}
+
+.merch-item-tile{
+	width: 100%;
+	height: 200px;
+	padding-bottom: 5px;
+}
+
+//###########--ARTIST ALBUMS--##############
+
+#artist-album-pic{
+  width: 100%;
+  margin-top: 10px;
+  border: $border;
+}
+
+#artist-album-name{
+  margin-top: 10px;
+}
+
+#artist-album-songs{
+  float: left !important;
+}
+
+//###########--ARTIST SHOWS--##############
+#location-header{
+  border: none;
+}
+
+#artist-venue-header{
+  text-align: left !important;
+  // border-bottom: $border;
+}
+
+.artist-setlist{
+  text-align: center !important;
+  // border-top: $border;
+  // border-bottom: $border;
+  ol{
+    margin: -5px;
+  }
+  li{
+    padding: 5px;
+  }
+}
+
+.artist-shows-pagination{
+  margin-left: 5%;
+}
+
+.setlist-data{
+  // border-bottom: $border;
+  vertical-align: middle !important;
+  cursor: pointer;
+}

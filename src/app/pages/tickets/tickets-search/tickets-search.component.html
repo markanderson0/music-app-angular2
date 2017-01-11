@@ -1,0 +1,60 @@
+<!-- SEARCH RESULTS -->
+<div class="row" id="tickets-search-options">
+  <div class="col-sm-6">
+		<h3 class="search-label">{{artist}} Tickets</h3>
+	</div>
+	<div class="col-sm-6">
+		<div id="tickets-search-displays">
+			<button id="open-list" class="btn btn-default" (click)="openList()">List View</button>
+			<button id="open-map" class="btn btn-default" (click)="openMap()">Map View</button>
+  	</div>	
+	</div>
+</div>	
+<!-- LIST VIEW -->
+<div id="search-table" *ngIf="showList">
+	<div class="table-responsive">
+		<table class="table table-hover">
+			<tr class="table-header">
+				<th id="artist-header">Artist</th>
+				<th id="date-header">Date</th>
+				<th id="venue-header">Venue</th>
+				<th id="ticket-header">Tickets</th>
+			</tr>
+			<tr class="table-data" *ngFor="let ticket of tickets">
+				<td id="name-data">{{ticket.name}}</td>
+				<td id="date-data">{{ticket.date}}</td>
+				<td id="venue-data">{{ticket.venue }} <br>{{ticket.city}}, {{ticket.state}} {{ticket.country}}</td>
+				<td id="ticket-data"><button class="btn btn-default" (click)="openLink(ticket.url)">Get Tickets</button></td>
+			</tr>
+		</table>		 
+	</div>
+</div>
+<!-- MAP VIEW -->
+<div id="search-table" *ngIf="showMap">
+	<sebm-google-map 
+		[latitude]="lat"
+		[longitude]="lng"
+		[zoom]="zoom"
+		[disableDefaultUI]="false"
+		[zoomControl]="true">
+	
+		<sebm-google-map-marker 
+			*ngFor="let mymarker of markers"
+			[latitude]="mymarker.lat"
+			[longitude]="mymarker.lng"
+			[markerDraggable]="false">
+				
+			<sebm-google-map-info-window>
+				<div *ngFor="let m of mymarker.marker; let i = index">
+					<span class="map-font-weight">{{m.name}}</span><br> 
+					<span class="map-font-weight">{{m.date}}</span><br>
+					<span class="map-font-weight">{{m.venue}}</span><br> 
+					<button class='btn btn-default' (click)="openLink(m.url)">Get Tickets</button>
+					<div *ngIf="i + 1 !== mymarker.marker.length" class="bottom-border"></div><br>
+				</div>
+			</sebm-google-map-info-window>
+			
+		</sebm-google-map-marker>
+		
+	</sebm-google-map>
+</div>

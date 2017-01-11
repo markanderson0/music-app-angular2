@@ -1,0 +1,15 @@
+<right-sidebar>
+  <video-sidebar></video-sidebar>
+</right-sidebar>
+
+<panel>
+  <div class="row row-container banner-container">
+    <img id="artist-banner-pic" [src]="bannerPic">    
+    <h3 class="artist-header heading-label" id="crowd-label">
+      <span (click)="openArtistProfile()">{{artistName}}</span>
+    </h3>
+  </div>
+  <player></player>
+  <video-tabs></video-tabs>
+</panel>  
+ 

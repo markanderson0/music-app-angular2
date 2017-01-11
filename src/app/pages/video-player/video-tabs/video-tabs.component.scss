@@ -1,0 +1,42 @@
+#tab-playlist-playing{
+  margin-bottom: 5px;
+  width: inherit;
+}
+
+#tab-playlist-playing span{
+  position: absolute;
+  width: 100%;
+  height: 170px;
+  margin-top: -185px;
+  padding: 65px 0px;
+  color: black;
+  background: rgb(255, 255, 255);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+#tab-playlist-playing span h5{
+  margin-top: 10px;
+  text-align: center;
+  font-weight: 700;
+}
+
+@media (min-width: 769px){
+  #tab-videos{
+    width: 92%;
+    margin-left: 4%;
+  }
+}
+
+@media (max-width: 769px) and (min-width: 480px){
+  #tab-videos{
+    width: 83%;
+    margin-left: 8%;
+  }
+}
+
+@media (max-width: 480px) and (min-width: 0px){
+  #tab-videos{
+    width: 83%;
+    margin-left: 8%;
+  }
+}

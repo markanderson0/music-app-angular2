@@ -1,0 +1,52 @@
+<right-sidebar>
+</right-sidebar> 
+
+<div class="row row-container">
+	<label id="shows-title-label">Previous Shows</label>
+</div>
+<div class="row row-container">
+	<div id="artist-shows-table">
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<thead>
+					<tr class="table-header">
+						<th id="artist-venue-header">Venue</th>
+						<th id="venue-header">Location</th>
+						<th id="venue-header">Tour</th>
+						<th id="date-header">Date</th>
+						<th id="date-header">Setlist</th>
+					</tr>
+				</thead>
+				<tbody>
+					<template let-shows="$implicit" ngFor [ngForOf]="artistShows" let-i="index">
+						<tr class="table-data" (click)="shows.isCollapsed=!shows.isCollapsed">
+							<td class="venue-data">{{shows.venue}}</td>
+							<td class="city-data">{{shows.city}}, {{shows.state}} {{shows.country}}</td>
+							<td class="city-data">{{shows.tour}}</td>
+							<td id="date-data">{{shows.date}}</td>
+							<td class="setlist-data">Setlist</td>
+						</tr>
+						<tr *ngIf="shows.isCollapsed">
+							<td class="artist-setlist" colspan="5">
+								<ol *ngIf="shows.songs.length > 0">
+									<li *ngFor="let song of shows.songs; trackBy index">{{song}}</li>
+								</ol>
+								<h6 *ngIf="shows.songs.length === 0">No Setlist.</h6>
+							</td>
+						</tr>
+					</template>	
+	      </tbody>  
+			</table>		 
+		</div>
+	</div>
+</div>
+
+<pagination
+	[totalItems]="totalItems" 
+	[(ngModel)]="currentPage" 
+	[maxSize]="maxSize" 
+	class="pagination-md artist-shows-pagination" 
+	[boundaryLinks]="true"
+	[rotate]="false"
+	(pageChanged)="pageChanged($event)">
+</pagination>

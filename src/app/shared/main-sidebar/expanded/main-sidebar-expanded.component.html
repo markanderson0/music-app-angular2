@@ -1,0 +1,57 @@
+<h1 class="logo-text">Title</h1> 
+
+<!--<div class="logged-out" ng-hide="isLoggedIn()">  
+  <signup></signup>
+  <login></login>
+</div> -->
+
+<!-- Profile Menu -->
+<div class="profile-menu" ng-hide="isLoggedIn()" (mouseleave)="showHoverElem=false">
+  <ul class="profile-sidebar-list">
+    <li *ngFor="let itemProfile of profileMenuItems" class="profile-sidebar-list-item with-sub-menu" [ngClass]="{'main-sidebar-item-expanded' : toggleMenu}">
+      <a (mouseenter)="hoverItem($event, itemProfile)" class="profile-sidebar-list-link" (click)="toggleMenu=!toggleMenu">
+        <img class="profile-menu-pic" [src]="itemProfile.picture">
+        <span>Username</span>
+        <b class="fa fa-angle-down"></b>
+      </a>
+
+      <!-- Sub Menu -->
+      <ul class="profile-sidebar-sublist" [ngClass]="{'expanded' : toggleMenu}">
+        <li *ngFor="let subitemProfile of itemProfile.subProfileMenu" [ngClass]="{'with-sub-menu': subitemProfile.subProfileMenu}" class="profile-sidebar-sublist-item">
+          <a (mouseenter)="hoverItem($event, subitemProfile)" (click)="openProfilePage(subitemProfile.state)" class="profile-sidebar-list-link">
+            <i class="{{ subitemProfile.icon }}"></i>
+            <span>{{ subitemProfile.title }}</span>
+          </a>
+        </li>
+        <li class="profile-sidebar-sublist-item">
+          <a (mouseenter)="hoverItem($event, subitemProfile)" class="profile-sidebar-list-link">
+            <i class="fa fa-sign-out"></i>
+            <span> Log Out </span>
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+<!-- Search Bar -->
+<div class="sidebar-search">
+  <div class="input-group">
+    <input type="text" class="form-control" id="search-input" placeholder="Search" [(ngModel)]="searchTerm">
+    <span class="input-group-btn">
+      <button class="btn btn-default" id="search-btn" type="submit" (click)="search()">
+          <i class="fa fa-search" id="search-icon"></i>
+      </button>
+    </span>
+  </div>   
+</div>
+
+<!-- Main Menu -->
+<ul class="main-sidebar-list" (mouseleave)="showHoverElem=false">
+  <li *ngFor="let itemMain of mainMenuItems" class="main-sidebar-list-item" [ngClass]="{'with-sub-menu': itemMain.subMainMenu}">
+    <a (mouseover)="hoverItem($event, itemMain)" (click)="openPage(itemMain.state)" class="main-sidebar-list-link">
+      <i class="{{ itemMain.icon }}"></i><span>{{ itemMain.title }}</span>
+    </a>
+  </li>
+</ul>
+<div class="sidebar-hover-elem" [ngStyle]="{top: hoverElemTop + 'px', height: hoverElemHeight + 'px'}" [ngClass]="{'show-hover-elem': showHoverElem }" [hidden]="!showHoverElem"></div>	

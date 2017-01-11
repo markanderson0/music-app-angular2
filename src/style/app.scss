@@ -1,0 +1,17 @@
+// styles in src/style directory are applied to the whole page
+@import 'accordion.scss';
+@import 'buttons.scss';
+@import 'colorScheme.scss';
+@import 'forms.scss';
+@import 'layout.scss';
+@import 'mixins.scss';
+@import 'notifications.scss';
+@import 'tabs.scss';
+@import 'variables.scss';
+@import 'videos.scss';
+@import '../app/shared/main-sidebar/main-sidebar.component.scss';
+@import '../app/shared/main-sidebar/small-sidebar.scss';
+@import '../app/shared/right-sidebar/right-sidebar.component.scss';
+@import '../app/shared/panel/panel.component.scss';
+@import '../app/shared/account/account.style.scss';
+// @import '../app/pages/profile/settings/settings.component.scss';

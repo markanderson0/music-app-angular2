@@ -1,0 +1,14 @@
+<right-sidebar>
+</right-sidebar>
+
+<panel>
+  <div class="row row-container">
+    <label class="control-label heading-label" id="search-heading">Search / {{query}}</label>
+  </div>
+  <div class="row row-container">
+    <div id="search-tile" class="col-lg-3 col-md-4 col-sm-6 col-xs-12" *ngFor="let artist of results" (click)="openArtistProfile(artist.name)">
+      <img class="browse-event-tile" [src]="artist.image">
+      <h4 class="browse-name"><span>{{artist.name}}</span></h4>
+    </div>				
+  </div>
+</panel>

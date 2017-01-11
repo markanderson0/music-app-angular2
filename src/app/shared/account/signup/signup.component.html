@@ -1,0 +1,95 @@
+<button type="button" class="btn btn-default" id="sign-up-btn" data-toggle="modal" (click)="showChildModal()">Sign Up</button> 
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" (click)="hideChildModal()" aria-label="Close">
+        &times;
+      </button>
+      <h5 class="modal-title">Sign Up using your email address, Facebook or Twitter.</h5>
+    </div>
+    <div class="modal-body">               
+      <form class="form-horizontal" role="form" name="form" [formGroup]="signupForm" novalidate>
+        <div class="form-group">
+          <ul class="social">
+            <li><button type="button" class="btn btn-default" id="fb-btn"><i class="fa fa-facebook-official" aria-hidden="true"></i> Facebook</button></li>
+            <li><button type="button" class="btn btn-default" id="tw-btn"><i class="fa fa-twitter-square" aria-hidden="true"></i> Twitter</button></li>
+          </ul>
+        </div>
+
+        <!-- USERNAME -->
+        <div class="form-group" [ngClass]="{ 'has-error' : !username.valid && submitted}">
+          <input type="text" class="form-control" id="username" placeholder="Username" name="username" formControlName="username" required>
+          <div [hidden]="!submitted">
+            <p *ngIf="username.hasError('required')" class="error-block" id="form-modal">Enter a Username.</p>
+            <p *ngIf="username.hasError('minlength')" class="error-block" id="form-modal">Username is too short.</p>
+            <p *ngIf="username.hasError('maxlength')" class="error-block" id="form-modal">Username is too long.</p>
+          </div>  
+        </div>
+
+        <!-- EMAIL -->
+        <div class="form-group" [ngClass]="{ 'has-error': !email.valid && submitted }">
+          <input type="email" class="form-control" id="email" placeholder="Email" name="email" formControlName="email" required>
+          <div [hidden]="!submitted">
+            <p *ngIf="email.hasError('required')" class="error-block" id="form-modal">Enter an Email.</p>
+            <p *ngIf="email.errors?.email" class="error-block" id="form-modal">Invalid email</p>
+          </div>    
+        </div>
+
+        <!-- PASSWORD -->
+        <div class="form-group" [ngClass]="{ 'has-error' : !password.valid && submitted}">
+          <input type="password" class="form-control" id="password" placeholder="Password" name="password" formControlName="password" required>
+          <div [hidden]="!submitted">
+            <p *ngIf="password.hasError('required')" class="error-block" id="form-modal">Enter a Password.</p>
+            <p *ngIf="password.hasError('minlength')" class="error-block" id="form-modal">Password is too short.</p>
+            <p *ngIf="password.hasError('maxlength')" class="error-block" id="form-modal">Password is too long.</p>
+          </div> 
+        </div>
+
+        <!-- DOB -->
+        <div class="form-group" [ngClass]="{ 'has-error' : !(day.valid && month.valid && year.valid && validDOB) && submitted}">
+          <ul class="uldob" formGroupName="dob">
+            <li><h6 id="doblabel">Date of Birth: </h6></li>
+            <li><input type="number" class="form-control" id="day" placeholder="DD" min="1" max="31" name="day" formControlName="day" required></li>
+            <li><input type="number" class="form-control" id="month" placeholder="MM" min="1" max="12" name="month" formControlName="month" required></li>
+            <li><input type="number" class="form-control" id="year" placeholder="YYYY" min="1900" max="2015" name="year" formControlName="year" required></li>
+          </ul>
+          <div id="modal-form-dob-error" [hidden]="!submitted">
+            <p class="error-block" *ngIf="day.hasError('required') || month.hasError('required') || year.hasError('required')">Enter a DOB.</p>
+            <div *ngIf="!(day.hasError('required') || month.hasError('required') || year.hasError('required'))">
+              <p class="error-block" *ngIf="day.errors?.min || month.errors?.min || year.errors?.min || day.errors?.max || month.errors?.max || year.errors?.max || !validDOB">Invalid Date.</p>
+            </div>  
+          </div> 
+        </div>
+
+        <!-- GENDER -->
+        <div class="form-group" [ngClass]="{ 'has-error' : !gender.valid && submitted}">
+          <div class="gender">
+            <h6 id="genlabel">Gender: </h6>
+            <label class="radio-inline"><input type="radio" name="gender" value="Male" formControlName="gender" required>Male</label>
+            <label class="radio-inline"><input type="radio" name="gender" value="Female" formControlName="gender" required>Female</label>
+          </div>    
+          <p class="error-block" id="modal-form-gender-error" *ngIf="!gender.valid && submitted">Select a Gender.</p>
+        </div>
+
+        <!-- TERMS AND CONDITIONS -->
+        <div class="form-group" [ngClass]="{ 'has-error' : !terms.valid && submitted}">
+          <div class="checkbox" id="terms">
+            <label>
+              <input type="checkbox" name="terms" formControlName="terms" required> Terms and Conditions
+            </label>
+          </div>
+          <div class="modal-form-error" [hidden]="!submitted">
+            <p class="error-block" *ngIf="!terms.value">You must agree to the Terms and Conditions to continue.</p>
+          </div>
+        </div>
+
+        <!-- SUBMIT -->
+        <div class="modal-footer footer" id="signup-footer">
+          <div class="form-group">
+            <button type="submit" class="btn btn-default submit" id="signup-submit" (click)="signup()">Sign Up</button>
+          </div>
+        </div>  
+      </form>                
+    </div>
+  </div>
+</div>  

@@ -1,0 +1,47 @@
+<tabset>
+	<tab heading="Videos" class="playlist-tab">
+		<template></template>
+		<ul id="playlist-list">
+			<div id="autoplay">
+				<h5 id="autoplay-label">AutoPlay</h5>
+				<!--<switch id="autoplay-switch" color="default" [(ngModel)]="switches[4]"></switch>-->
+			</div>	
+			<li *ngFor="let playlist of playlistDetails">
+				<div id="playlist-tile" >
+					<img id="playlist-image" [src]="playlist.image">
+					<span (click)="openVideo(playlist.id)">
+						<h6 id="playlist-songs" *ngFor="let song of playlist.songs; trackBy index">{{song}}</h6>
+					</span>
+				</div>
+				<div id="playlist-playing">
+					<span *ngIf="playlist.id === videoId">
+						<h5>Now Playing</h5>
+					</span>
+				</div>	
+
+				<h6 id="playlist-song-rating">
+					<span>
+						<i class="fa fa-volume-off" aria-hidden="true"></i>{{playlist.audio}} 
+						<i class="fa fa-video-camera" aria-hidden="true"></i>{{playlist.video}}
+					</span>
+				</h6>
+				<h6 id="playlist-video-time">
+					<span>{{playlist.time}}</span>
+				</h6>
+				<h6 id="playlist-video-views">
+					<span>{{ playlist.views }} <i class="fa fa-eye" aria-hidden="true"></i></span>
+				</h6>	
+				<h6 id="playlist-songs-list">{{playlist.songsString}}</h6>			
+			</li> 
+		</ul>
+	</tab>
+
+	<tab heading="Setlist" class="playlist-tab" (select)="getSetlist()">
+		<template></template>
+		<ol id="playlist-tab-setlist">
+			<li *ngFor="let song of setlist; trackBy index">
+				<h5>{{song}}</h5>
+			</li>	
+		</ol>
+	</tab>
+</tabset> 

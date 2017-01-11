@@ -1,0 +1,155 @@
+<div class="row" id="video-options">
+  <div class="col-sm-8 col-xs-12">
+    <!--<ul id="sort-list">-->
+      <!--<span id="sort-letter" *ngFor="let letter of sort"><a>{{letter}}</a></span>-->
+    <!--</ul>-->
+  </div>  
+  <div class="col-sm-4 col-xs-12">
+    <div class="input-group searchbar">
+      <form class="video-search-form" role="form">
+        <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchTerm" name="merchSearch">
+        <span class="input-group-btn">
+          <button class="btn btn-default" id="search-btn" type="submit" (click)="search()">
+            <i class="fa fa-search" id="search-icon"></i>
+          </button>
+        </span>
+      </form>	
+    </div>     
+  </div>
+</div>
+
+<div id="accordion-group" *ngFor="let artist of videos">
+  <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+    <ngb-panel id="profile-videos">
+      <template ngbPanelTitle>
+        <h5 id="accordion-header">{{artist.artistName}}</h5>
+              <!--<i class="pull-right glyphicon" [ngClass]="{'glyphicon-chevron-down': group?.isOpen, 'glyphicon-chevron-right': !group?.isOpen}"></i>-->
+      </template>
+      <template ngbPanelContent >
+        <div *ngFor="let shows of artist.shows">
+        <label class="video-title">{{shows.date}} | {{shows.venue}} | {{shows.location}}</label>
+          <ks-swiper-container [options]="example1SwipeOptions">
+            <ks-swiper-slide *ngFor="let video of shows.videos">
+              <div class="video-tile" (click)="editVideoConfig(video.songs, video.time, video.id)">
+                <img class="video-pic" [src]="video.image">
+                <span (click)="editVideoModal.show()">
+                  <h5 id="edit-video-text">Edit Video</h5>
+                </span>
+              </div>
+              <h5 class="video-rating">
+                <span>
+                  <i class="fa fa-volume-off" aria-hidden="true"></i>{{video.audio}} 
+                  <i class="fa fa-video-camera" aria-hidden="true"></i>{{video.video}}
+                </span>
+              </h5>
+              <h5 class="video-time">
+                <span>{{video.time}}</span>
+              </h5>
+              <h5 class="video-views">
+                <span>{{video.views}}<i class="fa fa-eye" aria-hidden="true"></i></span>
+              </h5>
+              <h5 class="video-songs">
+                <a title="{{video.songsString}}" (click)="openVideo(artist.artist, shows.id, videos.playlistId, video.id)">{{video.songsString}}</a>
+              </h5>
+            </ks-swiper-slide>  
+          </ks-swiper-container>
+        </div>
+      </template>  
+    </ngb-panel>  
+  </ngb-accordion>
+</div>
+
+<!-- EDIT VIDEO MODAL -->
+<div bsModal #editVideoModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" (click)="editVideoModal.hide(); resetValues()" aria-label="Close">
+        &times;
+      </button>
+      <h4 class="modal-title">Edit Video</h4>
+    </div>
+    <div class="modal-body">
+      <div id="edit-video-modal">
+        <button class="btn btn-danger" id="delete-video-btn" (click)="editVideoModal.hide(); confirmDeleteModal.show()">Delete Video</button>
+        <div id="video-cue-points">
+          <label> Add video cue points</label>
+          <table class="table table-hover" id="cue-points-table">
+            <thead>
+              <tr>
+                <th [ngClass]="{ 'invalid-time-header' : noSongSelected }" id="video-song-header">Song</th>
+                <th [ngClass]="{ 'invalid-time-header' : invalidHour }" id="video-time-header">Hour</th>
+                <th [ngClass]="{ 'invalid-time-header' : invalidMinute }" id="video-time-header">Minute</th>
+                <th [ngClass]="{ 'invalid-time-header' : invalidSecond }" id="video-time-header">Second</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td id="video-song">
+                  <select 
+                    [ngClass]="{ 'invalid-time' : noSongSelected}" class="form-control" name="selectedSong"
+                     [(ngModel)]="selectedSong" (ngModelChange)="checkSong()" 
+                    required>
+                    <option></option>
+                    <option id="song" *ngFor="let song of songs; trackBy index" >{{song}}</option>
+                  </select>
+                </td>
+                <td id="video-time">
+                  <input 
+                    type="number" [ngClass]="{ 'invalid-time' : invalidHour }" 
+                    class="form-control" id="hour" 
+                    placeholder="0" min="0" max="4" name="hour" 
+                    [(ngModel)]="hour" (ngModelChange)="checkTime()" 
+                    required>
+                </td>
+                <td id="video-time">
+                  <input 
+                    type="number" [ngClass]="{ 'invalid-time' : invalidMinute }" 
+                    class="form-control" id="minute" 
+                    placeholder="00" min="0" max="59" name="minute" 
+                    [(ngModel)]="minute" (ngModelChange)="checkTime()" 
+                    required>
+                </td>
+                <td id="video-time">
+                  <input 
+                    type="number" [ngClass]="{ 'invalid-time' : invalidSecond }" 
+                    class="form-control" id="second" 
+                    placeholder="00" min="0" max="59" name="second" 
+                    [(ngModel)]="second" (ngModelChange)="checkTime()" 
+                    required> 
+                </td>
+              </tr>
+              <tr>
+                <td><p *ngIf="noSongSelected" class="invalid-time-header">No Song Selected.</p></td> 
+                <td><p *ngIf="invalidHour" id="invalid-time-footer">Invalid.</p></td>
+                <td><p *ngIf="invalidMinute" id="invalid-time-footer">Invalid.</p></td> 
+                <td><p *ngIf="invalidSecond" id="invalid-time-footer">Invalid.</p></td>     
+              </tr>            
+            </tbody> 
+          </table>  
+        </div> 
+        <button *ngIf="!invalidHour && !invalidMinute && !invalidSecond" class="btn btn-default" id="submit-video-btn" (click)="setCuePoints()">Add Cue Point</button>              
+      </div>                  
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM DELETE MODAL -->
+<div bsModal #confirmDeleteModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" (click)="confirmDeleteModal.hide(); editVideoModal.show()" aria-label="Close">
+        &times;
+      </button>
+      <h4 class="modal-title">Confirm Deletion.</h4>
+    </div>
+    <div class="modal-body">               
+      <div>
+        <p id="delete-confirm-message">Are you sure you want to delete this video?</p>
+        <ul id="delete-options">
+          <li><button type="button" class="btn btn-default" (click)="confirmDeleteModal.hide(); confirmDeleteMessage()">Yes</button></li>
+          <li><button type="button" class="btn btn-default" (click)="confirmDeleteModal.hide(); editVideoModal.show()">Cancel</button></li>
+        </ul>
+      </div>            
+    </div>
+  </div>
+</div>  

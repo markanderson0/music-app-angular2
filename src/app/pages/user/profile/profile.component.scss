@@ -1,0 +1,129 @@
+@import '../../../../style/colorScheme.scss';
+@import '../../../../style/variables.scss';
+@import '../../../../style/mixins.scss';
+
+.profile-tab{
+	// width: 33.3%;
+	// text-align: center;
+}
+
+#video-options{
+  margin-bottom: 10px;
+}
+
+.profile-header span{
+  background-color: $span-background;
+}
+
+@media (min-width: 768px){
+  #profile-pic{
+    border: $border;
+    position: relative;
+    top: -110px;
+    left: 10px;
+    width: 100px;
+    height: 100px;
+  }
+
+  .profile-header{
+    display: inline;
+    position: relative;
+    top: -80px;
+    left: 20px;
+  }
+
+  #profile-videos{
+    // width: 90%;
+    // margin-left: 5%;
+    margin-top: 10px;
+  }
+
+  .panel-title {
+    font-weight: $font-normal;
+    font-size: 30px;
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 768px) and (min-width: 480px){
+  #profile-pic{
+    border: $border;
+    position: relative;
+    top: -85px;
+    left: 10px;
+    width: 75px;
+    height: 75px;
+  }
+
+  .profile-header{
+    display: inline;
+    position: relative;
+    top: -62px;
+    left: 20px;
+  }
+
+  #profile-videos{
+    width: 90%;
+    margin-left: 6%;
+    margin-top: 10px;
+  }
+
+  .panel-title {
+    font-weight: $font-normal;
+    font-size: 30px;
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 480px) and (min-width: 0px){
+  #profile-pic{
+    border: $border;
+    position: relative;
+    top: -140px;
+    left: 2px;
+    width: 50px;
+    height: 50px;
+  }
+
+  .profile-header{
+    display: inline;
+    position: relative;
+    top: -45px;
+    left: -52px;
+  }
+
+  #profile-videos{
+    width: 90%;
+    margin-left: 5%;
+    margin-top: 10px;
+  }
+
+  .panel-title {
+    font-weight: $font-normal;
+    font-size: 20px;
+    overflow: hidden;
+  }
+
+  #favourite-videos{
+    width: 100%;
+  }
+}
+
+.swiper-slides{
+  width: 95%;
+  margin-left: 10%;
+}
+
+#sort-list{
+  list-style-type: none;
+  display: inline;
+}
+
+#sort-letter{
+  display: inline;
+  margin-left: 15px;
+  cursor: pointer;
+  a{
+    color: #333;
+  }
+}

@@ -1,0 +1,24 @@
+<!-- TITLE -->
+<div class="col-sm-12 top-events-label">
+	<h2>Top {{category}} Events</h2>
+</div>
+<!-- PICTURES -->
+<div class="top-events">
+	<div class="col-md-3 col-sm-6 col-xs-6 image" *ngFor="let topEvent of topEvents" (click)="openArtistTickets(topEvent.name)">
+		<img class="event-tile" [src]="topEvent.image">
+		<h4 class="event-name"><span>{{topEvent.name}}</span></h4>
+	</div>	
+</div>	
+<!-- TABLE -->
+<div id="cat-table">
+	<div class="table-responsive">
+		<table class="table table-hover">
+			<tr class="table-data" *ngFor="let artist of eventArtists">
+				<td id="ticket-cat-artist">{{artist.name}}</td>		
+				<td id="ticket-cat-artist"></td>
+				<td id="ticket-cat-find"><button class="btn btn-default" (click)="openArtistTickets(artist.name)">Find Tickets</button></td>
+			</tr>
+		</table>		 
+	</div>
+</div>
+<button class="btn btn-default" id="load-button" (click)="getMoreResults()" *ngIf="loadMore">Load More Results</button>	

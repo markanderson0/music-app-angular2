@@ -1,0 +1,74 @@
+<ul class="small-sidebar-list">
+
+  <li placement="right" ngbTooltip="Home" class="small-sidebar-list-item" (mouseenter)="lPop.close()">
+    <a (click)="openPage(itemMain.state)" class="small-sidebar-list-link" id="logo-link">
+      <h1 id="logo-letter"> C </h1>
+    </a>
+  </li>
+
+  <!-- Profile Menu -->
+  <li ng-hide="isLoggedIn()" class="small-sidebar-list-item with-sub-menu" *ngFor="let itemProfile of profileMenuItems" [ngClass]="{'main-sidebar-item-expanded' : toggleMenu}">
+    <a (mouseenter)="hoverItem($event, itemProfile)" class="small-sidebar-list-link" (click)="toggleMenu=!toggleMenu">
+      <img class="small-profile-menu-pic" [src]="itemProfile.picture">
+      <b class="fa fa-angle-down"></b>
+    </a>
+
+    <!-- Sub Menu -->
+    <ul class="small-sidebar-sublist" [ngClass]="{'expanded' : toggleMenu}">
+      <li *ngFor="let subitemProfile of itemProfile.subProfileMenu" [ngClass]="{'with-sub-menu': subitemProfile.subProfileMenu}" class="small-sidebar-sublist-item" placement="right" ngbTooltip="{{ subitemProfile.title }}">  
+        <a class="small-sidebar-list-link subitem-submenu-link" (mouseenter)="hoverItem($event, subitemProfile)" (click)="openProfilePage(subitemProfile.state)">
+          <i class="{{ subitemProfile.icon }}"></i>
+        </a>
+      </li>
+      <li class="small-sidebar-sublist-item" placement="right" ngbTooltip="Log Out">
+        <a (mouseenter)="hoverItem($event, subitemProfile)" class="small-sidebar-list-link" (click)="logout()">
+          <i class="fa fa-sign-out"></i>
+        </a>
+      </li>
+    </ul>
+  </li>
+
+  <template #loginPopover>
+    <div class="small-logged-out">
+      <signup></signup>
+      <login></login>
+    </div>
+  </template>
+  <li ng-hide="isLoggedIn()" [ngbPopover]="loginPopover" placement="right" #lPop="ngbPopover" triggers="manual" (click)="lPop.open()" 
+      ngbTooltip="Sign Up/Log In" placement="right" #lTool="ngbTooltip" triggers="manual" (mouseenter)="lTool.open()" (mouseleave)="lTool.close()" (click)="lTool.close()" 
+      (mouseenter)="sPop.close()" class="small-sidebar-list-item">
+    <a (mouseenter)="hoverItem($event, itemMain)" class="small-sidebar-list-link">
+      <i class="fa fa-user"></i>
+    </a> 
+  </li>
+
+  <template #searchPopover>
+    <div class="small-sidebar-search" (mouseleave)="sPop.close()">
+      <div class="input-group">
+        <input type="text" class="form-control" id="search-input" placeholder="Search" [(ngModel)]="searchTerm">
+        <span class="input-group-btn">
+          <button class="btn btn-default" id="search-btn" type="submit" (click)="search()">
+            <i class="fa fa-search" id="search-icon"></i>
+          </button>
+        </span>
+      </div>     
+    </div>
+  </template>
+  <li [ngbPopover]="searchPopover" placement="right" #sPop="ngbPopover" triggers="manual" (click)="sPop.open()" 
+      ngbTooltip="Search" placement="right" #sTool="ngbTooltip" triggers="manual" (mouseenter)="sTool.open()" (mouseleave)="sTool.close()" (click)="sTool.close()"
+      (mouseenter)="lPop.close()" class="small-sidebar-list-item">
+    <a (mouseenter)="hoverItem($event, itemMain)" class="small-sidebar-list-link">
+      <i class="fa fa-search" id="search-icon"></i>
+    </a> 
+  </li>
+
+  <!-- Main Menu -->
+  <li placement="right" ngbTooltip="{{ itemMain.title }}" *ngFor="let itemMain of mainMenuItems" class="small-sidebar-list-item" (mouseenter)="sPop.close()">      
+    <a (mouseenter)="hoverItem($event, itemMain)" (click)="openPage(itemMain.state)" class="small-sidebar-list-link">
+      <i class="{{ itemMain.icon }}"></i>
+    </a>
+  </li>
+</ul>
+
+<div class="small-sidebar-hover-elem" [ngStyle]="{top: hoverElemTop + 'px', height: hoverElemHeight + 'px'}" [ngClass]="{'show-hover-elem': showHoverElem }" [hidden]="!showHoverElem"></div>
+  
