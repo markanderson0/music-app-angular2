@@ -24,8 +24,7 @@ Artist Profile
 **Note**: All data for top videos is stored locally. Tickets data is loaded via the TicketMaster API. Merch data is loaded via the EBay API. Previous shows data is loaded via the setlist.fm API.
 Albums data is loaded via the Spotify API.
 
-<img src="screenshots/artist/artistProfile1.jpg" width="49%" />
-<img src="screenshots/artist/artistProfile2.jpg" width="49%" />
+<img src="screenshots/artist/artistProfile1.jpg" width="49%" /> <img src="screenshots/artist/artistProfile2.jpg" width="49%" />
 
 Artist Videos
 -
@@ -33,8 +32,7 @@ Artist Videos
 
 **Note**: Data for videos is stored locally.
 
-<img src="screenshots/artist/artistVideosCollapsed.jpg" width="49%" />
-<img src="screenshots/artist/artistVideosExpanded.jpg" width="49%" />
+<img src="screenshots/artist/artistVideosCollapsed.jpg" width="49%" /> <img src="screenshots/artist/artistVideosExpanded.jpg" width="49%" />
 
 Artist Previous Shows
 -
@@ -43,8 +41,7 @@ Artist Previous Shows
 
 **Note**: All data for previous shows and setlists is loaded via the setlist.fm API.
 
-<img src="screenshots/artist/artistShows.jpg" width="49%" />
-<img src="screenshots/artist/artistShowsSetlist.jpg" width="49%" />
+<img src="screenshots/artist/artistShows.jpg" width="49%" /> <img src="screenshots/artist/artistShowsSetlist.jpg" width="49%" />
 
 Artist Albums
 -
@@ -63,8 +60,7 @@ Video Player
 **Note**: All data for videos is stored locally. Tickets data is loaded via the TicketMaster API. Merch data is loaded via the EBay API. Previous shows data is loaded via the setlist.fm API.
 Albums data is loaded via the Spotify API.
 
-<img src="screenshots/videoPlayer/video1.jpg" width="49%" />
-<img src="screenshots/videoPlayer/video1Setlist.jpg" width="49%" />
+<img src="screenshots/videoPlayer/video1.jpg" width="49%" /> <img src="screenshots/videoPlayer/video1Setlist.jpg" width="49%" />
 <img src="screenshots/videoPlayer/video2VideosTab.jpg" width="49%" />
 <img src="screenshots/videoPlayer/video2TicketsTab.jpg" width="49%" />
 <img src="screenshots/videoPlayer/video2MerchTab.jpg" width="49%" />
@@ -78,8 +74,7 @@ Browse
 
 **Note**: Data for the genre and artist tiles are stored locally.
 
-<img src="screenshots/browse/browseNavigation.jpg" width="49%" />
-<img src="screenshots/browse/browseGenre.jpg" width="49%" />
+<img src="screenshots/browse/browseNavigation.jpg" width="49%" /> <img src="screenshots/browse/browseGenre.jpg" width="49%" />
 
 Tickets
 -
@@ -89,8 +84,7 @@ Tickets
 
 **Note**: Data for the top tickets is stored locally and all other ticket data is loaded from the TicketMaster API.
 
-<img src="screenshots/tickets/topTickets.jpg" width="49%" />
-<img src="screenshots/tickets/genreTickets.jpg" width="49%" />
+<img src="screenshots/tickets/topTickets.jpg" width="49%" /> <img src="screenshots/tickets/genreTickets.jpg" width="49%" />
 <img src="screenshots/tickets/artistTicketsList.jpg" width="49%" />
 <img src="screenshots/tickets/artistTicketsMap.jpg" width="49%" />
 
@@ -104,8 +98,7 @@ Merch
 
 **Note**: All data for merch is loaded via the EBay API.
 
-<img src="screenshots/merch/merchCategory.jpg" width="49%" />
-<img src="screenshots/merch/merchProduct.jpg" width="49%" />
+<img src="screenshots/merch/merchCategory.jpg" width="49%" /> <img src="screenshots/merch/merchProduct.jpg" width="49%" />
 
 Search
 -
@@ -122,8 +115,7 @@ User Profile
 
 **Note**: All data for videos, following and favourites is stored locally.
 
-<img src="screenshots/user/profile/profileVideos.jpg" width="49%" />
-<img src="screenshots/user/profile/profileVideosExpanded.jpg" width="49%" />
+<img src="screenshots/user/profile/profileVideos.jpg" width="49%" /> <img src="screenshots/user/profile/profileVideosExpanded.jpg" width="49%" />
 <img src="screenshots/user/profile/profileFollowing.jpg" width="49%" />
 <img width="49%" />
 <img src="screenshots/user/profile/profileFavourites.jpg" width="49%" />
@@ -152,8 +144,7 @@ Upload
 
 **Note**: All data for by My Uploads is stored locally. The delete video and cue points arent currently functional and are only for show. Data for uploading a video is loaded from the setlist.fm API.
 
-<img src="screenshots/user/upload/upload.jpg" width="49%" />
-<img src="screenshots/user/upload/uploadComplete.jpg" width="49%" />
+<img src="screenshots/user/upload/upload.jpg" width="49%" /> <img src="screenshots/user/upload/uploadComplete.jpg" width="49%" />
 <img src="screenshots/user/upload/uploadConfirm.jpg" width="49%" />
 <img src="screenshots/user/upload/uploadingVideo.jpg" width="49%" />
 <img src="screenshots/user/upload/myUploads.jpg" width="49%" />
@@ -167,8 +158,7 @@ Settings
 
 **Note**: The Login/Logout and Signup features arent currently functional and are only for show.
 
-<img src="screenshots/user/settings/editProfile.jpg" width="49%" />
-<img src="screenshots/user/settings/changePassword.jpg" width="49%" />
+<img src="screenshots/user/settings/editProfile.jpg" width="49%" /> <img src="screenshots/user/settings/changePassword.jpg" width="49%" />
 <img src="screenshots/user/settings/privacy.jpg" width="49%" />
 <img src="screenshots/user/settings/emailNotifications.jpg" width="49%" />
 
