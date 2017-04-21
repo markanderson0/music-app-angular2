@@ -51,6 +51,12 @@ export class ArtistVideosService {
     };
   }
 
+  /**
+   * Retrieve an artists videos from local storage.
+   * 
+   * @param artistName: an artists name
+   * @return list of an artists videos
+   */
   getVideos(artistName): Observable<any[]> {
     this.artistName = artistName;
     return this.http.get(this.videosUrl)
@@ -60,6 +66,13 @@ export class ArtistVideosService {
     .catch(this.handleError);
   }
 
+  /**
+   * Filter the results to only contain one artists videos.
+   * 
+   * @param videos: a list of videos from local storage
+   * @param artistName: an artists name
+   * @return list of an artists videos
+   */
   getShows(videos, artistName) {
     for (let i = 0; i < videos.length; i++) {
       if (videos[i].artist === artistName) {

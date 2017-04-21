@@ -16,6 +16,13 @@ export class PlayerService {
 
   constructor(private http: Http) { }
 
+  /**
+   * Retrieves the details of a show from local storage.
+   * 
+   * @param showId: id of the show
+   * @param artistName: name of the artist
+   * @return a list containing a shows date, venue, location, and videos
+   */
   getShowDetails(showId, artistName): Observable<any[]> {
     this.showId = showId;
     this.artistName = artistName;
@@ -26,6 +33,14 @@ export class PlayerService {
     .catch(this.handleError);
   }
 
+  /**
+   * Extracts the date, venue, location, and videos for a particular show.
+   * 
+   * @param videos: a list of videos
+   * @param showId: a shows id
+   * @param artistName: an artists name
+   * @return a list containing a shows date, venue, location, and videos
+   */
   extractShowDetails(videos, showId, artistName) {
     let showDetails = [];
     for (let i = 0; i < videos.length; i++) {
@@ -44,6 +59,16 @@ export class PlayerService {
     }
   }
 
+  /**
+   * Retrieves the details of a video from local storage.
+   * 
+   * @param playlistId: a playlists id
+   * @param showId: a shows id
+   * @param videoId: a videos id
+   * @param artistName: an artists name
+   * @return a list containing the audio and video ratings, views, time,
+   * songs, and file for the selected video
+   */
   getVideoDetails(playlistId, showId, videoId, artistName): Observable<any[]> {
     this.playlistId = playlistId;
     this.showId = showId;
@@ -56,6 +81,18 @@ export class PlayerService {
     .catch(this.handleError);
   }
 
+  /**
+   * Extracts the audio and video ratings, views, time, songs, and file 
+   * for the selected video.
+   * 
+   * @param videos: a list of videos
+   * @param playlistId: a playlists id
+   * @param showId: a shows id
+   * @param videoId: a videos id
+   * @param artistName: an artists name
+   * @return a list containing the audio and video ratings, views, time,
+   * songs, and file for the selected video
+   */
   extractVideoDetails(videos, playlistId, showId, videoId, artistName) {
     let videoDetails = [];
     for (let i = 0; i < videos.length; i++) {

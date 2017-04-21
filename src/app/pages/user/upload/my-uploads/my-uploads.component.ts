@@ -37,14 +37,17 @@ export class MyUploadsComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private myUpladsService: MyUploadsService,
+    private myUploadsService: MyUploadsService,
     public toastr: ToastsManager
     ) {
-    this.example1SwipeOptions = myUpladsService.getSwipeOptions();
+    this.example1SwipeOptions = myUploadsService.getSwipeOptions();
   }
 
+  /**
+   * Call the myUploadsService the get the videos from local storage.
+   */
   ngOnInit() {
-    this.myUpladsService.getVideos()
+    this.myUploadsService.getVideos()
       .subscribe(videos => {
         this.videos = videos;
       },
@@ -53,50 +56,70 @@ export class MyUploadsComponent implements OnInit {
       });
   }
 
+  /**
+   * Assigns the songs, time and id of the video to variables in the
+   * component and the myUploadsService to be displayed in the edit 
+   * video modal.
+   * 
+   * @param songs: list of songs in the video
+   * @param time: length of the video
+   * @param videoId: id of the video
+   */
   editVideoConfig(songs, time, videoId) {
     this.songs = songs;
     this.time = time;
     this.videoId = videoId;
-    this.myUpladsService.editVideoConfig(songs, videoId);
+    this.myUploadsService.editVideoConfig(songs, videoId);
   }
 
+  /**
+   * Check that a song has been selected.
+   */
   checkSong() {
     if (this.selectedSong === '') {
       this.noSongSelected = true;
-    }
-    else {
+    } else {
       this.noSongSelected = false;
     }
   }
 
+  /**
+   * Check the a valid time chas been entered for a videos cue point.
+   */
   checkTime() {
     if (this.hour === undefined || this.hour > this.videoHour) {
       this.invalidHour = true;
-    }
-    else {
+    } else {
       this.invalidHour = false;
     }
     if (this.minute === undefined || this.minute > 59 ||
        (this.hour === this.videoHour && this.minute > this.videoMinute)) {
       this.invalidMinute = true;
-    }
-    else {
+    } else {
       this.invalidMinute = false;
     }
     if (this.second === undefined || this.second > 59 ||
        (this.minute === this.videoMinute && this.second > this.videoSecond)) {
       this.invalidSecond = true;
-    }
-    else {
+    } else {
       this.invalidSecond = false;
     }
   }
 
+  /**
+   * Resets the cue point values and shows a message to demonstrate
+   * that the video has been deleted.
+   */
   confirmDeleteMessage() {
     this.resetValues();
     this.toastr.error('The video has been deleted');
   }
 
+  /**
+   * If a song has been selected, shows a message to demonstrate
+   * that a cue point has been added and the values are reset for
+   * demonstration purposes.
+   */
   setCuePoints() {
     this.submitted = true;
     this.checkSong();
@@ -106,10 +129,16 @@ export class MyUploadsComponent implements OnInit {
     }
   }
 
+  /**
+   * Show a message to demonstrate that a cue point has been added.
+   */
   confirmCuePointMessage(song) {
     this.toastr.success('Cue point has been added to ' + song + '.');
   }
 
+  /**
+   * Resets all cue point releated values.
+   */
   resetValues() {
     this.hour = 0;
     this.minute = 0;

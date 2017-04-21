@@ -11,6 +11,10 @@ export class FollowingService {
 
   constructor(private http: Http) { }
 
+  /**
+   * Retrieves a list of artists containing their name and picture
+   * from local storage.
+   */
   getFollowingArtists(): Observable<any[]> {
     return this.http.get(this.followingUrl)
                     .map(this.extractData)

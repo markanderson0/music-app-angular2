@@ -27,12 +27,16 @@ export class TicketsSearchComponent implements OnInit {
     private ticketsSearchService: TicketsSearchService
   ) { }
 
+  /**
+   * Retrieves the name of the artist or the search query from the route
+   * and calls the ticketsSearchService to get a list of tickets that
+   * match the request.
+   */
   ngOnInit() {
     this.route.params.forEach((params: Params) => {
       if (params.hasOwnProperty('artist')) {
         this.artist = params['artist'];
-      }
-      else {
+      } else {
         this.artist = params['query'];
       }
       this.ticketsSearchService
@@ -44,16 +48,26 @@ export class TicketsSearchComponent implements OnInit {
     });
   }
 
+  /**
+   * Shows a map with the locations of available tickets.
+   */
   openMap() {
     this.showList = false;
     this.showMap = true;
   }
 
+  /**
+   * Shows a list of the available tickets.
+   */
   openList() {
     this.showList = true;
     this.showMap = false;
   }
 
+  /**
+   * Sets the markers on the map to show the locations of the
+   * available ticekts.
+   */
   setMarkers() {
     this.markers = [];
     for (let i = 0; i < this.tickets.length; i++) {
@@ -65,8 +79,7 @@ export class TicketsSearchComponent implements OnInit {
           venue: this.tickets[i].venue,
           url: this.tickets[i].url
         });
-      }
-      else {
+      } else {
         this.marker.push({
           name: this.tickets[i].name,
           date: this.tickets[i].date,
@@ -76,7 +89,6 @@ export class TicketsSearchComponent implements OnInit {
         this.markers.push({marker: this.marker, lat: parseFloat(this.tickets[i].lat), lng: parseFloat(this.tickets[i].lng)});
       }
     }
-    console.log('Markers: ' + this.markers);
   }
 
   openArtistTickets(artist: string) {

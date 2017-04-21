@@ -29,6 +29,10 @@ export class VideoSidebarComponent implements OnInit {
     private videoSidebarService: VideoSidebarService
   ) { }
 
+  /**
+   * Retrieve the artistName, playlistId, showId, and videoId from the route then
+   * call the getShowVideos method.
+   */
   ngOnInit() {
     this.route.params.forEach((params: Params) => {
       this.artistName = params['artist'];
@@ -39,6 +43,9 @@ export class VideoSidebarComponent implements OnInit {
     });
    }
 
+  /**
+   * Calls the videoSidebarService to get the date, venue, and location of the video.
+   */
   getShowVideos() {
       this.loadedVideos = true;
       this.videoSidebarService.getVideos(this.playlistId, this.showId, this.artistName)
@@ -50,6 +57,10 @@ export class VideoSidebarComponent implements OnInit {
       });
   }
 
+  /**
+   * Calls the videoSidebarService to get the setlist for the show that the video is
+   * a part of.
+   */
   getSetlist() {
     if (!this.loadedSetlist) {
       this.loadedSetlist = true;

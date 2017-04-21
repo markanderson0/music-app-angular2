@@ -13,6 +13,15 @@ export class BrowseGenreService {
 
   constructor(private http: Http) { }
 
+  /**
+   * Returns a list containing artists names and pictures.
+   * If the same genre is requested as previous, return the
+   * next page of artists for that genre. If the page number
+   * is more than 4 set the 'load more' button to not be displayed.
+   * 
+   * @param genre: the genre of artists to retrieve
+   * @return a list containing artists names and pictures
+   */
   getGenrePlaylist(genre): Observable<any[]> {
     if (this.genre === genre) {
       this.pageNum++;

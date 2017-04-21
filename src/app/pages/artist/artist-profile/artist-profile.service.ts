@@ -49,6 +49,9 @@ export class ArtistProfileService {
     };
   }
 
+  /**
+   * Retrieve an artists top videos from local storage.
+   */
   getVideos(): Observable<any[]> {
     return this.http.get(this.videosUrl)
                     .map(this.extractData)

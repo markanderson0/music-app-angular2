@@ -29,6 +29,15 @@ export class MerchListComponent implements OnInit {
     private merchNavigationService: MerchNavigationService
   ) {  }
 
+  /**
+   * If the route paramaters have the category property, retrieve the 
+   * category from the route then get the category name and id from 
+   * the merchNavigationService. Then the merchListService is used to 
+   * get the the list of merch items for that category.
+   * Otherwise the retrieve the search query from the route and
+   * use the merchListService to get the list of items associated
+   * with the search term.
+   */
   ngOnInit() {
     this.route.params.forEach((params: Params) => {
       this.merch = [];
@@ -43,8 +52,7 @@ export class MerchListComponent implements OnInit {
           this.apparelPage = this.merchListService.apparelPage;
           this.musicPage = this.merchListService.musicPage;
         });
-      }
-      else {
+      } else {
         this.query = params['query'];
         this.merchListService.getMerch(this.query, '11450', 1, 'Best Match', this.merch)
         .then(merch => {
@@ -58,6 +66,45 @@ export class MerchListComponent implements OnInit {
 
    }
 
+  /**
+   * Set the selected merch item in the merchProductService.
+   * 
+   * @param name: name of the merch item
+   * @param url: link to the merch item
+   * @param pic: picture of the merch item
+   * @param price: price of the merch item
+   */
+  setMerchItem(name, url, pic, price) {
+    this.merchProductService.setMerchItem(name, url, pic, price);
+  }
+
+  /**
+   * Load the next group of merch.
+   */
+  getMoreMerch() {
+    this.merchListService.getMoreMerch();
+  }
+
+  /**
+   * Sort the merch items by either 'Best Match',
+   * 'Price Ascending' or 'Price Decending'.
+   */
+  sortResults() {
+    this.merchListService.sortResults(this.merchSort);
+    this.merchSort = this.merchListService.merchSort;
+    this.merch = this.merchListService.merch;
+  }
+
+  /**
+   * Filter the apparel or music pages by wither Men or Women and
+   * Cds or Vinyl respectively.
+   */
+  filterResults(val) {
+    this.merchListService.filterResults(val);
+    this.merchSort = this.merchListService.merchSort;
+    this.merch = this.merchListService.merch;
+  }
+
   search() {
     this.router.navigate(['merch/search', { query: this.searchTerm }]);
   }
@@ -68,30 +115,5 @@ export class MerchListComponent implements OnInit {
 
   openMerchProduct(id: string) {
     this.router.navigate(['merch/product', id]);
-  }
-
-  setMerchItem(name, url, pic, price) {
-    this.merchProductService.setMerchItem(name, url, pic, price);
-  }
-
-  getMoreMerch() {
-    this.merchListService.getMoreMerch();
-  }
-
-  sortResults() {
-    this.merchListService.sortResults(this.merchSort);
-    this.merchSort = this.merchListService.merchSort;
-    this.merch = this.merchListService.merch;
-  }
-
-  filterResults(val) {
-    this.merchListService.filterResults(val);
-    this.merchSort = this.merchListService.merchSort;
-    this.merch = this.merchListService.merch;
-  }
-
-  searchMerch() {
-    this.merchListService.searchMerch();
-    this.merch = this.merchListService.merch;
   }
 }

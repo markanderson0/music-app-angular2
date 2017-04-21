@@ -20,6 +20,10 @@ export class BrowseGenreComponent implements OnInit {
   private browseGenreService: BrowseGenreService
   ) { }
 
+  /**
+   * Retrieve the genre from the route then call the browseGenreService to get
+   * the artists associated with the genre.
+   */
   ngOnInit() {
     this.route.params.forEach((params: Params) => {
       this.genre = params['genre'];
@@ -29,6 +33,9 @@ export class BrowseGenreComponent implements OnInit {
     });
   }
 
+  /**
+   * Load more artists from the selected genre from the browseGenreService.
+   */
   getMoreArtists(val) {
     this.browseGenreService.getGenrePlaylist(this.genre).subscribe(artists => {
       this.loadMoreArtists = this.browseGenreService.loadMoreArtists;

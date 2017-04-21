@@ -23,14 +23,18 @@ export class ArtistAlbumsComponent implements OnInit {
     private artistAlbumsService: ArtistAlbumsService
   ) { }
 
+  /**
+   * Retrieve artists name from the route then use the artist albums service
+   * to get the artists id, then use the id to get the artists album ids
+   * then use those to get the album track.
+   */
   ngOnInit() {
       this.artistAlbums = [];
       this.route.parent.params.forEach((params: Params) => {
         this.artistName = params['artist'];
-        this.artistAlbumsService.getArtistPicture(this.artistName)
-        .subscribe(picAndId => {
-          this.artistPicture = picAndId[0].pic;
-          this.artistId = picAndId[0].id;
+        this.artistAlbumsService.getArtistId(this.artistName)
+        .subscribe(artistId => {
+          this.artistId = artistId;
           this.artistAlbumsService.getArtistAlbums(this.artistId)
           .subscribe(artistAlbums => {
             this.displayAlbums = this.artistAlbumsService.displayAlbums;

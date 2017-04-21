@@ -61,8 +61,7 @@ export class UploadVideoModalComponent implements OnInit {
     if (this.terms) {
       console.log('Valid');
       this.hideUploadVideoModal();
-    }
-    else {
+    } else {
       console.log('Invalid');
     }
   }

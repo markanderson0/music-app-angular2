@@ -26,7 +26,6 @@ export class MainSidebarComponent implements OnInit {
   @HostListener('window: resize')
   public onWindowResize(): void {
     let isSidebarShouldCollapsed = this._shouldSidebarCollapse();
-
     if (this.isSidebarShouldCollapsed !== isSidebarShouldCollapsed) {
       this.sidebarCollapseStateChange(isSidebarShouldCollapsed);
     }
@@ -50,8 +49,7 @@ export class MainSidebarComponent implements OnInit {
     if (window.innerWidth < 1200) {
       this.sidebarCollapse();
       return true;
-    }
-    else {
+    } else {
       this.sidebarExpand();
       return false;
     }

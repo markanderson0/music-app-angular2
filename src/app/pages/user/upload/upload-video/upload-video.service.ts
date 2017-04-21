@@ -24,6 +24,21 @@ export class UploadVideoService {
 
   constructor(private http: Http, private artistShowsService: ArtistShowsService) { }
 
+  /**
+   * Calls the setlist.fm api to get a list of events for an artist during
+   * a given year.
+   * 
+   * If the current page number is less than the total number of pages, the 
+   * page number is incremented, the event data is extracted from the api 
+   * response and the getEvent method is called again with the new page number.
+   * If there are more than one setlist returned from the response (setlist is
+   * an array), then map the response to exract the data from each individual 
+   * setlist. Otherwise extract the data from the single setlist.
+   * 
+   * @param eventYear: the year of the event
+   * @param mbid: the artists MusicBrainz Id
+   * @return a list of events containing its date, venue and id
+   */
   getEvent(eventYear, mbid): Promise<any[]> {
     if (this.eventYear !== eventYear || this.currentArtist !== mbid) {
       this.currentArtist = mbid;
@@ -42,6 +57,7 @@ export class UploadVideoService {
     return this.http.get('http://api.setlist.fm/rest/0.1/search/setlists.json', { search: params })
     .toPromise()
     .then((response: Response) => {
+      // The number of pages is the total number of results / the number of items per page
       this.pages = Math.ceil(parseInt(response.json().setlists['@total'], 0) / parseInt(response.json().setlists['@itemsPerPage'], 0));
       if (this.currentPage <= this.pages) {
         this.currentPage++;
@@ -49,8 +65,7 @@ export class UploadVideoService {
           response.json().setlists.setlist.map(item => {
             this.events.push({date: item['@eventDate'], venue: item.venue['@name'], id: item['@id']});
           });
-        }
-        else {
+        } else {
           let date = response.json().setlists.setlist['@eventDate'];
           let venue = response.json().setlists.setlist.venue['@name'];
           let id = response.json().setlists.setlist['@id'];
@@ -64,6 +79,15 @@ export class UploadVideoService {
     });
   }
 
+  /**
+   * Calls the setlist.fm api to get a list of songs for a specific event.
+   * 
+   * To get the list of songs, the getSetlist method from the artistShowsService 
+   * is called with the response from the api call.
+   * 
+   * @param eventId: the id of the event
+   * @return a list of songs
+   */
   getSongs(eventId): Observable<any[]> {
     let selectedVenue = this.events.find(event => {
       return event.id === eventId;
@@ -71,7 +95,6 @@ export class UploadVideoService {
     let selectedDate = this.events.find(event => {
       return event.id === eventId;
     }).date;
-
     this.selectedEvent = selectedDate + ', ' + selectedVenue;
     this.clearSongs();
     return this.http.get('http://api.setlist.fm/rest/0.1/setlist/' + eventId + '.json')
@@ -81,6 +104,9 @@ export class UploadVideoService {
     });
   }
 
+  /**
+   * Clear song related fields.
+   */
   clearSongs() {
     this.songs = [];
     this.selected = '';
@@ -88,6 +114,12 @@ export class UploadVideoService {
     this.selectedSongs = [];
   }
 
+  /**
+   * Checks each song in the songs list and adds the song to the selectedSongs 
+   * list if the songs selected flag is set to true.
+   * 
+   * @param songs: a list containing a songs id, name, and selected boolean
+   */
   selectSong(songs) {
     songs.forEach((song) => {
       if (song.selected) {
@@ -96,14 +128,25 @@ export class UploadVideoService {
     });
   }
 
+  /**
+   * Sets the songsList to match the one in the component.
+   * 
+   * @param songsList: string of the selected songs
+   */
   setSongsList(songsList) {
     this.songsList = songsList;
   }
 
+  /**
+   * @return an ampty lsit of songs.
+   */
   clearSongsList() {
     return this.songsList = '';
   }
 
+  /**
+   * Toggle the validity of the upload form.
+   */
   setValid(valid: boolean) {
     this.valid = valid;
   }

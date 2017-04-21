@@ -22,6 +22,10 @@ export class MerchProductComponent implements OnInit {
     private merchProductService: MerchProductService
   ) {  }
 
+  /**
+   * Retrieves the merch product id from the route and calls the
+   * merchProductService to get data about the merch product.
+   */
   ngOnInit() {
     this.route.params.forEach((params: Params) => {
       this.id = params['id'];
@@ -32,7 +36,6 @@ export class MerchProductComponent implements OnInit {
         }
       });
     });
-
    }
 
 }

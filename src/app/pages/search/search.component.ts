@@ -19,11 +19,15 @@ export class SearchComponent implements OnInit {
     private searchService: SearchService
   ) { }
 
+  /**
+   * Retrieves the query term from the route and calls the
+   * searchService to get a list of results from the Spotify
+   * search api.
+   */
   ngOnInit() {
     this.route.params.forEach((params: Params) => {
       this.query = params['query'];
-      this.searchService
-      .searchArtists(this.query, '20')
+      this.searchService.searchArtists(this.query, '20')
       .subscribe(results => {
         this.results = results;
       });

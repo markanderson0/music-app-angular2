@@ -56,8 +56,7 @@ export class EditVideoModalComponent implements OnInit {
   checkSong() {
     if (this.selectedSong === '') {
       this.noSongSelected = true;
-    }
-    else {
+    } else {
       this.noSongSelected = false;
     }
   }
@@ -65,20 +64,17 @@ export class EditVideoModalComponent implements OnInit {
   checkTime() {
     if (this.hour === undefined) {
       this.invalidHour = true;
-    }
-    else {
+    } else {
       this.invalidHour = false;
     }
     if (this.minute === undefined) {
       this.invalidMinute = true;
-    }
-    else {
+    } else {
       this.invalidMinute = false;
     }
     if (this.second === undefined) {
       this.invalidSecond = true;
-    }
-    else {
+    } else {
       this.invalidSecond = false;
     }
   }

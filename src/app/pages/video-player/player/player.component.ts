@@ -48,6 +48,10 @@ export class PlayerComponent implements OnInit {
     private playerService: PlayerService
   ) { }
 
+  /**
+   * Retrieve the artistName, playlistId, showId, and videoId from the route,
+   * then call the getShowDetails and getVideoDetails methods.
+   */
   ngOnInit() {
     this.route.params.forEach((params: Params) => {
       this.artistName = params['artist'];
@@ -59,6 +63,10 @@ export class PlayerComponent implements OnInit {
     });
   }
 
+  /**
+   * Calls the playerService to get the date, venue, location, and other
+   * videos from the show.
+   */
   getShowDetails() {
     this.playerService.getShowDetails(this.showId, this.artistName)
     .subscribe(videos => {
@@ -69,6 +77,10 @@ export class PlayerComponent implements OnInit {
     });
   }
 
+  /**
+   * Calls the playerService to get the audio and video ratings, views, time,
+   * songs, and file for the selected video.
+   */
   getVideoDetails() {
     this.playerService.getVideoDetails(this.playlistId, this.showId, this.videoId, this.artistName)
     .subscribe(videoDetails => {

@@ -19,7 +19,14 @@ export class TicketsGenreService {
 
   constructor(private http: Http) { }
 
-  getTickets(genre): Observable<any[]> {
+  /**
+   * Returns a list of containing the names and pictures of the top tickets
+   * for the selected genre.
+   * 
+   * @param genre: name of the genre
+   * @return the top tickets for the genre
+   */
+  getTopTickets(genre): Observable<any[]> {
     return this.http.get(this.ticketsUrl + genre + '.json')
     .map((response: Response) => {
       return response.json().data;
@@ -34,6 +41,21 @@ export class TicketsGenreService {
     return Observable.throw(errMsg);
   }
 
+  /**
+   * Calls the TicketMaster events api to get a list of artists with shows
+   * for the selected genre.
+   * 
+   * If the festival genre has been selected and the name of the result contains
+   * the term 'fest' it can be added to the list of tickets.
+   * 
+   * If the response has no results, set the loadMore boolean to false to hide
+   * the corresponding button so no more results can be requested.
+   * 
+   * @param genreName: name of the genre
+   * @param pageNum: the page number
+   * @param genreItems: list of tickets for the selected genre
+   * @return a list of artists with tickets available for the selected genre
+   */
   getGenreTickets(genreName, pageNum, genreItems): Promise<any[]> {
     this.oldSearch = genreName;
     this.genreItem = genreItems;
@@ -57,9 +79,7 @@ export class TicketsGenreService {
                     if (item.name.toLowerCase().indexOf('fest') > -1) {
                       this.genreItem.push({name: item.name});
                     }
-                  }
-                  else {
-                    console.log('genreItemName: ' + item._embedded.attractions[0].name);
+                  } else {
                     this.genreItem.push({name: item._embedded.attractions[0].name});
                   }
                 }
@@ -67,14 +87,20 @@ export class TicketsGenreService {
             }
           }
         });
-      }
-      else {
+      } else {
         this.loadMore = false;
       }
       return this.genreItem;
     });
   }
 
+  /**
+   * Increments the page number and calls getGenreTicktes to load the next
+   * page of available tickets.
+   * 
+   * @param genreItems: a list of tickets for the selected genre
+   * @return a list of artists with tickets available for the selected genre
+   */
   getMoreResults(genreItems) {
     this.pageNo++;
     return this.getGenreTickets(this.oldSearch, this.pageNo, genreItems);

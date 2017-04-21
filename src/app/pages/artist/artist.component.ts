@@ -19,6 +19,11 @@ export class ArtistComponent implements OnInit {
     private searchService: SearchService
   ) { }
 
+  /**
+   * Retrieve the artists name from the route parameter then use 
+   * the search service to get the artist picture to display as 
+   * the banner picture.
+   */
   ngOnInit() {
     this.route.params.forEach((params: Params) => {
       this.artistName = params['artist'];

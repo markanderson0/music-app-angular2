@@ -11,6 +11,9 @@ export class FavouritesService {
 
   constructor(private http: Http) { }
 
+  /**
+   * Returns a list of the users favourite videos from local storage.
+   */
   getFavourites(): Observable<any[]> {
     return this.http.get(this.favouritesUrl)
                     .map(this.extractData)

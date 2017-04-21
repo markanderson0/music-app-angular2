@@ -18,8 +18,8 @@ export class TicketsSearchService {
   city: string;
   country: string;
   state: string;
-  latitude: number;
-  longitude: number;
+  latitude: number = 1000;
+  longitude: number = 1000;
 
   displayTickets: any[];
   hasTickets: boolean;
@@ -29,6 +29,21 @@ export class TicketsSearchService {
 
   constructor(private http: Http) { }
 
+  /**
+   * Calls the TicketMaster api to get a list of the tickets available for
+   * the search term containing the name of the event, a link to it, its date, 
+   * venue, city, state, country, latitude, and longitude.
+   * 
+   * If the artist is performing more than once at the same location, then the
+   * latitude and longitude of the previous entry in the tickets list is used.
+   * If the venue has no location data, the default, dummy values for latitude 
+   * and longitude are used.
+   * If the ticket is for a tribute act, exclude it.
+   * 
+   * 
+   * @param search: the name of the artist to search
+   * @returns a list of ticktes for the search term
+   */
   searchEvents(search): Observable<any[]> {
     if (this.oldSearch !== search) {
       this.oldSearch = search;
@@ -49,7 +64,6 @@ export class TicketsSearchService {
           this.date = event.dates.start.localDate;
           event._embedded.venues.map(venue => {
             this.getVenueData(venue);
-
             if (this.tickets.length > 0) {
               // If performing multi night shows get location of prev night  
               if (this.tickets[this.tickets.length - 1].venue === venue.name &&
@@ -59,23 +73,14 @@ export class TicketsSearchService {
                 this.latitude = this.tickets[this.tickets.length - 1].lat;
                 this.longitude = this.tickets[this.tickets.length - 1].lng;
               }
-              // If no location given
-              else if (!(venue.hasOwnProperty('location'))) {
-                this.latitude = 1000;
-                this.longitude = 1000;
-              }
-              // If first night or only night
-              else {
+              // If a is location given
+              else if (venue.hasOwnProperty('location')) {
                 this.latitude = venue.location.latitude;
                 this.longitude = venue.location.longitude;
               }
             }
-            // For first element
-            else if (!(venue.hasOwnProperty('location'))) {
-              this.latitude = 1000;
-              this.longitude = 1000;
-            }
-            else {
+            // If the first element has a location
+            else if (venue.hasOwnProperty('location')) {
               this.latitude = venue.location.latitude;
               this.longitude = venue.location.longitude;
             }
@@ -87,14 +92,12 @@ export class TicketsSearchService {
             country: this.country, lat: this.latitude, lng: this.longitude});
           }
         });
-
         // If there are more pages keep going
         if (this.pageNum < response.json().page.totalPages) {
           this.pageNum++;
           this.searchEvents(this.oldSearch);
         }
-      }
-      else {
+      } else {
         this.tickets = [];
       }
       console.log(JSON.stringify(this.tickets));
@@ -102,6 +105,14 @@ export class TicketsSearchService {
     });
   }
 
+  /**
+   * Calls the TicketMaster api to get a list of the tickets available for
+   * the search term containing the name of the event, a link to it, its date, 
+   * venue, city, state, and country.
+   * 
+   * @param search: the name of the artist to search
+   * @returns a list of ticktes for the search term
+   */
   simpleSearchEvents(search): Observable<any[]> {
     this.tickets = [];
     this.pageNum = 0;
@@ -125,8 +136,7 @@ export class TicketsSearchService {
             country: this.country});
           }
         });
-      }
-      else {
+      } else {
         this.tickets = [];
       }
       this.getProfileTickets(this.tickets);
@@ -134,45 +144,53 @@ export class TicketsSearchService {
     });
   }
 
+  /**
+   * Parses the venue field from the api response to get the names 
+   * of the venue, city, state code and country code.
+   * 
+   * @param venue: venue field from the api response
+   */
   getVenueData(venue) {
     if (venue.hasOwnProperty('name')) {
       this.venue = venue.name;
-    }
-    else {
+    } else {
       this.venue = '';
     }
     if (venue.hasOwnProperty('city')) {
       this.city = venue.city.name;
-    }
-    else {
+    } else {
       this.city = '';
     }
     if (venue.hasOwnProperty('country')) {
       this.country = venue.country.countryCode;
-    }
-    else {
+    } else {
       this.country = '';
     }
     if (venue.hasOwnProperty('state')) {
       this.state = venue.state.stateCode;
-    }
-    else {
+    } else {
       this.state = '';
     }
   }
 
-  // For Simple Search
+  /**
+   * Assigns variables for displaying tickets on the artists profile page.
+   * 
+   * If the artist has more than 4 tickets only display the most recent 4
+   * and if the artist has no tickets set the hasTickets boolean to false to 
+   * display that the artist has no tickets available.
+   * 
+   * @param tickets: list of tickets
+   */
   getProfileTickets(tickets) {
     if (this.tickets.length !== 0) {
       if (this.tickets.length > 4) {
         this.displayTickets = tickets.slice(0, 4);
-      }
-      else {
+      } else {
         this.displayTickets = tickets;
       }
       this.hasTickets = true;
-    }
-    else {
+    } else {
       this.hasTickets = false;
     }
   }

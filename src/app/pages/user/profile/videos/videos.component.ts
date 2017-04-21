@@ -26,6 +26,9 @@ export class VideosComponent implements OnInit {
     this.getVideos();
   }
 
+  /**
+   * Call the videosService the get the videos from local storage.
+   */
   getVideos() {
     this.videosService.getVideos()
     .subscribe(videos => {

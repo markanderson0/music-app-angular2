@@ -19,6 +19,12 @@ export class ChangePasswordComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder) { }
 
+  /**
+   * Creates form fields for editing passwords.
+   * Passwords are limited between 6-26 characters in length.
+   * Any time that the new or confirm password changes the matchPasswords method
+   * is called to check whether the 2 passwords match.
+   */
   ngOnInit() {
     this.oldPassword = new  FormControl('', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(26)]));
     this.newPassword = new FormControl('', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(26)]));
@@ -39,11 +45,17 @@ export class ChangePasswordComponent implements OnInit {
     });
   }
 
+  /**
+   * Checks that the new password and the confirm passwords match.
+   * 
+   * @param newPassword: the new password
+   * @param confirmPassword: the new password repeated
+   * @return a boolean confirming that the 2 passwords match
+   */
   private matchPasswords(newPassword, confirmPassword): void {
     if (newPassword.value === confirmPassword.value) {
       this.matching = true;
-    }
-    else {
+    } else {
       this.matching = false;
     }
   }
@@ -52,8 +64,7 @@ export class ChangePasswordComponent implements OnInit {
     this.submitted = true;
     if (this.changePasswordForm.valid) {
       console.log('Valid Form');
-    }
-    else {
+    } else {
       console.log('Invalid Form');
     }
   }

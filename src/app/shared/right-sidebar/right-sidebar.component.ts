@@ -20,8 +20,7 @@ export class RightSidebarComponent implements OnInit {
   public ngOnInit(): void {
     if (this._shouldRightSidebarCollapse()) {
       this.rightSidebarCollapse();
-    }
-    else {
+    } else {
       this.rightSidebarExpand();
     }
   }
@@ -53,8 +52,7 @@ export class RightSidebarComponent implements OnInit {
     if (window.innerWidth < 1200) {
       this.rightSidebarCollapse();
       return true;
-    }
-    else {
+    } else {
       this.rightSidebarExpand();
       return false;
     }

@@ -88,14 +88,14 @@ export class UploadVideoComponent implements OnInit {
       showCheckAll: false,
       buttonClasses: ['btn', 'btn-default']
     };
-
+    // If the artist value changes wait 2 secs & call the artistChange method
     this.artist.valueChanges
     .debounceTime(2000)
     .distinctUntilChanged()
     .subscribe(value => {
       this.artistChange(value);
     });
-
+    // If the year value changes wait 1/2 sec & call the getEvent method
     this.year.valueChanges
     .debounceTime(500)
     .distinctUntilChanged()
@@ -115,10 +115,20 @@ export class UploadVideoComponent implements OnInit {
       previewUrl: true
     };
 
-
     this.uploads = [];
   }
 
+  /**
+   * Calls the artistShowsService to get the name of the artist according to
+   * Spotify, then to get the artists MusicBrainz Id via the setlist.fm api.
+   * 
+   * Any songs have already been selected are cleared when the artists name
+   * changes.
+   * If a year has already been input then the getEvent method is called to
+   * get a list of events.
+   * 
+   * @param artistName: an artists name
+   */
   artistChange(artistName) {
     this.clearSongs();
     this.artistShowsService.getName(artistName)
@@ -134,12 +144,23 @@ export class UploadVideoComponent implements OnInit {
     });
   }
 
+  /**
+   * Calls the uploadVideoService to get a list of events that the selected
+   * artist has played during the selected year.
+   * 
+   * Any songs have already been selected are cleared when the year changes.
+   * If the artists doesnt have an MBID, set the events list to empty and dont
+   * search for events.
+   * If the year field has 4 numbers entered and the artist has an MBID search
+   * for events.
+   * 
+   * @param eventYear: the year of the event
+   */
   getEvent(eventYear) {
     this.clearSongs();
     if (this.mbid === undefined || this.mbid.length === 0) {
       this.events = [];
-    }
-    else {
+    } else {
       if (eventYear !== undefined && eventYear.length === 4) {
         this.eventYear = eventYear;
         this.uploadVideoService.getEvent(eventYear, this.mbid)
@@ -150,16 +171,26 @@ export class UploadVideoComponent implements OnInit {
     }
   }
 
-  getSongs(event) {
-    this.eventDate = this.events.find(even => {
-      return even['id'] === event;
+  /**
+   * Calls the uploadVideoService to get a list of songs for the selected event.
+   * 
+   * The event date and venue is extracted from the list of events by comparing 
+   * the selectedEventId with the event ids in the events list and using the 
+   * respective fields.
+   * Any songs that had been selected will be removed when a new event is selected.
+   * 
+   * @param selectedEventId: id of the selected event
+   */
+  getSongs(selectedEventId) {
+    this.eventDate = this.events.find(event => {
+      return event['id'] === selectedEventId;
     }).date;
-    this.eventVenue = this.events.find(even => {
-      return even['id'] === event;
+    this.eventVenue = this.events.find(event => {
+      return event['id'] === selectedEventId;
     }).venue;
     this.clearSongs();
-    if (event !== undefined) {
-      this.uploadVideoService.getSongs(event)
+    if (selectedEventId !== undefined) {
+      this.uploadVideoService.getSongs(selectedEventId)
       .subscribe(songs => {
         this.dropdownSongs = [];
         songs.forEach((song, index) => {
@@ -169,6 +200,13 @@ export class UploadVideoComponent implements OnInit {
     }
   }
 
+  /**
+   * Updates the uploadVideoService and songsList to match the changes
+   * the user has made about what songs are in the video.
+   * 
+   * @param songs: songs in the setlist
+   * @param songsList: string of the songs that are in the video
+   */
   selectSong(songs, songsList) {
     this.uploadVideoService.selectSong(songs);
     this.songsList = songsList;
@@ -176,6 +214,9 @@ export class UploadVideoComponent implements OnInit {
     this.selectedSong.setValue(songsList);
   }
 
+  /**
+   * Clear all fields with songs.
+   */
   clearSongs() {
     this.dropdownSongs = [];
     this.songs = [];
@@ -185,6 +226,9 @@ export class UploadVideoComponent implements OnInit {
     this.songsList = this.uploadVideoService.clearSongsList();
   }
 
+  /**
+   * Start uploading.
+   */
   handleUpload(data: any): void {
     this.zone.run(() => {
       this.response = data;
@@ -192,32 +236,46 @@ export class UploadVideoComponent implements OnInit {
     });
   }
 
+  /**
+   * Get the name of the selected file.
+   */
   getFileName(data: any): void {
     this.fileName = data.name;
     this.file.setValue(this.fileName);
   }
 
+  /**
+   * Show the confirm cancellation modal.
+   */
   public showConfirmCancelModal(index): void {
     this.confirmCancelModal.show();
     this.cancelIndex = index;
   }
 
+  /**
+   * Close the confirm cancellation modal.
+   */
   public hideConfirmCancelModal(): void {
     this.confirmCancelModal.hide();
   }
 
+  /**
+   * Cancel the upload.
+   */
   cancelUpload(): void {
     this.uploads.splice(this.cancelIndex, 1);
     this.hideConfirmCancelModal();
   }
 
+  /**
+   * Submit a video to be uploaded and show the confirmation modal.
+   */
   public submit(): void {
     this.submitted = true;
     if (this.uploadForm.valid) {
       this.showUploadVideoModal();
       console.log('Valid Form');
-    }
-    else {
+    } else {
       console.log('Invalid Form');
     }
   }
@@ -230,22 +288,34 @@ export class UploadVideoComponent implements OnInit {
     this.hasAnotherDropZoneOver = e;
   }
 
+  /**
+   * Open the confirmation modal.
+   */
   public showUploadVideoModal(): void {
     if (this.uploadVideoService.valid) {
       this.uploadVideoModal.show();
     }
   }
 
+  /**
+   * Close the confirmation modal.
+   */
   public hideUploadVideoModal(): void {
     this.uploadVideoModal.hide();
     this.modalSubmitted = false;
     this.terms = false;
   }
 
+  /**
+   * Toggle the terms boolean when the check box is ticked.
+   */
   setTerms() {
     this.terms = !this.terms;
   }
 
+  /**
+   * Submit the video to be uploaded.
+   */
   public submitVideo(): void {
     this.modalSubmitted = true;
     if (this.terms) {
@@ -265,8 +335,7 @@ export class UploadVideoComponent implements OnInit {
       this.hideUploadVideoModal();
       // start uploading
       this.uploadEvents.emit('startUpload');
-    }
-    else {
+    } else {
       console.log('Invalid');
     }
   }

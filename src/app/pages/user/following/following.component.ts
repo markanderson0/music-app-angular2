@@ -19,6 +19,10 @@ export class FollowingComponent implements OnInit {
     this.getFollowingArtists();
   }
 
+  /**
+   * Calls the followingService to get a list of artists contining their
+   * name and picture.
+   */
   getFollowingArtists() {
     this.followingService.getFollowingArtists()
                      .subscribe(

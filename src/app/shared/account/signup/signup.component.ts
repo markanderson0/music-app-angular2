@@ -34,6 +34,12 @@ export class SignupComponent implements OnInit {
     this.initForm();
   }
 
+  /**
+   * Creates form fields for a user to enter their username, email address,
+   * password, and date of birth.
+   * Any time that the day, month or year fields are changes, the checkDate
+   * method in called to check that the date is valid or not.
+   */
   initForm() {
     this.username = new  FormControl('', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(20)]));
     this.email = new  FormControl('', Validators.compose([Validators.required, CustomValidators.email]));
@@ -70,25 +76,30 @@ export class SignupComponent implements OnInit {
     });
   }
 
+    /**
+   * Checks that the values entered for the date of birth make a
+   * valid date and if so the validDOB boolean is assigned accordingly.
+   * 
+   * @param day: day of a date of birth
+   * @param month: month of a date of birth
+   * @param year: year of a date of birth
+   */
   private checkDate(day: any, month: any, year: any) {
     if (day.value > 0 && day.value < 10) {
       day = '0' + day.value.toString();
-    }
-    else {
+    } else {
       day = day.value;
     }
     if (month.value > 0 && month.value < 10) {
       month = '0' + month.value.toString();
-    }
-    else {
+    } else {
       month = month.value;
     }
     let date = year.value + '-' + month + '-' + day;
     if (moment(date, 'YYYY-MM-DD', true).isValid()) {
       this.validDOB = true;
       console.log('Valid Date');
-    }
-    else {
+    } else {
       this.validDOB = false;
       console.log('Invalid Date');
     }
@@ -110,8 +121,7 @@ export class SignupComponent implements OnInit {
     if (this.signupForm.valid && this.validDOB && this.terms.value) {
       console.log('Valid');
       this.hideChildModal();
-    }
-    else {
+    } else {
       console.log('Invalid');
     }
   }

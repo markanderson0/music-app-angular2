@@ -59,6 +59,10 @@ export class VideoTabsComponent implements OnInit {
     private videoTabsService: VideoTabsService
   ) { }
 
+  /**
+   * Retrieve the artistName, playlistId, showId, and videoId from the route,
+   * then call the getShowVideos method.
+   */
   ngOnInit() {
     this.route.params.forEach((params: Params) => {
       this.artistName = params['artist'];
@@ -69,6 +73,10 @@ export class VideoTabsComponent implements OnInit {
     });
   }
 
+  /**
+   * Calls the videoTabsService to get swipe options for the carousel
+   * and the playlists for the selected show.
+   */
   getShowVideos() {
     if (!this.loadedVideos) {
       this.loadedVideos = true;
@@ -80,6 +88,11 @@ export class VideoTabsComponent implements OnInit {
     }
   }
 
+  /**
+   * Calls the ticketsSearchService to get a list of the tickets that an 
+   * artist has available and a boolean to indicate whether the artist has 
+   * any tickets available.
+   */
   getArtistTickets() {
     if (!this.loadedTickets) {
       this.loadedTickets = true;
@@ -91,6 +104,11 @@ export class VideoTabsComponent implements OnInit {
     }
   }
 
+  /**
+   * Calls the merchListService to get a list of the merch that an 
+   * artist has available and a boolean to indicate whether the artist 
+   * has any merch available.
+   */
   getArtistMerch() {
     if (!this.loadedMerch) {
       this.loadedMerch = true;
@@ -98,8 +116,7 @@ export class VideoTabsComponent implements OnInit {
       .then(merch => {
         if (merch.length > 12) {
           this.merch = merch.slice(0, 12);
-        }
-        else {
+        } else {
           this.merch = merch;
         }
         this.hasMerch = this.merchListService.hasMerch;
@@ -108,12 +125,17 @@ export class VideoTabsComponent implements OnInit {
   }
 
 
+  /**
+   * Calls the artistAlbumsService to get a list of the albums that an 
+   * artist has released and a boolean to indicate whether the artist 
+   * has released any albums.
+   */
   getArtistAlbums() {
     if (!this.loadedAlbums) {
       this.loadedAlbums = true;
-      this.artistAlbumsService.getArtistPicture(this.artistName)
-      .subscribe(picAndId => {
-        let artistId = picAndId[0].id;
+      this.artistAlbumsService.getArtistId(this.artistName)
+      .subscribe(id => {
+        let artistId = id;
         this.artistAlbumsService.getArtistAlbums(artistId)
         .subscribe(artistAlbums => {
           this.artistAlbums = artistAlbums;
@@ -123,6 +145,13 @@ export class VideoTabsComponent implements OnInit {
     }
   }
 
+  /**
+   * Calls the artistShowsService to get the artists name according to the
+   * Spotify search api, then this name is used to get the artists 
+   * MusicBrainz Id (MBID). If the artist has an MBID then call the getArtistShows
+   * method to get the previous shows to display, otherwise set the hasShows boolean
+   * to false since an MBID is required to get an artists previous shows.
+   */
   getArtistPreviousShows() {
     if (!this.loadedShows) {
       this.loadedShows = true;
@@ -133,8 +162,7 @@ export class VideoTabsComponent implements OnInit {
           if (artistMBID !== undefined) {
             this.artistMBID = artistMBID.toString();
             this.getArtistShows();
-          }
-          else {
+          } else {
             this.hasShows = false;
           }
         });
@@ -142,6 +170,11 @@ export class VideoTabsComponent implements OnInit {
     }
   }
 
+  /**
+   * Calls the artistShowsService to get the previous shows to display on the
+   * artist profile page and a boolean to indicate whether the artist has any 
+   * previous shows.
+   */
   getArtistShows() {
     this.artistShows = [];
     this.artistShowsService.getArtistShows(this.artistMBID, this.pageNum)
@@ -153,6 +186,10 @@ export class VideoTabsComponent implements OnInit {
     });
   }
 
+  /**
+   * Gets the page number from the page change event and calls the getArtistShows
+   * method to get the data regarding the relevant page.
+   */
   pageChanged(event: any): void {
     this.pageNum = event.page;
     this.getArtistShows();

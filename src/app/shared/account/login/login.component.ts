@@ -27,7 +27,10 @@ export class LoginComponent implements OnInit {
     this.initForm();
   }
 
-   initForm() {
+  /**
+   * Creates for fields for the user to enter their username and password.
+   */
+  initForm() {
     this.username = new  FormControl('', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(20)]));
     this.password = new  FormControl('', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(26)]));
 
@@ -52,8 +55,7 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       console.log('Valid');
       this.hideChildModal();
-    }
-    else {
+    } else {
       console.log('Invalid');
     }
   }

@@ -23,6 +23,10 @@ export class ArtistVideosComponent implements OnInit {
     private artistVideosService: ArtistVideosService
   ) { }
 
+  /**
+   * Retrieve the artists name from the route then call the artistVideosService
+   * to get the swipe options for the carousel and to get the list of artist videos.
+   */
   ngOnInit() {
     this.route.parent.params.forEach((params: Params) => {
       this.artistName = params['artist'];

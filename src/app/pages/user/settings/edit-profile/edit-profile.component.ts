@@ -40,6 +40,12 @@ export class EditProfileComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder) { }
 
+  /**
+   * Creates form fields for a user to enter their email address and
+   * date of birth.
+   * Any time that the day, month or year fields are changes, the checkDate
+   * method in called to check that the date is valid or not.
+   */
   ngOnInit() {
     this.email = new  FormControl('', Validators.compose([Validators.required, CustomValidators.email]));
     this.day = new FormControl('', Validators.compose([Validators.required, CustomValidators.min(1), CustomValidators.max(31)]));
@@ -78,36 +84,47 @@ export class EditProfileComponent implements OnInit {
     };
   }
 
+  /**
+   * Checks that the values entered for the date of birth make a
+   * valid date and if so the validDOB boolean is assigned accordingly.
+   * 
+   * @param day: day of a date of birth
+   * @param month: month of a date of birth
+   * @param year: year of a date of birth
+   */
   private checkDate(day: any, month: any, year: any) {
     if (day.value > 0 && day.value < 10) {
       day = '0' + day.value.toString();
-    }
-    else {
+    } else {
       day = day.value;
     }
     if (month.value > 0 && month.value < 10) {
       month = '0' + month.value.toString();
-    }
-    else {
+    } else {
       month = month.value;
     }
     let date = year.value + '-' + month + '-' + day;
     if (moment(date, 'YYYY-MM-DD', true).isValid()) {
       this.validDOB = true;
       console.log('Valid Date');
-    }
-    else {
+    } else {
       this.validDOB = false;
       console.log('Invalid Date');
     }
   }
 
+  /**
+   * Replace the profile or banner pictures with a default image when 
+   * either is removed respectively.
+   * The noProfilePicture and noBannerPicture booleans are set to true
+   * to indicate that the 'X' icon should no appear if no picture has
+   * been chosen.
+   */
   public removePicture(pic): void {
     if (pic === 'profile') {
       this.profilePicture = 'img/no-photo.png';
       this.noProfilePicture = true;
-    }
-    else if (pic === 'banner') {
+    } else if (pic === 'banner') {
       this.bannerPicture = 'img/no-photo.png';
       this.noBannerPicture = true;
     }
@@ -129,8 +146,7 @@ export class EditProfileComponent implements OnInit {
     if (this.picture === 'profile') {
       this.profilePicture = data.data;
       this.noProfilePicture = false;
-    }
-    else if (this.picture === 'banner') {
+    } else if (this.picture === 'banner') {
       this.bannerPicture = data.data;
       this.noBannerPicture = false;
     }
@@ -148,8 +164,7 @@ export class EditProfileComponent implements OnInit {
     this.submitted = true;
     if (this.editProfileForm.valid && this.validDOB) {
       console.log('Valid Form');
-    }
-    else {
+    } else {
       console.log('Invalid Form');
     }
   }

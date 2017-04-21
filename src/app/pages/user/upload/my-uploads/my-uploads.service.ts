@@ -51,6 +51,12 @@ export class MyUploadsService {
     };
   }
 
+  /**
+   * Retrieves the videos data from local storage and calls the getUserVideos
+   * method to extract the videos uploaded by the selected user.
+   * 
+   * @return a list of videos uploaded by the selected user.
+   */
   getVideos(): Observable<any[]> {
     return this.http.get(this.videosUrl)
       .map((response: Response) => {
@@ -59,13 +65,34 @@ export class MyUploadsService {
       .catch(this.handleError);
   }
 
+  /**
+   * Takes a list of videos and extracts only the videos that have been
+   * uploaded by the desired user.
+   * 
+   * The for loops follow the following format:
+   * ->for all all artists videos
+   *  ->for all shows by each artist
+   *   ->for all videos in a show
+   *    ->if the current videos uploader is the desired user
+   *      ->extract the details of the video
+   *      ->if any videos from the desired user have been extracted yet
+   *        ->for all videos that have been uploaded by this user
+   *          ->if there are already videos from an artist
+   *            ->add the details of the extracted video under that artists field in the list
+   *        ->if no videos of the artist have been extracted already
+   *          ->make a new field in the videos list for that artist and add the show
+   *        ->else, no videos have been extracted yet so make a new field for the artist and add the show  
+   * 
+   * @param videos: a list of videos
+   * @param user: the name of the user that uploaded the videos
+   * @return a list of videos that the user uploader
+   */
   getUserVideos(videos, user) {
     let userVideos = [];
     for (let i = 0; i < videos.length; i++) {
       for (let j = 0; j < videos[i].shows.length; j++) {
         for (let k = 0; k < videos[i].shows[j].videos.length; k++) {
           if (videos[i].shows[j].videos[k].user === user) {
-
             let show = {
               date: videos[i].shows[j]['date'],
               venue: videos[i].shows[j]['venue'],
@@ -74,7 +101,6 @@ export class MyUploadsService {
               playlistId: videos[i].shows[j].videos[k]['playlistId'],
               videos: videos[i].shows[j].videos[k]['video']
             };
-
             if (userVideos.length > 0) {
               let added = false;
               for (let l = 0; l < userVideos.length; l++) {
@@ -90,14 +116,12 @@ export class MyUploadsService {
                   shows: [show]
                 });
               }
-            }
-            else {
+            } else {
               userVideos.push({
                 artistId: videos[i]['id'],
                 artistName: videos[i]['artist'],
                 shows: [show]
               });
-
             }
           }
         }
@@ -106,19 +130,26 @@ export class MyUploadsService {
     return userVideos;
   }
 
+  /**
+   * Stores the songs and id of the selected video for displaying in the
+   * edit video modal.
+   */
   editVideoConfig(songs, videoId) {
     console.log('service');
     this.songs = songs;
     this.videoId = videoId;
   }
 
-  private handleError (error: any) {
+  handleError (error: any) {
     let errMsg = (error.message) ? error.message :
     error.status ? `${error.status} - ${error.statusText}` : 'Server error';
     console.error(errMsg);
     return Observable.throw(errMsg);
   }
 
+  /**
+   * @return the swipe options for the carousel
+   */
   getSwipeOptions() {
     return this.swipeOptions;
   }

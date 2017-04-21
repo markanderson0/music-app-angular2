@@ -20,6 +20,10 @@ export class VideoPlayerComponent implements OnInit {
     private searchService: SearchService
   ) { }
 
+  /**
+   * Retrieve the artistName from the route and call the searchService
+   * to get a picture of the artist for displaying as the banner picture.
+   */
   ngOnInit() {
     this.route.params.forEach((params: Params) => {
       this.artistName = params['artist'];

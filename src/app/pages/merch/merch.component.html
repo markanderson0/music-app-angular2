@@ -50,8 +50,8 @@
             <label class="control-label" id="merch-label">Merch</label>
           </a>	
         </div>
-
         <div class="navbar-collapse" [ngClass]="{ 'collapse': !isCollapsed }">
+          <!-- SEARCH BAR -->
           <div class="input-group searchbar">
             <form class="merch-search-form" role="form">
               <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchTerm" name="merchSearch">
@@ -62,6 +62,7 @@
               </span>
             </form>	
           </div> 
+          <!-- NAVIGATION -->
           <div class="row">
             <div class="col-md-12">
               <div class="row">

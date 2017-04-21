@@ -20,6 +20,13 @@ export class ArtistShowsService {
 
   constructor(private http: Http) { }
 
+  /**
+   * Searches for an artist through the Spotify search api and returns the name
+   * of the first artist.
+   * 
+   * @param name: an artists name
+   * @return an artists name according to the Spotify search api
+   */
   getName(name: string): Observable<any[]> {
     let params = new URLSearchParams();
     params.set('q', name);
@@ -34,6 +41,17 @@ export class ArtistShowsService {
     });
   }
 
+  /**
+   * Searches the setlist.fm api to get an artists MusicBrainz Id.
+   * 
+   * If the response returns an array call the getMBID method to check if any of the
+   * returned artists names match the required artist and if so return the MBID,
+   * otherwise check if the single result matches the required artist and return
+   * the MBID directly.
+   * 
+   * @param name: an artists name
+   * @returns an artists MusicBrainz Id
+   */
   getArtist(name: string): Observable<any[]> {
     let params = new URLSearchParams();
     params.set('artistName', name);
@@ -42,8 +60,7 @@ export class ArtistShowsService {
     .map((response: Response) => {
       if (response.json().setlists.setlist instanceof Array) {
         return this.getMBID(response.json().setlists.setlist, name);
-      }
-      else {
+      } else {
         if (response.json().setlists.setlist.artist['@name'].toLowerCase() === name.toLowerCase() ||
           response.json().setlists.setlist.artist['@sortName'].toLowerCase() === name.toLowerCase()) {
           return response.json().setlists.setlist.artist['@mbid'];
@@ -54,6 +71,14 @@ export class ArtistShowsService {
     });
   }
 
+  /**
+   * Returns an artists MusicBrainz Id if the artists name in any of the
+   * setlists matches that of the required artist.
+   * 
+   * @param setlists: list containing details about an artists setlist
+   * @param name: an artists name
+   * @return an artists MusicBrainz Id
+   */
   getMBID(setlists: any[], name: string) {
     for (let i = 0; i < setlists.length; i++) {
       if (setlists[i].artist['@name'].toLowerCase() === name.toLowerCase() ||
@@ -63,6 +88,18 @@ export class ArtistShowsService {
     }
   }
 
+  /**
+   * Returns a list containg details about an artists show including the
+   * name of the tour, show id, date, venue, country, city, state, latitude,
+   * longitude, songs played, and if the table have been collapsed.
+   * 
+   * Parses the response from the setlist.fm api and assigns the values to be
+   * placed in the shows list accordingly.
+   * 
+   * @param mbid: an artists MusicBrainz Id
+   * @param pageNum: a page number
+   * @return a list containing details about an artists show
+   */
   getArtistShows(mbid, pageNum): Observable<any[]> {
     this.shows = [];
     let venue = '';
@@ -93,8 +130,7 @@ export class ArtistShowsService {
             }
             if (country === 'United States' && setlist.venue.city.hasOwnProperty('@stateCode')) {
               state = setlist.venue.city['@stateCode'];
-            }
-            else {
+            } else {
               state = '';
             }
             if (setlist.venue.city.hasOwnProperty('coords')) {
@@ -118,6 +154,24 @@ export class ArtistShowsService {
     });
   }
 
+  /**
+   * Returns a list of songs by parsing through the resonse from the setlist.fm api.
+   * 
+   * If the set property is an array i.e. there are multiple sets (encores) then each
+   * set must be parsed individually, then if there are multiple songs in the set making
+   * the songs property an array, each song must be parsed to get its name and then it
+   * must be added to the songs list.
+   * 
+   * If the set property isnt an array and the songs property is i.e. a set with multiple
+   * songs an no encore, then each song must be parsed to get its name and then it must 
+   * be added to the songs list.
+   * 
+   * If the set property and the songs property arent lists i.e. a single song set, then
+   * the individual song must be parsed and added to the songs list.
+   * 
+   * @param setlist: a list containing details about a setlist
+   * @return a list of songs
+   */
   getSetlist(setlist) {
     let songs = [];
     if (setlist.hasOwnProperty('set')) {
@@ -129,15 +183,13 @@ export class ArtistShowsService {
               if (!setSong.hasOwnProperty('@tape')) {
                 if (setSong.hasOwnProperty('cover')) {
                   this.song = setSong['@name'] + ' (' + setSong.cover['@name'] + ' cover)';
-                }
-                else {
+                } else {
                   this.song = setSong['@name'];
                 }
                 songs.push(this.song);
               }
             });
-          }
-          else {
+          } else {
             songs.push(setSongs.song['@name']);
           }
         });
@@ -148,8 +200,7 @@ export class ArtistShowsService {
           if (!setSong.hasOwnProperty('@tape')) {
             if (setSong.hasOwnProperty('cover')) {
               this.song = setSong['@name'] + ' (' + setSong.cover['@name'] + ' cover)';
-            }
-            else {
+            } else {
               this.song = setSong['@name'];
             }
             songs.push(this.song);
@@ -161,8 +212,7 @@ export class ArtistShowsService {
         if (!setlist.set.song.hasOwnProperty('@tape')) {
           if (setlist.set.song.hasOwnProperty('cover')) {
             this.song = setlist.set.song['@name'] + ' (' + setlist.set.song.cover['@name'] + ' cover)';
-          }
-          else {
+          } else {
             this.song = setlist.set.song['@name'];
           }
           songs.push(this.song);
@@ -172,6 +222,15 @@ export class ArtistShowsService {
     return songs;
   }
 
+  /**
+   * Assigns variables for displaying shows on the artists profile page.
+   * 
+   * If the artist has more than 4 shows only display the most recent 4
+   * and if the artist has no shows set the hasShows boolean to false to 
+   * display that the artist has no shows available.
+   * 
+   * @param shows: list of shows
+   */
   availableShows(shows) {
     this.displayShows = [];
     if (shows !== undefined) {
@@ -179,16 +238,13 @@ export class ArtistShowsService {
         this.hasShows = true;
         if (shows.length > 4) {
           this.displayShows = shows.slice(0, 4);
-        }
-        else {
+        } else {
           this.displayShows = shows;
         }
-      }
-      else {
+      } else {
         this.hasShows = false;
       }
-    }
-    else {
+    } else {
       this.hasShows = false;
     }
   }

@@ -15,6 +15,15 @@ export class VideoSidebarService {
 
   constructor(private http: Http, private artistShowsService: ArtistShowsService) { }
 
+  /**
+   * Retrieves the details of each playlist for a particular show from
+   * local storage.
+   * 
+   * @param playlistId: a playlists id
+   * @param showId: a shows id
+   * @param artistName: an artists name
+   * @return a list of playlists for a show
+   */
   getVideos(playlistId, showId, artistName): Observable<any[]> {
     this.playlistId = playlistId;
     this.showId = showId;
@@ -26,6 +35,16 @@ export class VideoSidebarService {
     .catch(this.handleError);
   }
 
+  /**
+   * Extracts all of the playlists for a particular show from the list
+   * of all videos regarding the selected artist.
+   * 
+   * @param videos: a list of videos
+   * @param playlistId: a playlists id
+   * @param showId: a shows id
+   * @param artistName: an artists name
+   * @return a list of playlists for a show
+   */
   getShowDetails(videos, playlistId, showId, artistName) {
     let playlistDetails = [];
     for (let i = 0; i < videos.length; i++) {
@@ -59,6 +78,15 @@ export class VideoSidebarService {
     }
   }
 
+  /**
+   * Calls the setlist.fm api to get the setlist of a particular event.
+   * 
+   * @param artist: an artists name
+   * @param eventDate: the date of an event
+   * @param eventVenue: the venue of an event
+   * @param eventLocation: the location of an event
+   * @return the setlist of an event
+   */
   getSetlist(artist, eventDate, eventVenue, eventlocation): Observable<any[]> {
     let params = new URLSearchParams();
     params.set('artistName', artist);

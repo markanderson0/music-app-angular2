@@ -51,6 +51,13 @@ export class VideoTabsService {
     };
   }
 
+  /**
+   * Retrieves the details of a show from local storage.
+   * 
+   * @param showId: id of the show
+   * @param artistName: name of the artist
+   * @return a list containing a shows date, venue, location, and videos
+   */
   getVideos(showId, artistName): Observable<any[]> {
     this.showId = showId;
     this.artistName = artistName;
@@ -61,29 +68,31 @@ export class VideoTabsService {
     .catch(this.handleError);
   }
 
-  extractData(res: Response) {
-    let body = res.json();
-    let showDetails = this.getShowDetails(body.data, this.showId, this.artistName);
-    return showDetails;
-  }
-
+  /**
+   * Extracts the date, venue, location, and videos for a particular show.
+   * 
+   * @param videos: a list of videos
+   * @param showId: a shows id
+   * @param artistName: an artists name
+   * @return a list containing a shows date, venue, location, and videos
+   */
   getShowDetails(videos, showId, artistName) {
     let showDetails = [];
-      for (let i = 0; i < videos.length; i++) {
-        if (videos[i].artist === artistName) {
-          for (let j = 0; j < videos[i].shows.length; j++) {
-            if (videos[i].shows[j].id === showId) {
-              showDetails.push({
-                date: videos[i].shows[j]['date'],
-                venue: videos[i].shows[j]['venue'],
-                location: videos[i].shows[j]['location'],
-                videos: videos[i].shows[j]['videos']});
-              return showDetails;
-            }
+    for (let i = 0; i < videos.length; i++) {
+      if (videos[i].artist === artistName) {
+        for (let j = 0; j < videos[i].shows.length; j++) {
+          if (videos[i].shows[j].id === showId) {
+            showDetails.push({
+              date: videos[i].shows[j]['date'],
+              venue: videos[i].shows[j]['venue'],
+              location: videos[i].shows[j]['location'],
+              videos: videos[i].shows[j]['videos']});
+            return showDetails;
           }
         }
       }
     }
+  }
 
   private handleError (error: any) {
     let errMsg = (error.message) ? error.message :

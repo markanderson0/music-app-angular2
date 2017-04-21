@@ -38,6 +38,11 @@ export class ArtistProfileComponent implements OnInit {
     private artistProfileService: ArtistProfileService
   ) { }
 
+  /**
+   * Retrieve the artists name from the route then call the methods
+   * required to retrieve data regarding the artists top videos, tickets,
+   * merch, albums, and previous shows.
+   */
   ngOnInit() {
     this.route.parent.params.forEach((params: Params) => {
       this.artistName = params['artist'];
@@ -49,6 +54,10 @@ export class ArtistProfileComponent implements OnInit {
     });
   }
 
+  /**
+   * Calls the artistProfileService to get swipe options for the carousel
+   * and the artists top videos.
+   */
   getTopVideos() {
     this.swipeOptions = this.artistProfileService.swipeOptions;
     this.artistProfileService.getVideos()
@@ -57,6 +66,13 @@ export class ArtistProfileComponent implements OnInit {
     });
   }
 
+  /**
+   * Calls the ticketsSearchService to get the tickets to display on the
+   * artist profile page and to get a boolean to indicate whether the artist
+   * has any tickets available.
+   * 
+   * @param artistName: the name of the artist
+   */
   getArtistTickets(artistName) {
     this.ticketsSearchService.simpleSearchEvents(artistName)
     .subscribe(tickets => {
@@ -65,6 +81,13 @@ export class ArtistProfileComponent implements OnInit {
     });
   }
 
+  /**
+   * Calls the merchListService to get the merch to display on the
+   * artist profile page and to get a boolean to indicate whether the artist
+   * has any merch available.
+   * 
+   * @param artistName: the name of the artist
+   */
   getArtistMerch(artistName) {
     this.merchListService.getMerch(artistName + ' shirt', '11450', 1, 'Best Match', [])
     .then(merch => {
@@ -74,10 +97,16 @@ export class ArtistProfileComponent implements OnInit {
   }
 
 
+  /**
+   * Calls the artistAlbumsService to get the albums to display on the
+   * artist profile page and to get a boolean to indicate whether the artist
+   * has any albums.
+   * 
+   * @param artistName: the name of the artist
+   */
   getArtistAlbums(artistName) {
-    this.artistAlbumsService.getArtistPicture(this.artistName)
-    .subscribe(picAndId => {
-      let artistId = picAndId[0].id;
+    this.artistAlbumsService.getArtistId(this.artistName)
+    .subscribe(artistId => {
       this.artistAlbumsService.getArtistAlbums(artistId)
       .subscribe(artistAlbums => {
         this.displayAlbums = this.artistAlbumsService.displayAlbums;
@@ -86,6 +115,15 @@ export class ArtistProfileComponent implements OnInit {
     });
   }
 
+  /**
+   * Calls the artistShowsService to get the artists name according to the
+   * Spotify search api, then this name is used to get the artists 
+   * MusicBrainz Id (MBID). If the artist has an MBID then call the getArtistShows
+   * method to get the previous shows to display, otherwise set the hasShows boolean
+   * to false since an MBID is required to get an artists previous shows.
+   * 
+   * @param artistName: the name of the artist
+   */
   getArtistPreviousShows(artistName) {
     this.artistShowsService.getName(artistName)
     .subscribe(name => {
@@ -93,14 +131,20 @@ export class ArtistProfileComponent implements OnInit {
       .subscribe(artistMBID => {
         if (artistMBID !== undefined) {
           this.getArtistShows(artistMBID);
-        }
-        else {
+        } else {
           this.hasShows = false;
         }
       });
     });
   }
 
+  /**
+   * Calls the artistShowsService to get the previous shows to display on the
+   * artist profile page and to get a boolean to indicate whether the artist
+   * has any previous shows.
+   * 
+   * @param artistMBID: an artists MusicBrainz Id
+   */
   getArtistShows(artistMBID) {
     this.displayShows = [];
     this.artistShowsService.getArtistShows(artistMBID, '1')

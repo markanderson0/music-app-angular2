@@ -16,6 +16,9 @@ export class FavouritesComponent implements OnInit {
 
   constructor(private favouritesService: FavouritesService, private router: Router) { }
 
+  /**
+   * Calls the favouritesService to get a list of the users favourite videos.
+   */
   ngOnInit() {
     this.favouritesService.getFavourites()
                      .subscribe(

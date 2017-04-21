@@ -28,6 +28,14 @@ export class ArtistShowsComponent implements OnInit {
     private artistShowsService: ArtistShowsService
   ) { }
 
+  /**
+   * Retrieve the artists name from the route then call the artistShowsService 
+   * to get the artists name according to the Spotify search api, then this 
+   * name is used to get the artists MusicBrainz Id (MBID). If the artist has 
+   * an MBID then call the getArtistShows method to get the previous shows to 
+   * display, otherwise set the hasShows boolean to false since an MBID is 
+   * required to get an artists previous shows.
+   */
   ngOnInit() {
     this.route.parent.params.forEach((params: Params) => {
       this.artistName = params['artist'];
@@ -38,8 +46,7 @@ export class ArtistShowsComponent implements OnInit {
           if (artistMBID !== undefined) {
             this.artistMBID = artistMBID.toString();
             this.getArtistShows(this.artistMBID);
-          }
-          else {
+          } else {
             this.hasShows = false;
           }
         });
@@ -47,6 +54,13 @@ export class ArtistShowsComponent implements OnInit {
     });
   }
 
+  /**
+   * Calls the artistShowsService to get the previous shows, a boolean to indicate
+   *  whether the artist has any previous shows, and the total number of pages and
+   * number of items to display per page which is set to the paginator.
+   * 
+   * @param artistMBID: an artists MusicBrainz Id
+   */
   getArtistShows(artistMBID) {
     this.artistShows = [];
     this.displayShows = [];
@@ -60,6 +74,10 @@ export class ArtistShowsComponent implements OnInit {
     });
   }
 
+  /**
+   * Gets the page number from the page change event and calls the getArtistShows
+   * method to get the data regarding the relevant page.
+   */
   pageChanged(event: any): void {
     this.pageNum = event.page;
     this.getArtistShows(this.artistMBID);

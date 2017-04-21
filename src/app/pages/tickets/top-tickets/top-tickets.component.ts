@@ -16,7 +16,7 @@ export class TopTicketsComponent implements OnInit {
 
   ngOnInit() {
     this.ticketsGenreService
-      .getTickets('top-tickets')
+      .getTopTickets('top-tickets')
       .subscribe(topEvents => this.topEvents = topEvents);
    }
 
