@@ -173,3 +173,5 @@ Additional Details
 
 **Note**: All api keys have been removed from the project.
 
+To run this application follow the instructions here: https://github.com/preboot/angular-webpack#getting-started
+
